@@ -10,11 +10,11 @@ class Order extends Model
    /**
      * ORDER ATTRIBUTES
      * $this->attributes['id'] - int - contains the product primary key (id)
-     * $this->attributes['address'] - string - contains the ubication of the client 
+     * $this->attributes['address'] - string - contains the ubication of the user 
      * $this->attributes['state'] - string - contains the state of the order 
      * $this->attributes['delivery_date'] - string - contains the date the order will be delivered
-     * $this->attributes['client_id'] - id - contains the client id related to the order
-     * $this->client - Client - contains the associated client
+     * $this->attributes['user'] - id - contains the user id related to the order
+     * $this->user - User - contains the associated user
      * 
      * 
      */
@@ -62,24 +62,24 @@ class Order extends Model
         $this->attributes['delivery_date'] = $deliveryDate;
     }
 
-    public function getClientId(): int
+   public function getUserId(): int
     {
-    return $this->attributes['client_id'];
+        return $this->attributes['user_id'];
     }
 
-    public function client():BelongsTo
+  public function user(): BelongsTo
     {
-         return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function getClient():Client
+    public function getUser(): User
     {
-      return $this->client;
+        return $this->user;
     }
 
-    public function setClient(Client $client):void
+    public function setUser(User $user): void
     {
-     $this->client = $client;
+        $this->user = $user;
     }
 }
 

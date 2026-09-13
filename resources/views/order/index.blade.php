@@ -29,7 +29,7 @@
 
             <div class="col-12 col-md-4 col-lg-3">
                 <div class="d-flex flex-column gap-3">
-                    <a href="{{ route('client.profile', ['id' => Auth::id()]) }}" class="btn btn-light border text-start py-3 px-4 rounded-3 text-dark fw-medium shadow-sm d-flex align-items-center justify-content-between" style="background-color: #ffffff;">
+                    <a href="{{ route('user.profile', ['id' => Auth::id()]) }}" class="btn btn-light border text-start py-3 px-4 rounded-3 text-dark fw-medium shadow-sm d-flex align-items-center justify-content-between" style="background-color: #ffffff;">
                         <span><i class="bi bi-person-fill me-2 text-muted"></i>Personal Information</span>
                         <i class="bi bi-chevron-right small text-muted"></i>
                     </a>
@@ -64,7 +64,6 @@
                             <thead>
                                 <tr>
                                     <th>Order number</th>
-                                    <th>Cost</th>
                                     <th>Delivery date</th>
                                     <th>Order status</th>
                                     <th></th>
@@ -78,7 +77,6 @@
                                                 #{{ $order->getId() }}
                                             </a>
                                         </td>
-                                        <td>${{ number_format($order->getTotal(), 2) }}</td>
                                         <td>{{ $order->getDeliveryDate() }}</td>
                                         <td>
                                             <span class="order-status-dot order-status-{{ $order->getState() }}"></span>
@@ -87,20 +85,18 @@
                                         <td class="text-end"><i class="bi bi-chevron-down"></i></td>
                                     </tr>
                                     <tr class="collapse order-row-detail" data-order-status="{{ $order->getState() }}" id="orderDetail{{ $order->getId() }}">
-                                        <td colspan="5" class="p-0">
+                                        <td colspan="4" class="p-0">
                                             <div class="order-item-row">
                                                 <div class="order-item-thumb">
-                                                    <i class="bi bi-box-seam"></i>
+                                                    <i class="bi bi-geo-alt"></i>
                                                 </div>
-                                                <div class="order-item-name">{{ $order->getItemDescription() }}</div>
-                                                <div class="order-item-qty">Quantity: {{ $order->getQuantity() }}</div>
-                                                <div class="order-item-price">Price: ${{ number_format($order->getPrice(), 2) }}</div>
+                                                <div class="order-item-name">Delivery Address: {{ $order->getAddress() }}</div>
                                             </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center py-5 text-muted">
+                                        <td colspan="4" class="text-center py-5 text-muted">
                                             You don't have any orders yet.
                                         </td>
                                     </tr>

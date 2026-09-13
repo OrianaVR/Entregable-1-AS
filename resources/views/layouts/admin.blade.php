@@ -13,7 +13,7 @@
 <body class="lume-admin-body">
 
     <div class="lume-layout">
-   
+
         <aside class="lume-sidebar">
             <div class="lume-brand">
                 <a href="{{ route('home.index') }}" class="lume-logo text-decoration-none">
@@ -29,7 +29,7 @@
                     </div>
                     <ul class="lume-nav-list">
                         <li>
-                            <a href="{{ route('admin.client.index') }}" class="lume-nav-item active">
+                            <a href="{{ route('admin.user.index') }}" class="lume-nav-item active">
                                 <i class="bi bi-people me-2"></i>Users
                             </a>
                         </li>
@@ -38,9 +38,9 @@
             </nav>
         </aside>
 
-  
+
         <div class="lume-main-wrapper">
-           
+
             <header class="lume-topbar justify-content-end">
                 <div class="lume-topbar-actions">
                     <div class="lume-user-menu dropdown">
@@ -58,7 +58,7 @@
                 </div>
             </header>
 
-          
+
             <main class="lume-content-area">
                 @yield('content')
             </main>

@@ -1,3 +1,4 @@
+{{-- Author: Maria Laura Tafur Gómez --}}
 @extends('layouts.app')
 
 @section('title', $viewData['title'])
@@ -29,23 +30,13 @@
             <a href="{{ route('order.index') }}" class="btn btn-outline-secondary btn-sm">Back to My Orders</a>
         </div>
 
-        <div class="order-item-row mb-4">
+        <div class="order-item-row mb-2">
             <div class="order-item-thumb">
-                <i class="bi bi-box-seam"></i>
+                <i class="bi bi-geo-alt"></i>
             </div>
-            <div class="order-item-name">{{ $viewData['order']->getItemDescription() }}</div>
-            <div class="order-item-qty">Quantity: {{ $viewData['order']->getQuantity() }}</div>
-            <div class="order-item-price">Price: ${{ number_format($viewData['order']->getPrice(), 2) }}</div>
+            <div class="order-item-name">Delivery Address: {{ $viewData['order']->getAddress() }}</div>
         </div>
 
-        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
-            <div class="text-muted small">
-                Delivery Address: <span class="fw-medium text-dark">{{ $viewData['order']->getAddress() }}</span>
-            </div>
-            <div class="text-end">
-                <div class="text-muted small">Total</div>
-                <div class="fs-4 fw-bold">${{ number_format($viewData['order']->getTotal(), 2) }}</div>
-            </div>
-        </div>
     </div>
 </div>
+@endsection

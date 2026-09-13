@@ -7,24 +7,18 @@ Route::get('/about', 'App\Http\Controllers\HomeController@about')->name('home.ab
 Route::get('/contact', 'App\Http\Controllers\HomeController@contact')->name('home.contact');
 
 Route::get('/dev/login/admin', 'App\Http\Controllers\HomeController@devLoginAdmin')->name('dev.login.admin');
-Route::get('/dev/login/client', 'App\Http\Controllers\HomeController@devLoginClient')->name('dev.login.client');
+Route::get('/dev/login/user', 'App\Http\Controllers\HomeController@devLoginUser')->name('dev.login.user');
 
-Route::get('/profile/{id}', 'App\Http\Controllers\ClientController@profile')->middleware('role:client,admin')->name('client.profile');
-Route::put('/profile/update/{id}', 'App\Http\Controllers\ClientController@profileUpdate')->middleware('role:client,admin')->name('client.profile.update');
+Route::get('/profile/{id}', 'App\Http\Controllers\UserController@profile')->middleware('role:user,admin')->name('user.profile');
+Route::put('/profile/update/{id}', 'App\Http\Controllers\UserController@profileUpdate')->middleware('role:user,admin')->name('user.profile.update');
 
-Route::get('/admin/index', 'App\Http\Controllers\ClientController@index')->middleware('role:admin')->name('admin.client.index');
-Route::get('/admin/create', 'App\Http\Controllers\ClientController@create')->middleware('role:admin')->name('admin.client.create');
-Route::post('/admin/store', 'App\Http\Controllers\ClientController@save')->middleware('role:admin')->name('admin.client.store');
-Route::get('/admin/edit/{id}', 'App\Http\Controllers\ClientController@edit')->middleware('role:admin')->name('admin.client.edit');
-Route::put('/admin/update/{id}', 'App\Http\Controllers\ClientController@update')->middleware('role:admin')->name('admin.client.update');
-Route::get('/admin/delete/{id}', 'App\Http\Controllers\ClientController@delete')->middleware('role:admin')->name('admin.client.delete');
+Route::get('/admin/index', 'App\Http\Controllers\UserController@index')->middleware('role:admin')->name('admin.user.index');
+Route::get('/admin/create', 'App\Http\Controllers\UserController@create')->middleware('role:admin')->name('admin.user.create');
+Route::post('/admin/store', 'App\Http\Controllers\UserController@save')->middleware('role:admin')->name('admin.user.store');
+Route::get('/admin/edit/{id}', 'App\Http\Controllers\UserController@edit')->middleware('role:admin')->name('admin.user.edit');
+Route::put('/admin/update/{id}', 'App\Http\Controllers\UserController@update')->middleware('role:admin')->name('admin.user.update');
+Route::get('/admin/delete/{id}', 'App\Http\Controllers\UserController@delete')->middleware('role:admin')->name('admin.user.delete');
 
-
-$basePath = '/';
-$ordersPath = 'orders';
- 
-Route::get('/order' ,'App\Http\Controllers\OrderController@index')->middleware('role:client,admin')->name('order.index');
- 
-Route::get('/order/{id}', 'App\Http\Controllers\OrderController@show') ->middleware('role:client,admin')->name('order.show');
- 
-Route::post($basePath . $ordersPath, 'App\Http\Controllers\OrderController@store')->middleware('role:client,admin')->name('order.store');
+Route::get('/order', 'App\Http\Controllers\OrderController@index')->middleware('role:user,admin')->name('order.index');
+Route::get('/order/{id}', 'App\Http\Controllers\OrderController@show')->middleware('role:user,admin')->name('order.show');
+Route::post('/order', 'App\Http\Controllers\OrderController@store')->middleware('role:user,admin')->name('order.store');

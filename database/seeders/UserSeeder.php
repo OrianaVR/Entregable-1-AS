@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-class ClientSeeder extends Seeder
+
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-
-        Client::create([
+        User::create([
             'name' => 'Administrador Principal',
             'email' => 'admin@example.com',
             'password' => Hash::make('password456'),
@@ -22,15 +22,15 @@ class ClientSeeder extends Seeder
             'phone' => '3001234567',
         ]);
 
-        Client::create([
+        User::create([
             'name' => 'Lila Perez',
-            'email' => 'cliente@example.com',
+            'email' => 'user@example.com',
             'password' => Hash::make('password123'),
-            'role' => 'client',
+            'role' => 'user',
             'address' => 'Avenida Secundaria #456',
             'phone' => '3119876543',
         ]);
-        
-        Client::factory()->count(10)->create();
+
+        User::factory()->count(10)->create();
     }
 }

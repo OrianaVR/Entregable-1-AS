@@ -33,20 +33,20 @@
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenuDropdown">
                         <li><h6 class="dropdown-header text-uppercase small">Navigation / Views</h6></li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('client.profile', ['id' => 2]) }}">
-                                <i class="bi bi-person-circle me-2 text-warning"></i>Client Profile (My Account)
+                            <a class="dropdown-item" href="{{ route('user.profile', ['id' => 2]) }}">
+                                <i class="bi bi-person-circle me-2 text-warning"></i>User Profile (My Account)
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('admin.client.index') }}">
+                            <a class="dropdown-item" href="{{ route('admin.user.index') }}">
                                 <i class="bi bi-shield-lock me-2 text-primary"></i>Admin Panel (LUME)
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li><span class="dropdown-item-text text-muted small">Dev Quick Logins:</span></li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('dev.login.client') }}">
-                                <i class="bi bi-box-arrow-in-right me-2 text-success"></i>Login as Client (Lila)
+                            <a class="dropdown-item" href="{{ route('dev.login.user') }}">
+                                <i class="bi bi-box-arrow-in-right me-2 text-success"></i>Login as User (Lila)
                             </a>
                         </li>
                         <li>

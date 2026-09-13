@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -42,23 +42,23 @@ class HomeController extends Controller
 
     public function devLoginAdmin(): RedirectResponse
     {
-        $admin = Client::where('role', 'admin')->first() ?? Client::first();
+        $admin = User::where('role', 'admin')->first() ?? User::first();
         if ($admin) {
             Auth::login($admin);
 
-            return redirect()->route('admin.client.index');
+            return redirect()->route('admin.user.index');
         }
 
         return redirect()->route('home.index');
     }
 
-    public function devLoginClient(): RedirectResponse
+    public function devLoginUser(): RedirectResponse
     {
-        $client = Client::where('role', 'client')->first() ?? Client::first();
-        if ($client) {
-            Auth::login($client);
+        $user = User::where('role', 'user')->first() ?? User::first();
+        if ($user) {
+            Auth::login($user);
 
-            return redirect()->route('client.profile', ['id' => $client->getId()]);
+            return redirect()->route('user.profile', ['id' => $user->getId()]);
         }
 
         return redirect()->route('home.index');
