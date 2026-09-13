@@ -144,3 +144,606 @@ a {
 }
 
 
+
+.lume-admin-body {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    background-color: var(--cream);
+    color: var(--brown);
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+}
+
+.lume-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.lume-sidebar {
+    width: 250px;
+    width: 240px;
+    background-color: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.lume-brand {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.lume-brand-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.lume-logo-circle {
+    width: 32px;
+    height: 32px;
+    background-color: #0284c7;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.lume-nav {
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.lume-nav-header {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    color: var(--muted);
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.lume-nav-list {
+    list-style: none;
+    padding: 4px 0 0 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    gap: 4px;
+}
+
+.lume-nav-item {
+    display: block;
+    padding: 8px 14px;
+    padding: 9px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    color: var(--brown);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
+}
+
+.lume-nav-item:hover {
+    background-color: #f8fafc;
+    color: #0284c7;
+    background-color: var(--cream-dark);
+    color: var(--coral);
+}
+
+.lume-nav-item.active {
+    background-color: #e0f2fe;
+    color: #0284c7;
+    background-color: var(--cream-dark);
+    color: var(--coral);
+    font-weight: 600;
+    border-left: 3px solid var(--coral);
+}
+
+/* Main Content Wrapper */
+.lume-main-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Topbar */
+.lume-topbar {
+    height: 64px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+}
+
+.lume-search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    background-color: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    padding: 6px 16px;
+    width: 320px;
+}
+
+.lume-search-input {
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    width: 100%;
+    outline: none;
+    color: #334155;
+    color: var(--brown);
+}
+
+.lume-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.lume-icon-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #64748b;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    transition: color 0.15s;
+}
+
+.lume-icon-btn:hover {
+    color: #0f172a;
+    color: var(--coral);
+}
+
+.lume-user-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+
+
+.lume-user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    font-weight: 600;
+    color: var(--brown);
+}
+
+/* Content Area */
+.lume-content-area {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.lume-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.lume-page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 28px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    color: var(--brown);
+}
+
+/* Metrics Cards */
+.lume-metric-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(40, 20, 13, 0.04);
+}
+
+.lume-metric-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    color: var(--muted);
+}
+
+.lume-metric-pill {
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: var(--muted);
+    background-color: var(--cream);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.lume-metric-icon-box {
+    width: 44px;
+    height: 44px;
+    background-color: #0284c7;
+    background-color: var(--coral);
+    color: #ffffff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.lume-metric-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+    color: var(--brown);
+    line-height: 1;
+}
+
+.lume-metric-progress {
+    height: 10px;
+    border-radius: 6px;
+    background-color: #f1f5f9;
+    background-color: var(--cream-dark);
+}
+
+.lume-progress-bar {
+    background-color: var(--coral);
+}
+
+/* Table Card & Controls */
+.lume-table-search {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 16px;
+    width: 280px;
+}
+
+.lume-table-search-input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+}
+
+.lume-btn-primary {
+    background-color: #0284c7;
+    border: 1px solid #0284c7;
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+.lume-btn-primary:hover {
+    background-color: #0369a1;
+    border-color: #0369a1;
+    color: #ffffff;
+}
+
+.lume-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(40, 20, 13, 0.04);
+    overflow: hidden;
+}
+
+.lume-card-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--border);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.lume-table {
+    margin: 0;
+}
+
+.lume-table thead th {
+    background-color: #f8fafc;
+    color: #64748b;
+    background-color: var(--cream-dark);
+    color: var(--brown);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border);
+}
+
+.lume-table tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--border);
+}
+
+.lume-id-link {
+    color: #0284c7;
+    color: var(--coral);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.lume-id-link:hover {
+    color: var(--brown);
+    text-decoration: underline;
+}
+
+
+.lume-actions-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.lume-action-icon {
+    color: #94a3b8;
+    color: var(--muted);
+    font-size: 16px;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.lume-action-icon:hover {
+    color: #0284c7;
+    color: var(--coral);
+}
+
+.lume-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid var(--border);
+    background-color: #ffffff;
+}
+
+.lume-input {
+    border: 1px solid #cbd5e1;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 9px 14px;
+    font-size: 14px;
+    color: var(--brown);
+}
+
+.lume-input:focus {
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(238, 109, 98, 0.15);
+    outline: none;
+}
+
+.lume-footer {
+    padding: 24px 32px;
+    text-align: center;
+    color: #94a3b8;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border);
+}
+
+.lume-footer p {
+    margin: 3px 0;
+}
+
+.lume-footer a {
+    color: #0284c7;
+    color: var(--coral);
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   MY ACCOUNT / CLIENT PROFILE STYLES (MATCHING SCREENSHOT 2)
+   ========================================================================== */
+
+.profile-page-wrapper {
+    background-color: var(--cream);
+    min-height: 85vh;
+    padding-bottom: 60px;
+}
+
+.profile-header {
+    padding: 45px 0 20px;
+    background: radial-gradient(circle at center, rgba(238, 109, 98, 0.05) 0%, transparent 70%);
+}
+
+.profile-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--brown);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.profile-breadcrumb {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.profile-breadcrumb a {
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.profile-breadcrumb .active {
+    color: var(--brown);
+    font-weight: 600;
+}
+
+/* Profile Menu Sidebar */
+.profile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-menu-item {
+    display: block;
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 20px;
+    color: var(--brown);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.profile-menu-item:hover {
+    background-color: var(--cream-dark);
+    color: var(--brown);
+}
+
+.profile-menu-item.active {
+    background-color: #e5a93c;
+    border-color: #e5a93c;
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(229, 169, 60, 0.25);
+}
+
+
+.profile-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 40px;
+    box-shadow: 0 4px 16px rgba(40, 20, 13, 0.03);
+}
+
+
+.profile-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 6px;
+}
+
+.profile-input {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 14px;
+    background-color: #ffffff;
+    color: var(--brown);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.profile-input:focus {
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(238, 109, 98, 0.15);
+    background-color: #ffffff;
+    outline: none;
+}
+
+.profile-btn-update {
+    background-color: var(--brown);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s;
+}
+
+.profile-btn-update:hover {
+    background-color: #3e2217;
+    color: #ffffff;
+}
+
+/* Feature Highlights Banner */
+.profile-features-banner {
+    border-top: 1px solid var(--border);
+}
+
+.feature-icon-box {
+    width: 54px;
+    height: 54px;
+    background-color: #fdf3e7;
+    color: #e5a93c;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+}
+
+.feature-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--brown);
+}
+
+.feature-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+
