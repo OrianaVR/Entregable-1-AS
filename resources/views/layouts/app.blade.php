@@ -19,9 +19,9 @@
             </a>
 
             <div class="lume-menu">
-                <a class="nav-link active" href="{{ route('home.index') }}">HOME</a>
-                <a class="nav-link" href="{{ route('home.about') }}">ABOUT</a>
-                <a class="nav-link" href="{{ route('home.contact') }}">CONTACT</a>
+                <a class="nav-link active" href="{{ route('home.index') }}">{{ __('layout.navHome') }}</a>
+                <a class="nav-link" href="{{ route('home.about') }}">{{ __('layout.navAbout') }}</a>
+                <a class="nav-link" href="{{ route('home.contact') }}">{{ __('layout.navContact') }}</a>
             </div>
         </div>
     </nav>
@@ -33,7 +33,7 @@
     <footer class="lume-footer">
         <div class="container">
             <small>
-                &copy; 2026 LUMÉ. All rights reserved.
+                &copy; 2026 LUMÉ. {{ __('layout.footerRights') }}
             </small>
         </div>
     </footer>
