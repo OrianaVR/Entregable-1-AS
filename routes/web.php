@@ -1,13 +1,17 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index');
 Route::get('/about', 'App\Http\Controllers\HomeController@about')->name('home.about');
 Route::get('/contact', 'App\Http\Controllers\HomeController@contact')->name('home.contact');
 
-Route::get('/dev/login/admin', 'App\Http\Controllers\HomeController@devLoginAdmin')->name('dev.login.admin');
-Route::get('/dev/login/user', 'App\Http\Controllers\HomeController@devLoginUser')->name('dev.login.user');
+Route::get('/login', [AuthController::class, 'showLogin'])->middleware('guest')->name('login');
+Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->name('login.attempt');
+Route::get('/register', [AuthController::class, 'showRegister'])->middleware('guest')->name('register');
+Route::post('/register', [AuthController::class, 'register'])->middleware('guest')->name('register.attempt');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::get('/profile/{id}', 'App\Http\Controllers\UserController@profile')->middleware('role:user,admin')->name('user.profile');
 Route::put('/profile/update/{id}', 'App\Http\Controllers\UserController@profileUpdate')->middleware('role:user,admin')->name('user.profile.update');

@@ -26,36 +26,41 @@
             </div>
 
             <div class="lume-nav-actions d-flex align-items-center gap-3">
-                <div class="dropdown">
-                    <a href="#" class="nav-icon-link text-decoration-none" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Account">
-                        <i class="bi bi-person fs-4"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenuDropdown">
-                        <li><h6 class="dropdown-header text-uppercase small">Navigation / Views</h6></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('user.profile', ['id' => 2]) }}">
-                                <i class="bi bi-person-circle me-2 text-warning"></i>User Profile (My Account)
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('admin.user.index') }}">
-                                <i class="bi bi-shield-lock me-2 text-primary"></i>Admin Panel (LUME)
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><span class="dropdown-item-text text-muted small">Dev Quick Logins:</span></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('dev.login.user') }}">
-                                <i class="bi bi-box-arrow-in-right me-2 text-success"></i>Login as User (Lila)
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('dev.login.admin') }}">
-                                <i class="bi bi-box-arrow-in-right me-2 text-info"></i>Login as Admin
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                @guest
+                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    <a class="nav-link" href="{{ route('register') }}">Register</a>
+                @endguest
+
+                @auth
+                    <div class="dropdown">
+                        <a href="#" class="nav-icon-link text-decoration-none" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Account">
+                            <i class="bi bi-person fs-4"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenuDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('user.profile', ['id' => auth()->user()->getId()]) }}">
+                                    <i class="bi bi-person-circle me-2 text-warning"></i>My Account
+                                </a>
+                            </li>
+                            @if (auth()->user()->getRole() === 'admin')
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.user.index') }}">
+                                        <i class="bi bi-shield-lock me-2 text-primary"></i>Admin Panel
+                                    </a>
+                                </li>
+                            @endif
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST" class="px-3">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item ps-0">
+                                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @endauth
             </div>
         </div>
     </nav>

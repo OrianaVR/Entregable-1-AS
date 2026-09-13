@@ -48,9 +48,12 @@
                         <i class="bi bi-chevron-right small text-muted"></i>
                     </a>
 
-                    <a href="{{ route('home.index') }}" class="btn btn-outline-danger text-start py-3 px-4 rounded-3 fw-medium shadow-sm d-flex align-items-center justify-content-between" style="background-color: #ffffff;">
-                        <span><i class="bi bi-box-arrow-right me-2"></i>Logout</span>
-                    </a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger text-start py-3 px-4 rounded-3 fw-medium shadow-sm d-flex align-items-center justify-content-between w-100" style="background-color: #ffffff;">
+                            <span><i class="bi bi-box-arrow-right me-2"></i>Logout</span>
+                        </button>
+                    </form>
                 </div>
             </div>
 
