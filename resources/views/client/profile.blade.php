@@ -45,7 +45,7 @@
                         <i class="bi bi-chevron-right small"></i>
                     </a>
 
-                    <a href="#" class="btn btn-light border text-start py-3 px-4 rounded-3 text-dark fw-medium shadow-sm d-flex align-items-center justify-content-between" style="background-color: #ffffff;">
+                    <a href="{{ route('order.index') }}" class="btn btn-light border text-start py-3 px-4 rounded-3 text-dark fw-medium shadow-sm d-flex align-items-center justify-content-between" style="background-color: #ffffff;">
                         <span><i class="bi bi-bag-fill me-2 text-muted"></i>My Orders</span>
                         <i class="bi bi-chevron-right small text-muted"></i>
                     </a>

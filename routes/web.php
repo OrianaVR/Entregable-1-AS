@@ -18,3 +18,13 @@ Route::post('/admin/store', 'App\Http\Controllers\ClientController@save')->middl
 Route::get('/admin/edit/{id}', 'App\Http\Controllers\ClientController@edit')->middleware('role:admin')->name('admin.client.edit');
 Route::put('/admin/update/{id}', 'App\Http\Controllers\ClientController@update')->middleware('role:admin')->name('admin.client.update');
 Route::get('/admin/delete/{id}', 'App\Http\Controllers\ClientController@delete')->middleware('role:admin')->name('admin.client.delete');
+
+
+$basePath = '/';
+$ordersPath = 'orders';
+ 
+Route::get('/order' ,'App\Http\Controllers\OrderController@index')->middleware('role:client,admin')->name('order.index');
+ 
+Route::get('/order/{id}', 'App\Http\Controllers\OrderController@show') ->middleware('role:client,admin')->name('order.show');
+ 
+Route::post($basePath . $ordersPath, 'App\Http\Controllers\OrderController@store')->middleware('role:client,admin')->name('order.store');

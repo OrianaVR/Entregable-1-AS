@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Collection;
 
 class Client extends Authenticatable
 {
@@ -19,6 +21,7 @@ class Client extends Authenticatable
      * $this->attributes['phone'] - string - contains the client phone
      * $this->attributes['created_at'] - string - contains the date the client was created
      * $this->attributes['updated_at'] - string - contains the date the client was updated
+     * $this->orders - Order[] - contains the associated orders
      */
     use HasFactory, Notifiable;
 
@@ -116,4 +119,22 @@ class Client extends Authenticatable
     {
         return $this->attributes['updated_at'];
     }
+
+    public function orders(): HasMany 
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+        
+    }
+
+    public function setOrders(Collection $orders): void
+    {
+        $this->orders = $orders; 
+    }
+
+
 }
