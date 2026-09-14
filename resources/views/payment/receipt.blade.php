@@ -49,7 +49,7 @@
 
     <div class="section">
         <strong>Order #{{ $viewData['order']->getId() }}</strong><br>
-        Date: {{ $viewData['order']->created_at->format('Y-m-d') }}<br>
+        Date: {{ $viewData['order']->getCreatedAt()->format('Y-m-d') }}<br>
         Delivery date: {{ $viewData['order']->getDeliveryDate() }}<br>
         Status: {{ $viewData['order']->getState() }}
     </div>

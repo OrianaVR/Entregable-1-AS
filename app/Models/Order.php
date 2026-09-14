@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
@@ -68,6 +69,11 @@ class Order extends Model
         return $this->attributes['user_id'];
     }
 
+    public function getCreatedAt(): Carbon
+    {
+        return $this->attributes['created_at'];
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -76,11 +82,6 @@ class Order extends Model
     public function getUser(): User
     {
         return $this->user;
-    }
-
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
     }
 
     public function payment(): HasOne
