@@ -75,6 +75,11 @@ class Item extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function getProduct(): Product
+    {
+        return $this->product;
+    }
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

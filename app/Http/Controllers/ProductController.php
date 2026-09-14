@@ -7,6 +7,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Interfaces\ImageStorage;
 use App\Models\Category;
 use App\Models\Product;
@@ -25,8 +26,8 @@ class ProductController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Products';
-        $viewData['subtitle'] = 'List of products';
+        $viewData['title'] = __('product.pageTitle');
+        $viewData['subtitle'] = __('product.pageSubtitle');
         $viewData['products'] = Product::all();
 
         return view('product.index')->with('viewData', $viewData);
@@ -34,33 +35,70 @@ class ProductController extends Controller
 
     public function show(string $id): View
     {
-        $product = Product::with('category')->findOrFail($id);
+        $product = Product::with(['category', 'reviews.user'])->findOrFail($id);
 
         $viewData = [];
         $viewData['title'] = $product->getName().' - LUMÉ STORE';
-        $viewData['subtitle'] = 'Product information';
+        $viewData['subtitle'] = __('product.productInformation');
         $viewData['product'] = $product;
 
         return view('product.show')->with('viewData', $viewData);
     }
 
+    public function adminIndex(): View
+    {
+        $viewData = [];
+        $viewData['title'] = __('product.pageTitle');
+        $viewData['subtitle'] = __('product.pageSubtitle');
+        $viewData['products'] = Product::with('category')->get();
+
+        return view('admin.product.index')->with('viewData', $viewData);
+    }
+
     public function create(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Create product';
+        $viewData['title'] = __('product.createProduct');
         $viewData['categories'] = Category::all();
 
         return view('product.create')->with('viewData', $viewData);
     }
 
-    public function save(StoreProductRequest $request): View
+    public function save(StoreProductRequest $request): RedirectResponse
     {
         $data = $request->validated();
         $data['image'] = $this->imageStorage->store($request);
 
         Product::create($data);
 
-        return view('product.save')->with('message', 'Product created successfully!');
+        return redirect()->route('admin.product.index')->with('success', __('product.createdSuccess'));
+    }
+
+    public function edit(string $id): View
+    {
+        $viewData = [];
+        $viewData['title'] = __('product.editProduct');
+        $viewData['product'] = Product::findOrFail($id);
+        $viewData['categories'] = Category::all();
+
+        return view('product.edit')->with('viewData', $viewData);
+    }
+
+    public function update(UpdateProductRequest $request, string $id): RedirectResponse
+    {
+        $product = Product::findOrFail($id);
+
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->imageStorage->store($request);
+        } else {
+            unset($data['image']);
+        }
+
+        $product->update($data);
+
+        return redirect()->route('admin.product.index')->with('success', __('product.updatedSuccess'));
     }
 
     public function delete(string $id): RedirectResponse
@@ -68,6 +106,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
     }
 }

@@ -7,9 +7,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class OrderRequest extends FormRequest
+class AddToCartRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -19,9 +18,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'address' => ['required', 'string'],
-            'delivery_date' => ['required', Rule::date()->format('Y-m-d')],
-            'payment_method' => ['required', 'string'],
+            'quantity' => ['required', 'integer', 'min:1'],
         ];
     }
 }

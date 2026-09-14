@@ -52,4 +52,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function getProductsCount(): int
+    {
+        return $this->products_count ?? $this->products()->count();
+    }
 }

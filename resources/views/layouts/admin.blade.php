@@ -29,8 +29,23 @@
                     </div>
                     <ul class="lume-nav-list">
                         <li>
-                            <a href="{{ route('admin.user.index') }}" class="lume-nav-item active">
+                            <a href="{{ route('admin.user.index') }}" class="lume-nav-item {{ request()->routeIs('admin.user.*') ? 'active' : '' }}">
                                 <i class="bi bi-people me-2"></i>{{ __('admin.pageTitleUsers') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.category.index') }}" class="lume-nav-item {{ request()->routeIs('admin.category.*') ? 'active' : '' }}">
+                                <i class="bi bi-tags me-2"></i>{{ __('category.pageTitle') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.product.index') }}" class="lume-nav-item {{ request()->routeIs('admin.product.*') || request()->routeIs('product.create') || request()->routeIs('product.edit') ? 'active' : '' }}">
+                                <i class="bi bi-box-seam me-2"></i>{{ __('product.pageTitle') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.order.index') }}" class="lume-nav-item {{ request()->routeIs('admin.order.*') ? 'active' : '' }}">
+                                <i class="bi bi-receipt me-2"></i>{{ __('payment.pageTitle') }}
                             </a>
                         </li>
                     </ul>

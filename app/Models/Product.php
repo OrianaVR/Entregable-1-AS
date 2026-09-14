@@ -13,12 +13,17 @@
  * @property int $category_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property \App\Models\Category $category
+ * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
+ * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
  */
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -111,5 +116,20 @@ class Product extends Model
     public function getCategory(): Category
     {
         return $this->category;
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
     }
 }

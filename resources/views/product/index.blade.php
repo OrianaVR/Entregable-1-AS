@@ -11,7 +11,7 @@
 
 <div class="row">
 
-    @foreach ($viewData['products'] as $product)
+    @forelse ($viewData['products'] as $product)
 
         <div class="col-md-4 col-lg-3 mb-2">
             <div class="card">
@@ -29,7 +29,13 @@
             </div>
         </div>
 
-    @endforeach
+    @empty
+
+        <div class="col-12">
+            <p class="text-muted">{{ __('product.noResults') }}</p>
+        </div>
+
+    @endforelse
 
 </div>
 
