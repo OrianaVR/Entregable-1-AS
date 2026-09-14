@@ -7,24 +7,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
-use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\ReviewService; 
 
 class ReviewController extends Controller
 {
+    private ReviewService $reviewService; 
+
+    public function __construct(ReviewService $reviewService)
+    {
+        $this->reviewService = $reviewService;
+    }
+
+    
     public function store(StoreReviewRequest $request, string $id): RedirectResponse
     {
-        $product = Product::findOrFail($id);
+       
+        $this->reviewService->create($request->validated(), $id);
 
-        $data = $request->validated();
-        $data['user_id'] = Auth::id();
-        $data['product_id'] = $product->getId();
-
-        Review::create($data);
-
-        return redirect()->route('product.show', ['id' => $product->getId()])->with('success', __('review.submittedSuccess'));
+        return redirect()
+            ->route('product.show', ['id' => $id])
+            ->with('success', __('review.submittedSuccess'));
     }
 
     public function delete(string $id): RedirectResponse
@@ -39,6 +44,8 @@ class ReviewController extends Controller
         $productId = $review->getProductId();
         $review->delete();
 
-        return redirect()->route('product.show', ['id' => $productId])->with('success', __('review.deletedSuccess'));
+        return redirect()
+            ->route('product.show', ['id' => $productId])
+            ->with('success', __('review.deletedSuccess'));
     }
 }

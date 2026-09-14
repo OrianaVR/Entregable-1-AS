@@ -68,6 +68,11 @@ class Product extends Model
         $this->attributes['category_id'] = $categoryId;
     }
 
+    public function setFeatured(bool $featured): void
+    {
+    $this->attributes['featured'] = $featured;
+    }
+
     public function getId(): int
     {
         return $this->attributes['id'];
@@ -108,6 +113,12 @@ class Product extends Model
         return $this->attributes['category_id'];
     }
 
+    public function getFeatured(): bool
+    {
+    return $this->attributes['featured'];
+    }
+
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -132,4 +143,7 @@ class Product extends Model
     {
         return $this->reviews;
     }
+
+
+
 }
