@@ -7,9 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UserProfileRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -24,7 +21,7 @@ class UserProfileRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'password' => ['nullable', 'string',],
+            'password' => ['nullable', 'string'],
             'email' => ['required', 'string', 'email'],
             'address' => ['required', 'string'],
             'phone' => ['required', 'string'],

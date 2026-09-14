@@ -8,9 +8,6 @@ use Illuminate\Validation\Rule;
 
 class OrderRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -26,7 +23,7 @@ class OrderRequest extends FormRequest
         return [
             'address' => ['required', 'string'],
             'state' => ['required', 'string'],
-            'delivery_date' => ['required', Rule::date()->format('Y-m-d'),]
+            'delivery_date' => ['required', Rule::date()->format('Y-m-d')],
         ];
     }
 }

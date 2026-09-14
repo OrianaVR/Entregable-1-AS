@@ -17,7 +17,7 @@ Route::get('/admin/create', 'App\Http\Controllers\UserController@create')->middl
 Route::post('/admin/store', 'App\Http\Controllers\UserController@save')->middleware('role:admin')->name('admin.user.store');
 Route::get('/admin/edit/{id}', 'App\Http\Controllers\UserController@edit')->middleware('role:admin')->name('admin.user.edit');
 Route::put('/admin/update/{id}', 'App\Http\Controllers\UserController@update')->middleware('role:admin')->name('admin.user.update');
-Route::get('/admin/delete/{id}', 'App\Http\Controllers\UserController@delete')->middleware('role:admin')->name('admin.user.delete');
+Route::delete('/admin/delete/{id}', 'App\Http\Controllers\UserController@delete')->middleware('role:admin')->name('admin.user.delete');
 
 Route::get('/order', 'App\Http\Controllers\OrderController@index')->middleware('role:user,admin')->name('order.index');
 Route::get('/order/{id}', 'App\Http\Controllers\OrderController@show')->middleware('role:user,admin')->name('order.show');

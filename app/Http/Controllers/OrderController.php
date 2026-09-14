@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -15,7 +16,7 @@ class OrderController extends Controller
         $order = Order::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
 
         $viewData = [];
-        $viewData['title'] = 'Order #' . $order->getId();
+        $viewData['title'] = 'Order #'.$order->getId();
         $viewData['order'] = $order;
 
         return view('order.show')->with('viewData', $viewData);
@@ -23,7 +24,7 @@ class OrderController extends Controller
 
     public function index(): View
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
         $orders = $user->getOrders();
 
