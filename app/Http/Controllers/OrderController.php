@@ -6,10 +6,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\InsufficientStockException;
 use App\Http\Requests\OrderRequest;
-use App\Models\Item;
+use App\Interfaces\OrderCreation;
 use App\Models\Order;
-use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +17,13 @@ use Illuminate\View\View;
 
 class OrderController extends Controller
 {
+    private OrderCreation $orderCreation;
+
+    public function __construct(OrderCreation $orderCreation)
+    {
+        $this->orderCreation = $orderCreation;
+    }
+
     public function show(string $id): View
     {
         $query = Order::with(['items.product', 'payment', 'user']);
@@ -103,44 +110,15 @@ class OrderController extends Controller
             return redirect()->route('order.checkout')->with('error', __('order.emptyCart'));
         }
 
-        foreach ($cart as $productId => $quantity) {
-            $product = Product::find($productId);
-
-            if ($product === null || $product->getStock() < $quantity) {
-                return redirect()->route('order.checkout')->with('error', __('order.insufficientStock'));
-            }
-        }
-
         $data = $request->validated();
         $paymentMethod = $data['payment_method'];
         unset($data['payment_method']);
 
-        $data['user_id'] = Auth::id();
-        $data['state'] = 'inProcess';
-
-        $order = Order::create($data);
-
-        foreach ($cart as $productId => $quantity) {
-            $product = Product::find($productId);
-
-            Item::create([
-                'quantity' => $quantity,
-                'price' => $product->getPrice(),
-                'product_id' => $product->getId(),
-                'order_id' => $order->getId(),
-            ]);
-
-            $product->setStock($product->getStock() - $quantity);
-            $product->save();
+        try {
+            $order = $this->orderCreation->createFromCart($cart, $data, $paymentMethod, Auth::id());
+        } catch (InsufficientStockException) {
+            return redirect()->route('order.checkout')->with('error', __('order.insufficientStock'));
         }
-
-        Payment::create([
-            'method' => $paymentMethod,
-            'date' => now(),
-            'status' => 'pending',
-            'transaction_code' => random_int(100000, 999999),
-            'order_id' => $order->getId(),
-        ]);
 
         session()->forget('cart');
 
