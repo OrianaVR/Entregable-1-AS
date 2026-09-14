@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Ana Sofía Angarita Barrios
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserProfileRequest;
@@ -24,9 +28,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $data = $request->only(['name', 'email', 'address', 'phone']);
-        if ($request->filled('password')) {
-            $data['password'] = $request->input('password');
+        $data = $request->validated();
+        if (empty($data['password'])) {
+            unset($data['password']);
         }
 
         $user->update($data);
@@ -37,14 +41,14 @@ class UserController extends Controller
     public function create(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Create User';
+        $viewData['title'] = __('admin.createUser');
 
         return view('admin.user.create')->with('viewData', $viewData);
     }
 
     public function save(UserRequest $request): RedirectResponse
     {
-        User::create($request->only(['name', 'email', 'password', 'role', 'address', 'phone']));
+        User::create($request->validated());
 
         return redirect()->route('admin.user.index');
     }
@@ -60,8 +64,8 @@ class UserController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['title'] = 'LUME - Users';
-        $viewData['subtitle'] = 'List of Users';
+        $viewData['title'] = __('admin.pageTitleUsers');
+        $viewData['subtitle'] = __('admin.subtitleUsersList');
         $viewData['users'] = User::all();
 
         return view('admin.user.index')->with('viewData', $viewData);
@@ -70,7 +74,7 @@ class UserController extends Controller
     public function edit(string $id): View
     {
         $viewData = [];
-        $viewData['title'] = 'Edit User';
+        $viewData['title'] = __('admin.editUser');
         $viewData['user'] = User::findOrFail($id);
 
         return view('admin.user.edit')->with('viewData', $viewData);
@@ -80,10 +84,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $data = $request->only(['name', 'email', 'role', 'address', 'phone']);
-
-        if ($request->filled('password')) {
-            $data['password'] = $request->input('password');
+        $data = $request->validated();
+        if (empty($data['password'])) {
+            unset($data['password']);
         }
 
         $user->update($data);

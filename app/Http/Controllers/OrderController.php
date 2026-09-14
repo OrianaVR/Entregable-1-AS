@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Ana Sofía Angarita Barrios
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
@@ -15,7 +19,7 @@ class OrderController extends Controller
         $order = Order::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
 
         $viewData = [];
-        $viewData['title'] = 'Order #' . $order->getId();
+        $viewData['title'] = __('order.orderHeading', ['id' => $order->getId()]);
         $viewData['order'] = $order;
 
         return view('order.show')->with('viewData', $viewData);
@@ -23,12 +27,11 @@ class OrderController extends Controller
 
     public function index(): View
     {
-        /** @var \App\Models\User $user */
         $user = Auth::user();
         $orders = $user->getOrders();
 
         $viewData = [];
-        $viewData['title'] = 'My Orders';
+        $viewData['title'] = __('order.pageTitle');
         $viewData['orders'] = $orders;
         $viewData['inProcessCount'] = $orders->filter(fn (Order $order): bool => $order->getState() === 'inProcess')->count();
         $viewData['completedCount'] = $orders->filter(fn (Order $order): bool => $order->getState() === 'completed')->count();
@@ -44,6 +47,6 @@ class OrderController extends Controller
 
         Order::create($data);
 
-        return redirect()->route('order.index')->with('success', 'Order placed successfully.');
+        return redirect()->route('order.index')->with('success', __('order.orderPlaced'));
     }
 }

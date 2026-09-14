@@ -6,11 +6,11 @@
 @section('content')
 
 <div class="profile-header text-center" style="padding-top: 60px; padding-bottom: 30px;">
-    <h1 class="profile-title text-center mb-2" style="font-size: 42px;">Order #{{ $viewData['order']->getId() }}</h1>
+    <h1 class="profile-title text-center mb-2" style="font-size: 42px;">{{ __('order.orderHeading', ['id' => $viewData['order']->getId()]) }}</h1>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb justify-content-center profile-breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('order.index') }}">My Orders</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('home.index') }}">{{ __('layout.navHome') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('order.index') }}">{{ __('order.pageTitle') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">#{{ $viewData['order']->getId() }}</li>
         </ol>
     </nav>
@@ -22,19 +22,19 @@
         <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
             <div>
                 <span class="order-status-dot order-status-{{ $viewData['order']->getState() }}"></span>
-                <span class="fw-semibold">{{ ucfirst(str_replace('inProcess', 'in process', $viewData['order']->getState())) }}</span>
+                <span class="fw-semibold">{{ __('order.status'.ucfirst($viewData['order']->getState())) }}</span>
             </div>
             <div class="text-muted small">
-                Delivery Date: <span class="fw-medium text-dark">{{ $viewData['order']->getDeliveryDate() }}</span>
+                {{ __('order.deliveryDateLabel') }}: <span class="fw-medium text-dark">{{ $viewData['order']->getDeliveryDate() }}</span>
             </div>
-            <a href="{{ route('order.index') }}" class="btn btn-outline-secondary btn-sm">Back to My Orders</a>
+            <a href="{{ route('order.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('order.backToOrders') }}</a>
         </div>
 
         <div class="order-item-row mb-2">
             <div class="order-item-thumb">
                 <i class="bi bi-geo-alt"></i>
             </div>
-            <div class="order-item-name">Delivery Address: {{ $viewData['order']->getAddress() }}</div>
+            <div class="order-item-name">{{ __('order.deliveryAddress') }}: {{ $viewData['order']->getAddress() }}</div>
         </div>
 
     </div>
