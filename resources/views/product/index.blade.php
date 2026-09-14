@@ -1,0 +1,36 @@
+@extends('layouts.app')
+@section('content')
+
+<div class="container py-5 hero-content">
+    <h1>
+        {{ $viewData['title'] }}
+        <br>
+        <em>{{ $viewData['subtitle'] }}</em>
+    </h1>
+</div>
+
+<div class="row">
+
+    @foreach ($viewData['products'] as $product)
+
+        <div class="col-md-4 col-lg-3 mb-2">
+            <div class="card">
+
+                <img src="{{ asset('images/products/'.$product->getImage()) }}"
+                     class="img-fluid rounded-start"
+                     alt="{{ $product->getName() }}">
+
+                <div class="card-body text-center">
+                    <p class="card-text">{{ $product->getName() }} - {{ $product->getBrand() }}</p>
+                    <a href="{{ route('product.show', ['id' => $product->getId()]) }}"
+                       class="btn btn-primary">{{ $product->getId() }}</a>
+                </div>
+
+            </div>
+        </div>
+
+    @endforeach
+
+</div>
+
+@endsection

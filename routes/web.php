@@ -7,6 +7,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,7 @@ $logoutPath = 'logout';
 $profilePath = 'profile';
 $adminPath = 'admin';
 $orderPath = 'order';
+$productPath = 'product';
 
 Route::get($basePath, [HomeController::class, 'index'])->name('home.index');
 Route::get($basePath.$aboutPath, [HomeController::class, 'about'])->name('home.about');
@@ -43,3 +45,9 @@ Route::delete($basePath.$adminPath.'/delete/{id}', [UserController::class, 'dele
 Route::get($basePath.$orderPath, [OrderController::class, 'index'])->middleware('role:user,admin')->name('order.index');
 Route::get($basePath.$orderPath.'/{id}', [OrderController::class, 'show'])->whereNumber('id')->middleware('role:user,admin')->name('order.show');
 Route::post($basePath.$orderPath, [OrderController::class, 'store'])->middleware('role:user,admin')->name('order.store');
+
+Route::get($basePath.$productPath, [ProductController::class, 'index'])->name('product.index');
+Route::get($basePath.$productPath.'/{id}', [ProductController::class, 'show'])->whereNumber('id')->name('product.show');
+Route::get($basePath.$adminPath.'/'.$productPath.'/create', [ProductController::class, 'create'])->middleware('role:admin')->name('product.create');
+Route::post($basePath.$adminPath.'/'.$productPath.'/save', [ProductController::class, 'save'])->middleware('role:admin')->name('product.save');
+Route::delete($basePath.$adminPath.'/'.$productPath.'/delete/{id}', [ProductController::class, 'delete'])->whereNumber('id')->middleware('role:admin')->name('product.delete');
