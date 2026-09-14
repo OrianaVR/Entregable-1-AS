@@ -29,6 +29,8 @@ class User extends Authenticatable
      */
     use HasFactory, Notifiable;
 
+    public $timestamps = true;
+
     protected $fillable = [
         'name',
         'email',
@@ -130,13 +132,13 @@ class User extends Authenticatable
         return $this->attributes['updated_at'];
     }
 
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function getOrders(): Collection
+    {
+        return $this->orders;
     }
 }

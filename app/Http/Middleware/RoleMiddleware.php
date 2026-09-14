@@ -1,5 +1,5 @@
 <?php
-
+// AUTHOR: Maria Laura Tafur Gomez
 namespace App\Http\Middleware;
 
 use App\Models\User;

@@ -22,6 +22,8 @@ class Order extends Model
      * @property Carbon $created_at
      * @property Carbon $updated_at
      */
+    public $timestamps = true;
+
     protected $fillable = ['address', 'state', 'delivery_date', 'user_id'];
 
     protected $guarded = ['id'];
@@ -39,11 +41,6 @@ class Order extends Model
     public function setDeliveryDate(string $deliveryDate): void
     {
         $this->attributes['delivery_date'] = $deliveryDate;
-    }
-
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
     }
 
     public function getId(): int
@@ -64,7 +61,6 @@ class Order extends Model
     public function getDeliveryDate(): string
     {
         return $this->attributes['delivery_date'];
-
     }
 
     public function getCreatedAt(): string
@@ -82,13 +78,19 @@ class Order extends Model
         return $this->attributes['user_id'];
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getUser(): User
     {
         return $this->user;
     }
 
-    public function user(): BelongsTo
+    public function setUser(User $user): void
     {
-        return $this->belongsTo(User::class);
+        $this->attributes['user_id'] = $user->getId();
+        $this->setRelation('user', $user);
     }
 }

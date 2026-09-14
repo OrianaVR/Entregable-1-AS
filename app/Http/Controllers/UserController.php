@@ -1,5 +1,5 @@
 <?php
-
+// AUTHOR: Maria Laura Tafur Gomez
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserProfileRequest;
@@ -24,9 +24,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $data = $request->only(['name', 'email', 'address', 'phone']);
-        if ($request->filled('password')) {
-            $data['password'] = $request->input('password');
+        $data = $request->validated();
+        
+        if (!$request->filled('password')) {
+            unset($data['password']);
         }
 
         $user->update($data);
@@ -44,7 +45,7 @@ class UserController extends Controller
 
     public function save(UserRequest $request): RedirectResponse
     {
-        User::create($request->only(['name', 'email', 'password', 'role', 'address', 'phone']));
+        User::create($request->validated());
 
         return redirect()->route('admin.user.index');
     }
@@ -80,10 +81,11 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $data = $request->only(['name', 'email', 'role', 'address', 'phone']);
+        $data = $request->validated();
 
-        if ($request->filled('password')) {
-            $data['password'] = $request->input('password');
+        
+        if (!$request->filled('password')) {
+            unset($data['password']);
         }
 
         $user->update($data);

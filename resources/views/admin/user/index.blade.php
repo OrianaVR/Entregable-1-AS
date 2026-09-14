@@ -1,3 +1,4 @@
+{{-- Author: Maria Laura Tafur Gómez --}}
 @extends('layouts.admin')
 
 @section('title', $viewData['title'])
@@ -85,9 +86,13 @@
                                     <a href="{{ route('admin.user.edit', ['id' => $user->getId()]) }}" class="lume-action-icon" title="Edit User">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="{{ route('admin.user.delete', ['id' => $user->getId()]) }}" class="lume-action-icon text-danger" title="Delete User" onclick="return confirm('Are you sure you want to delete this user?');">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+                                    <form action="{{ route('admin.user.delete', ['id' => $user->getId()]) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="lume-action-icon text-danger border-0 bg-transparent p-0" title="Delete User">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

@@ -1,5 +1,5 @@
 <?php
-
+// AUTHOR: Maria Laura Tafur Gomez
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;

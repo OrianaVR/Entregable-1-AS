@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -40,27 +38,4 @@ class HomeController extends Controller
         return view('home.contact')->with('viewData', $viewData);
     }
 
-    public function devLoginAdmin(): RedirectResponse
-    {
-        $admin = User::where('role', 'admin')->first() ?? User::first();
-        if ($admin) {
-            Auth::login($admin);
-
-            return redirect()->route('admin.user.index');
-        }
-
-        return redirect()->route('home.index');
-    }
-
-    public function devLoginUser(): RedirectResponse
-    {
-        $user = User::where('role', 'user')->first() ?? User::first();
-        if ($user) {
-            Auth::login($user);
-
-            return redirect()->route('user.profile', ['id' => $user->getId()]);
-        }
-
-        return redirect()->route('home.index');
-    }
 }

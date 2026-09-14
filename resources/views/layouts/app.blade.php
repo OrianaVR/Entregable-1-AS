@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    
     <title>@yield('title', 'LUMÉ STORE')</title>
 </head>
 
@@ -26,36 +28,9 @@
             </div>
 
             <div class="lume-nav-actions d-flex align-items-center gap-3">
-                <div class="dropdown">
-                    <a href="#" class="nav-icon-link text-decoration-none" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Account">
-                        <i class="bi bi-person fs-4"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenuDropdown">
-                        <li><h6 class="dropdown-header text-uppercase small">Navigation / Views</h6></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('user.profile', ['id' => 2]) }}">
-                                <i class="bi bi-person-circle me-2 text-warning"></i>User Profile (My Account)
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('admin.user.index') }}">
-                                <i class="bi bi-shield-lock me-2 text-primary"></i>Admin Panel (LUME)
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><span class="dropdown-item-text text-muted small">Dev Quick Logins:</span></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('dev.login.user') }}">
-                                <i class="bi bi-box-arrow-in-right me-2 text-success"></i>Login as User (Lila)
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('dev.login.admin') }}">
-                                <i class="bi bi-box-arrow-in-right me-2 text-info"></i>Login as Admin
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <a href="#" class="nav-icon-link text-decoration-none" title="Account">
+                    <i class="bi bi-person fs-4"></i>
+                </a>
             </div>
         </div>
     </nav>
@@ -72,10 +47,7 @@
         </div>
     </footer>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 </body>
 
