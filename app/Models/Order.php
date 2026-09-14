@@ -4,24 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
-   /**
+    /**
      * ORDER ATTRIBUTES
      * $this->attributes['id'] - int - contains the product primary key (id)
-     * $this->attributes['address'] - string - contains the ubication of the user 
-     * $this->attributes['state'] - string - contains the state of the order 
+     * $this->attributes['address'] - string - contains the ubication of the user
+     * $this->attributes['state'] - string - contains the state of the order
      * $this->attributes['delivery_date'] - string - contains the date the order will be delivered
      * $this->attributes['user'] - id - contains the user id related to the order
      * $this->user - User - contains the associated user
-     * 
-     * 
      */
-    protected $fillable = ['address','state', 'delivery_date'];
-    
+    protected $fillable = ['address', 'state', 'delivery_date'];
 
-   
     public function getId(): int
     {
         return $this->attributes['id'];
@@ -42,7 +39,7 @@ class Order extends Model
         $this->attributes['address'] = $address;
     }
 
-     public function getState(): string
+    public function getState(): string
     {
         return $this->attributes['state'];
     }
@@ -52,22 +49,23 @@ class Order extends Model
         $this->attributes['state'] = $state;
     }
 
-      public function getDeliveryDate(): string
+    public function getDeliveryDate(): string
     {
-       return $this->attributes['delivery_date'];
+        return $this->attributes['delivery_date'];
 
-    }  
+    }
+
     public function setDeliveryDate(string $deliveryDate): void
     {
         $this->attributes['delivery_date'] = $deliveryDate;
     }
 
-   public function getUserId(): int
+    public function getUserId(): int
     {
         return $this->attributes['user_id'];
     }
 
-  public function user(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -81,5 +79,9 @@ class Order extends Model
     {
         $this->user = $user;
     }
-}
 
+    public function payment(): HasOne
+    {
+        return $this->hasOne(Payment::class);
+    }
+}

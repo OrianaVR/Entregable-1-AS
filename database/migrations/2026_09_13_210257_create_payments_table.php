@@ -18,7 +18,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('status');
             $table->integer('transaction_code');
-            $table->unsignedBigInteger('order_id');
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->timestamps();
         });
     }
