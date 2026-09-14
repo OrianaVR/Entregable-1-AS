@@ -40,4 +40,5 @@ return [
     'deleteAction' => 'Eliminar producto',
     'confirmDelete' => '¿Seguro que quieres eliminar este producto?',
     'noProductsFound' => 'No se encontraron productos. Haz clic en "Crear producto" para agregar uno.',
+    'featuredBadge' => 'Destacado',
 ];

@@ -13,6 +13,7 @@
  * @property int $category_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property bool $featured
  * @property \App\Models\Category $category
  * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
@@ -70,7 +71,7 @@ class Product extends Model
 
     public function setFeatured(bool $featured): void
     {
-    $this->attributes['featured'] = $featured;
+        $this->attributes['featured'] = $featured;
     }
 
     public function getId(): int
@@ -115,9 +116,8 @@ class Product extends Model
 
     public function getFeatured(): bool
     {
-    return $this->attributes['featured'];
+        return $this->attributes['featured'];
     }
-
 
     public function category(): BelongsTo
     {
@@ -144,6 +144,8 @@ class Product extends Model
         return $this->reviews;
     }
 
-
-
+    public function getAverageRating(): float
+    {
+        return (float) $this->reviews()->avg('rating');
+    }
 }

@@ -40,4 +40,5 @@ return [
     'deleteAction' => 'Delete Product',
     'confirmDelete' => 'Are you sure you want to delete this product?',
     'noProductsFound' => 'No products found. Click "Create Product" to add one.',
+    'featuredBadge' => 'Featured',
 ];

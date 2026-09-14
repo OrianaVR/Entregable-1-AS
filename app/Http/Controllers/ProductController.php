@@ -28,7 +28,7 @@ class ProductController extends Controller
         $viewData = [];
         $viewData['title'] = __('product.pageTitle');
         $viewData['subtitle'] = __('product.pageSubtitle');
-        $viewData['products'] = Product::all();
+        $viewData['products'] = Product::orderByDesc('featured')->orderBy('name')->get();
 
         return view('product.index')->with('viewData', $viewData);
     }

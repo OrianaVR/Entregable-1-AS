@@ -747,3 +747,18 @@ a {
 }
 
 
+
+.star-rating {
+    display: flex;
+    gap: 4px;
+}
+
+.star-rating .star-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 22px;
+    color: var(--coral);
+    cursor: pointer;
+    line-height: 1;
+}

@@ -16,9 +16,15 @@
         <div class="col-md-4 col-lg-3 mb-2">
             <div class="card">
 
-                <img src="{{ asset('images/products/'.$product->getImage()) }}"
-                     class="img-fluid rounded-start"
-                     alt="{{ $product->getName() }}">
+                <div class="position-relative">
+                    <img src="{{ asset('images/products/'.$product->getImage()) }}"
+                         class="img-fluid rounded-start"
+                         alt="{{ $product->getName() }}">
+
+                    @if ($product->getFeatured())
+                        <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2">{{ __('product.featuredBadge') }}</span>
+                    @endif
+                </div>
 
                 <div class="card-body text-center">
                     <p class="card-text mb-1">{{ $product->getName() }} - {{ $product->getBrand() }}</p>

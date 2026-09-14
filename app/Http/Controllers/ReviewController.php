@@ -7,29 +7,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
+use App\Interfaces\ReviewCreation;
 use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Services\ReviewService; 
 
 class ReviewController extends Controller
 {
-    private ReviewService $reviewService; 
+    private ReviewCreation $reviewCreation;
 
-    public function __construct(ReviewService $reviewService)
+    public function __construct(ReviewCreation $reviewCreation)
     {
-        $this->reviewService = $reviewService;
+        $this->reviewCreation = $reviewCreation;
     }
 
-    
     public function store(StoreReviewRequest $request, string $id): RedirectResponse
     {
-       
-        $this->reviewService->create($request->validated(), $id);
+        $this->reviewCreation->createForProduct($request->validated(), (int) $id, Auth::id());
 
-        return redirect()
-            ->route('product.show', ['id' => $id])
-            ->with('success', __('review.submittedSuccess'));
+        return redirect()->route('product.show', ['id' => $id])->with('success', __('review.submittedSuccess'));
     }
 
     public function delete(string $id): RedirectResponse
@@ -44,8 +40,6 @@ class ReviewController extends Controller
         $productId = $review->getProductId();
         $review->delete();
 
-        return redirect()
-            ->route('product.show', ['id' => $productId])
-            ->with('success', __('review.deletedSuccess'));
+        return redirect()->route('product.show', ['id' => $productId])->with('success', __('review.deletedSuccess'));
     }
 }

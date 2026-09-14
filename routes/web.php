@@ -13,7 +13,6 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 $basePath = '/';
@@ -29,9 +28,6 @@ $productPath = 'product';
 $cartPath = 'cart';
 $categoryPath = 'category';
 $reviewPath = 'reviews';
-
-
-
 
 Route::get($basePath, [HomeController::class, 'index'])->name('home.index');
 Route::get($basePath.$aboutPath, [HomeController::class, 'about'])->name('home.about');
@@ -82,4 +78,3 @@ Route::put($basePath.$adminPath.'/'.$productPath.'/update/{id}', [ProductControl
 Route::delete($basePath.$adminPath.'/'.$productPath.'/delete/{id}', [ProductController::class, 'delete'])->whereNumber('id')->middleware('role:admin')->name('product.delete');
 
 Route::delete($basePath.$cartPath.'/{id}', [CartController::class, 'remove'])->whereNumber('id')->middleware('auth')->name('cart.remove');
-Route::post($basePath.$productPath.'/{id}',[ReviewController::class, 'store'])->name('review.store');
