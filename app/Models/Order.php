@@ -71,7 +71,7 @@ class Order extends Model
 
     public function getCreatedAt(): Carbon
     {
-        return $this->attributes['created_at'];
+        return $this->created_at;
     }
 
     public function user(): BelongsTo

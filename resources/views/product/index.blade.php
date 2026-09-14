@@ -21,9 +21,10 @@
                      alt="{{ $product->getName() }}">
 
                 <div class="card-body text-center">
-                    <p class="card-text">{{ $product->getName() }} - {{ $product->getBrand() }}</p>
+                    <p class="card-text mb-1">{{ $product->getName() }} - {{ $product->getBrand() }}</p>
+                    <p class="card-text fw-semibold mb-2">{{ number_format($product->getPrice(), 2) }}</p>
                     <a href="{{ route('product.show', ['id' => $product->getId()]) }}"
-                       class="btn btn-primary">{{ $product->getId() }}</a>
+                       class="btn btn-primary">{{ __('product.viewAction') }}</a>
                 </div>
 
             </div>
