@@ -138,4 +138,14 @@ class User extends Authenticatable
     {
         return $this->orders;
     }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
 }

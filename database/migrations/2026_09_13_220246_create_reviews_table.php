@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->integer('rating');
             $table->string('comment');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->unsignedBigInteger('product_id');
             $table->timestamps();
         });
