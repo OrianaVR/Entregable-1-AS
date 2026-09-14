@@ -20,15 +20,15 @@
             </a>
 
             <div class="lume-menu">
-                <a class="nav-link active" href="{{ route('home.index') }}">HOME</a>
-                <a class="nav-link" href="{{ route('home.about') }}">ABOUT</a>
-                <a class="nav-link" href="{{ route('home.contact') }}">CONTACT</a>
+                <a class="nav-link active" href="{{ route('home.index') }}">{{ __('layout.navHome') }}</a>
+                <a class="nav-link" href="{{ route('home.about') }}">{{ __('layout.navAbout') }}</a>
+                <a class="nav-link" href="{{ route('home.contact') }}">{{ __('layout.navContact') }}</a>
             </div>
 
             <div class="lume-nav-actions d-flex align-items-center gap-3">
                 @guest
-                    <a class="nav-link" href="{{ route('login') }}">Login</a>
-                    <a class="nav-link" href="{{ route('register') }}">Register</a>
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('auth.navLogin') }}</a>
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('auth.navRegister') }}</a>
                 @endguest
 
                 @auth
@@ -39,13 +39,13 @@
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenuDropdown">
                             <li>
                                 <a class="dropdown-item" href="{{ route('user.profile', ['id' => auth()->user()->getId()]) }}">
-                                    <i class="bi bi-person-circle me-2 text-warning"></i>My Account
+                                    <i class="bi bi-person-circle me-2 text-warning"></i>{{ __('auth.navMyAccount') }}
                                 </a>
                             </li>
                             @if (auth()->user()->getRole() === 'admin')
                                 <li>
                                     <a class="dropdown-item" href="{{ route('admin.user.index') }}">
-                                        <i class="bi bi-shield-lock me-2 text-primary"></i>Admin Panel
+                                        <i class="bi bi-shield-lock me-2 text-primary"></i>{{ __('auth.navAdminPanel') }}
                                     </a>
                                 </li>
                             @endif
@@ -54,7 +54,7 @@
                                 <form action="{{ route('logout') }}" method="POST" class="px-3">
                                     @csrf
                                     <button type="submit" class="dropdown-item ps-0">
-                                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                        <i class="bi bi-box-arrow-right me-2"></i>{{ __('auth.navLogout') }}
                                     </button>
                                 </form>
                             </li>
@@ -72,7 +72,7 @@
     <footer class="lume-footer">
         <div class="container">
             <small>
-                &copy; 2026 LUMÉ. All rights reserved.
+                &copy; 2026 LUMÉ. {{ __('layout.footerRights') }}
             </small>
         </div>
     </footer>

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Ana Sofía Angarita Barrios
+ */
+
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,11 +11,15 @@ Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index')
 Route::get('/about', 'App\Http\Controllers\HomeController@about')->name('home.about');
 Route::get('/contact', 'App\Http\Controllers\HomeController@contact')->name('home.contact');
 
-Route::get('/login', [AuthController::class, 'showLogin'])->middleware('guest')->name('login');
-Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->name('login.attempt');
-Route::get('/register', [AuthController::class, 'showRegister'])->middleware('guest')->name('register');
-Route::post('/register', [AuthController::class, 'register'])->middleware('guest')->name('register.attempt');
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+$loginPath = 'login';
+$registerPath = 'register';
+$logoutPath = 'logout';
+
+Route::get($loginPath, [AuthController::class, 'showLogin'])->middleware('guest')->name('login');
+Route::post($loginPath, [AuthController::class, 'login'])->middleware('guest')->name('login.attempt');
+Route::get($registerPath, [AuthController::class, 'showRegister'])->middleware('guest')->name('register');
+Route::post($registerPath, [AuthController::class, 'register'])->middleware('guest')->name('register.attempt');
+Route::post($logoutPath, [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::get('/profile/{id}', 'App\Http\Controllers\UserController@profile')->middleware('role:user,admin')->name('user.profile');
 Route::put('/profile/update/{id}', 'App\Http\Controllers\UserController@profileUpdate')->middleware('role:user,admin')->name('user.profile.update');

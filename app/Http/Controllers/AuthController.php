@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function showLogin(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Login';
+        $viewData['title'] = __('auth.loginTitle');
 
         return view('auth.login')->with('viewData', $viewData);
     }
@@ -29,7 +29,7 @@ class AuthController extends Controller
         $credentials = $request->only(['email', 'password']);
 
         if (! Auth::attempt($credentials)) {
-            return back()->withErrors(['email' => 'Invalid credentials.'])->onlyInput('email');
+            return back()->withErrors(['email' => __('auth.invalidCredentials')])->onlyInput('email');
         }
 
         $request->session()->regenerate();
@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function showRegister(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Register';
+        $viewData['title'] = __('auth.registerTitle');
 
         return view('auth.register')->with('viewData', $viewData);
     }
