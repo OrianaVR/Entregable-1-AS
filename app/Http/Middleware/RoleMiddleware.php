@@ -1,5 +1,7 @@
 <?php
+
 // AUTHOR: Maria Laura Tafur Gomez
+
 namespace App\Http\Middleware;
 
 use App\Models\User;
@@ -10,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-  
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         if (Auth::check()) {

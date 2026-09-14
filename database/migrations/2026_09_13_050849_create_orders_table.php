@@ -1,4 +1,5 @@
 <?php
+
 // AUTHOR: Maria Laura Tafur Gomez
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

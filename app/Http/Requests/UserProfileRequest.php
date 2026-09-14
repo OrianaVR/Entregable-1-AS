@@ -1,8 +1,9 @@
 <?php
+
 // AUTHOR: Maria Laura Tafur Gomez
+
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserProfileRequest extends FormRequest
@@ -11,7 +12,6 @@ class UserProfileRequest extends FormRequest
     {
         return true;
     }
-
 
     public function rules(): array
     {

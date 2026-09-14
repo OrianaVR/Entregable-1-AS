@@ -1,5 +1,7 @@
 <?php
+
 // AUTHOR: Maria Laura Tafur Gomez
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserProfileRequest;
@@ -25,8 +27,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $data = $request->validated();
-        
-        if (!$request->filled('password')) {
+
+        if (! $request->filled('password')) {
             unset($data['password']);
         }
 
@@ -83,8 +85,7 @@ class UserController extends Controller
 
         $data = $request->validated();
 
-        
-        if (!$request->filled('password')) {
+        if (! $request->filled('password')) {
             unset($data['password']);
         }
 
