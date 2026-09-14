@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * @author Ana Sofía Angarita Barrios
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $brand
+ * @property float $price
+ * @property string $description
+ * @property int $stock
+ * @property string $image
+ * @property int $category_id
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Product extends Model
+{
+    public $timestamps = true;
+
+    protected $fillable = ['name', 'brand', 'price', 'description', 'stock', 'image', 'category_id'];
+
+    protected $guarded = ['id'];
+
+    public function setName(string $name): void
+    {
+        $this->attributes['name'] = $name;
+    }
+
+    public function setBrand(string $brand): void
+    {
+        $this->attributes['brand'] = $brand;
+    }
+
+    public function setPrice(float $price): void
+    {
+        $this->attributes['price'] = $price;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->attributes['description'] = $description;
+    }
+
+    public function setStock(int $stock): void
+    {
+        $this->attributes['stock'] = $stock;
+    }
+
+    public function setImage(string $image): void
+    {
+        $this->attributes['image'] = $image;
+    }
+
+    public function setCategoryId(int $categoryId): void
+    {
+        $this->attributes['category_id'] = $categoryId;
+    }
+
+    public function getId(): int
+    {
+        return $this->attributes['id'];
+    }
+
+    public function getName(): string
+    {
+        return $this->attributes['name'];
+    }
+
+    public function getBrand(): string
+    {
+        return $this->attributes['brand'];
+    }
+
+    public function getPrice(): float
+    {
+        return $this->attributes['price'];
+    }
+
+    public function getDescription(): string
+    {
+        return $this->attributes['description'];
+    }
+
+    public function getStock(): int
+    {
+        return $this->attributes['stock'];
+    }
+
+    public function getImage(): string
+    {
+        return $this->attributes['image'];
+    }
+
+    public function getCategoryId(): int
+    {
+        return $this->attributes['category_id'];
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+}
