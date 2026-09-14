@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->double('price');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('order_id');
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->timestamps();
         });
     }
