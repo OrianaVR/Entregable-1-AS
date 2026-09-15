@@ -66,14 +66,14 @@ class Order extends Model
         return $this->attributes['delivery_date'];
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): Carbon
     {
-        return $this->attributes['created_at'];
+        return $this->created_at;
     }
 
-    public function getUpdatedAt(): string
+    public function getUpdatedAt(): Carbon
     {
-        return $this->attributes['updated_at'];
+        return $this->updated_at;
     }
 
     public function getUserId(): int
