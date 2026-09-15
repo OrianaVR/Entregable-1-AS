@@ -762,20 +762,3 @@ a {
     cursor: pointer;
     line-height: 1;
 }
-
-.lume-lang-switch {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    color: var(--muted);
-}
-
-.lume-lang-switch a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.lume-lang-switch a.fw-bold {
-    color: var(--coral);
-}
