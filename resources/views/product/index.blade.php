@@ -9,7 +9,6 @@
     </h1>
 </div>
 
-<!-- Search Section -->
 <div class="container mb-5">
     <form action="{{ route('product.index') }}" method="GET" class="d-flex justify-content-center">
         <div class="d-flex gap-2 w-100" style="max-width: 600px;">
@@ -32,7 +31,6 @@
     </form>
 </div>
 
-<!-- Products Grid -->
 <div class="container">
     <div class="row">
 

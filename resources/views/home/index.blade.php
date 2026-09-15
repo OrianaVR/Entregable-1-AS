@@ -13,10 +13,8 @@
 </header>
 
 <div class="container py-5">
-    <!-- Linea divisoria entre la sección superior de Home y la rutina -->
     <hr class="mb-5 mx-auto" style="border-top: 2px solid var(--coral, #f4a2a1); opacity: 0.4; max-width: 80%;">
 
-    <!-- Encabezado de la rutina traducido -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="lume-page-title m-0">{{ __('home.routineTitle') }}</h2>

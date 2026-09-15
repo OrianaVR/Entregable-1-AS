@@ -53,7 +53,7 @@ class ProductController extends Controller
         $product = Product::with(['category', 'reviews.user'])->findOrFail($id);
 
         $viewData = [];
-        $viewData['title'] = $product->getName().' - LUMÉ STORE';
+        $viewData['title'] = $product->getName();
         $viewData['subtitle'] = __('product.productInformation');
         $viewData['product'] = $product;
 
