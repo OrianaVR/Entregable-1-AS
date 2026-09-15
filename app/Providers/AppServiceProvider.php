@@ -6,9 +6,11 @@
 
 namespace App\Providers;
 
+use App\Interfaces\CartManagement;
 use App\Interfaces\ImageStorage;
 use App\Interfaces\OrderCreation;
 use App\Interfaces\ReviewCreation;
+use App\Services\CartManagementService;
 use App\Services\OrderCreationService;
 use App\Services\ReviewCreationService;
 use App\Utils\ImageLocalStorage;
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ImageStorage::class, ImageLocalStorage::class);
         $this->app->bind(OrderCreation::class, OrderCreationService::class);
         $this->app->bind(ReviewCreation::class, ReviewCreationService::class);
+        $this->app->bind(CartManagement::class, CartManagementService::class);
     }
 
     public function boot(): void {}
