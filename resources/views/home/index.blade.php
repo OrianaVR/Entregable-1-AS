@@ -34,7 +34,7 @@
             <p class="text-muted ms-5 mb-4">{{ $category->getDescription() }}</p>
 
             <div class="row ms-4">
-                @forelse ($category->products as $product)
+               @forelse ($category->getProducts() as $product)
                     <div class="col-md-4 col-lg-3 mb-4">
                         <div class="card lume-card h-100">
                             <div class="position-relative">

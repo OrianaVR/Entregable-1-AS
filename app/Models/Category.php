@@ -14,6 +14,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Collection;
 
 class Category extends Model
 {
@@ -52,6 +53,11 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function getProducts(): Collection
+    {
+    return $this->products;
+    }   
 
     public function getProductsCount(): int
     {
