@@ -4,11 +4,10 @@
  * @author Ana Sofía Angarita Barrios
  */
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -29,9 +28,6 @@ $productPath = 'product';
 $cartPath = 'cart';
 $categoryPath = 'category';
 $reviewPath = 'reviews';
-$langPath = 'lang';
-
-Route::get($basePath.$langPath.'/{locale}', [LanguageController::class, 'switch'])->whereIn('locale', ['en', 'es'])->name('language.switch');
 
 Route::get($basePath, [HomeController::class, 'index'])->name('home.index');
 Route::get($basePath.$aboutPath, [HomeController::class, 'about'])->name('home.about');
