@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
@@ -67,6 +68,16 @@ class Order extends Model
     public function getUserId(): int
     {
         return $this->attributes['user_id'];
+    }
+
+    public function getCreatedAt(): Carbon
+    {
+        return $this->created_at;
+    }
+
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->updated_at;
     }
 
     public function user(): BelongsTo
