@@ -1,37 +1,18 @@
 <?php
 
-<<<<<<< HEAD
-/**
- * @author Ana Sofía Angarita Barrios
- *
- * @property int $id
- * @property string $address
- * @property string $state
- * @property string $delivery_date
- * @property int $user_id
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
- */
-=======
 // AUTHOR: Maria Laura Tafur Gomez
->>>>>>> origin/feature/order-class
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-=======
->>>>>>> origin/feature/order-class
 use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
-<<<<<<< HEAD
-=======
     /**
      * ORDER ATTRIBUTES
      *
@@ -44,7 +25,6 @@ class Order extends Model
      * @property Carbon $created_at
      * @property Carbon $updated_at
      */
->>>>>>> origin/feature/order-class
     public $timestamps = true;
 
     protected $fillable = ['address', 'state', 'delivery_date', 'user_id'];
@@ -86,8 +66,6 @@ class Order extends Model
         return $this->attributes['delivery_date'];
     }
 
-<<<<<<< HEAD
-=======
     public function getCreatedAt(): string
     {
         return $this->attributes['created_at'];
@@ -98,20 +76,11 @@ class Order extends Model
         return $this->attributes['updated_at'];
     }
 
->>>>>>> origin/feature/order-class
     public function getUserId(): int
     {
         return $this->attributes['user_id'];
     }
 
-<<<<<<< HEAD
-    public function getCreatedAt(): Carbon
-    {
-        return $this->created_at;
-    }
-
-=======
->>>>>>> origin/feature/order-class
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -122,9 +91,14 @@ class Order extends Model
         return $this->user;
     }
 
+    public function setUser(User $user): void
+    {
+        $this->attributes['user_id'] = $user->getId();
+        $this->setRelation('user', $user);
+    }
+
     public function payment(): HasOne
     {
-<<<<<<< HEAD
         return $this->hasOne(Payment::class);
     }
 
@@ -141,9 +115,5 @@ class Order extends Model
     public function getItems(): Collection
     {
         return $this->items;
-=======
-        $this->attributes['user_id'] = $user->getId();
-        $this->setRelation('user', $user);
->>>>>>> origin/feature/order-class
     }
 }
