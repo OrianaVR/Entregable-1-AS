@@ -1,6 +1,17 @@
 <?php
 
-// AUTHOR: Maria Laura Tafur Gomez
+/**
+ * @author Maria Laura Tafur Gomez
+ *
+ * @property int $id
+ * @property string $address
+ * @property string $state
+ * @property string $delivery_date
+ * @property int $user_id
+ * @property \App\Models\User $user
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
 
 namespace App\Models;
 
@@ -9,22 +20,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
-    /**
-     * ORDER ATTRIBUTES
-     *
-     * @property int $id
-     * @property string $address
-     * @property string $state
-     * @property string $delivery_date
-     * @property int $user_id
-     * @property User $user
-     * @property Carbon $created_at
-     * @property Carbon $updated_at
-     */
     public $timestamps = true;
 
     protected $fillable = ['address', 'state', 'delivery_date', 'user_id'];
@@ -64,16 +62,6 @@ class Order extends Model
     public function getDeliveryDate(): string
     {
         return $this->attributes['delivery_date'];
-    }
-
-    public function getCreatedAt(): Carbon
-    {
-        return $this->created_at;
-    }
-
-    public function getUpdatedAt(): Carbon
-    {
-        return $this->updated_at;
     }
 
     public function getUserId(): int
