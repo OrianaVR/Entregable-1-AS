@@ -1,8 +1,6 @@
 <?php
 
-/**
- * @author Ana Sofía Angarita Barrios
- */
+// AUTHOR: Maria Laura Tafur Gomez
 
 namespace App\Http\Controllers;
 
@@ -29,7 +27,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $data = $request->validated();
-        if (empty($data['password'])) {
+
+        if (! $request->filled('password')) {
             unset($data['password']);
         }
 
@@ -41,7 +40,7 @@ class UserController extends Controller
     public function create(): View
     {
         $viewData = [];
-        $viewData['title'] = __('admin.createUser');
+        $viewData['title'] = 'Create User';
 
         return view('admin.user.create')->with('viewData', $viewData);
     }
@@ -64,8 +63,8 @@ class UserController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['title'] = __('admin.pageTitleUsers');
-        $viewData['subtitle'] = __('admin.subtitleUsersList');
+        $viewData['title'] = 'LUME - Users';
+        $viewData['subtitle'] = 'List of Users';
         $viewData['users'] = User::all();
 
         return view('admin.user.index')->with('viewData', $viewData);
@@ -74,7 +73,7 @@ class UserController extends Controller
     public function edit(string $id): View
     {
         $viewData = [];
-        $viewData['title'] = __('admin.editUser');
+        $viewData['title'] = 'Edit User';
         $viewData['user'] = User::findOrFail($id);
 
         return view('admin.user.edit')->with('viewData', $viewData);
@@ -85,7 +84,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $data = $request->validated();
-        if (empty($data['password'])) {
+
+        if (! $request->filled('password')) {
             unset($data['password']);
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+// AUTHOR: Maria Laura Tafur Gomez
+
 namespace Database\Seeders;
 
 use App\Models\User;

@@ -1,8 +1,6 @@
 <?php
 
-/**
- * @author Ana Sofía Angarita Barrios
- */
+// AUTHOR: Maria Laura Tafur Gomez
 
 namespace App\Http\Requests;
 

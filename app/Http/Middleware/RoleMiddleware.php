@@ -1,11 +1,10 @@
 <?php
 
-/**
- * @author Ana Sofía Angarita Barrios
- */
+// AUTHOR: Maria Laura Tafur Gomez
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +15,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         if (Auth::check()) {
-            /** @var \App\Models\User $user */
+            /** @var User $user */
             $user = Auth::user();
 
             if (in_array($user->getRole(), $roles, true)) {

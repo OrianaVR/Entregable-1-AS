@@ -1,9 +1,6 @@
 <?php
 
-/**
- * @author Ana Sofía Angarita Barrios
- */
-
+// AUTHOR: Maria Laura Tafur Gomez
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

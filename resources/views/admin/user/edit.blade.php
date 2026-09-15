@@ -1,3 +1,4 @@
+{{-- Author: Maria Laura Tafur Gómez --}}
 @extends('layouts.admin')
 
 @section('title', $viewData['title'])

@@ -1,19 +1,6 @@
 <?php
 
-/**
- * @author Ana Sofía Angarita Barrios
- *
- * @property int $id
- * @property string $role
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $address
- * @property string $phone
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
- * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
- */
+// AUTHOR: Maria Laura Tafur Gomez
 
 namespace App\Models;
 
@@ -21,10 +8,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class User extends Authenticatable
 {
+    /**
+     * USER ATTRIBUTES
+     *
+     * @property int $id
+     * @property string $role
+     * @property string $name
+     * @property string $email
+     * @property string $password
+     * @property string $address
+     * @property string $phone
+     * @property Carbon $created_at
+     * @property Carbon $updated_at
+     * @property Order[]|\Illuminate\Database\Eloquent\Collection $orders
+     */
     use HasFactory, Notifiable;
 
     public $timestamps = true;
@@ -120,6 +122,16 @@ class User extends Authenticatable
         return $this->attributes['phone'];
     }
 
+    public function getCreatedAt(): string
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function getUpdatedAt(): string
+    {
+        return $this->attributes['updated_at'];
+    }
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
@@ -128,15 +140,5 @@ class User extends Authenticatable
     public function getOrders(): Collection
     {
         return $this->orders;
-    }
-
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(Review::class);
-    }
-
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
     }
 }
