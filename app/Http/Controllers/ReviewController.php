@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreReviewRequest;
 use App\Interfaces\ReviewCreation;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,7 @@ class ReviewController extends Controller
     public function delete(string $id): RedirectResponse
     {
         $review = Review::findOrFail($id);
+        /** @var User $user */
         $user = Auth::user();
 
         if ($review->getUserId() !== $user->getId() && $user->getRole() !== 'admin') {

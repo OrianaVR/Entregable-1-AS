@@ -141,7 +141,7 @@
                         <p class="mb-0">{{ $review->getComment() }}</p>
                     </div>
                     @if (auth()->check() && (auth()->user()->getId() === $review->getUserId() || auth()->user()->getRole() === 'admin'))
-                        <form action="{{ route('review.delete', ['id' => $review->getId()]) }}" method="POST" onsubmit="return confirm('{{ __('review.confirmDelete') }}');">
+                        <form action="{{ route('review.delete', ['id' => $review->getId()]) }}" method="POST" data-confirm-delete="{{ __('review.confirmDelete') }}" onsubmit="return confirm(this.dataset.confirmDelete);">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-outline-danger border-0" title="{{ __('review.deleteAction') }}">

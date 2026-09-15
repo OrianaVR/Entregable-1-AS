@@ -34,6 +34,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        /** @var User $user */
         $user = Auth::user();
 
         return redirect()->route('user.profile', ['id' => $user->getId()]);

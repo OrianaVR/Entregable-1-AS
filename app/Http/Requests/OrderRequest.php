@@ -1,6 +1,8 @@
 <?php
 
-// AUTHOR: Maria Laura Tafur Gomez
+/**
+ * @author Ana Sofía Angarita Barrios
+ */
 
 namespace App\Http\Requests;
 
@@ -18,8 +20,8 @@ class OrderRequest extends FormRequest
     {
         return [
             'address' => ['required', 'string'],
-            'state' => ['required', 'string'],
             'delivery_date' => ['required', Rule::date()->format('Y-m-d')],
+            'payment_method' => ['required', 'string'],
         ];
     }
 }

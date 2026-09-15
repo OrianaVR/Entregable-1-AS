@@ -7,6 +7,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,9 @@ class PaymentController extends Controller
     {
         $query = Order::with(['payment', 'items.product', 'user']);
 
-        if (Auth::user()->getRole() !== 'admin') {
+        /** @var User $user */
+        $user = Auth::user();
+        if ($user->getRole() !== 'admin') {
             $query->where('user_id', Auth::id());
         }
 
