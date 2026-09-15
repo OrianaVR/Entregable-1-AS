@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Interfaces\ImageStorage;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -23,16 +24,30 @@ class ProductController extends Controller
         $this->imageStorage = $imageStorage;
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
         $viewData = [];
         $viewData['title'] = __('product.pageTitle');
         $viewData['subtitle'] = __('product.pageSubtitle');
-        $viewData['products'] = Product::orderByDesc('featured')->orderBy('name')->get();
+        
+        
+        $searchTerm = (string) $request->query('search', '');
+        $viewData['searchTerm'] = $searchTerm;
+
+        if ($searchTerm !== '') {
+            $viewData['products'] = Product::where('name', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhere('brand', 'LIKE', '%' . $searchTerm . '%')
+                ->orderByDesc('featured')
+                ->orderBy('name')
+                ->get();
+        } else {
+            $viewData['products'] = Product::orderByDesc('featured')
+                ->orderBy('name')
+                ->get();
+        }
 
         return view('product.index')->with('viewData', $viewData);
     }
-
     public function show(string $id): View
     {
         $product = Product::with(['category', 'reviews.user'])->findOrFail($id);

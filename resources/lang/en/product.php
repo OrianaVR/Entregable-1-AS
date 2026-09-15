@@ -41,4 +41,8 @@ return [
     'confirmDelete' => 'Are you sure you want to delete this product?',
     'noProductsFound' => 'No products found. Click "Create Product" to add one.',
     'featuredBadge' => 'Featured',
+    'searchPlaceholder' => 'Search by name or brand...',
+    'searchAction' => 'Search',
+    'clearAction' => 'Clear',
+    'backToCatalog' => 'Back to Catalog'
 ];
