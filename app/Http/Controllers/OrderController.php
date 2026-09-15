@@ -8,10 +8,10 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InsufficientStockException;
 use App\Http\Requests\OrderRequest;
+use App\Interfaces\CartManagement;
 use App\Interfaces\OrderCreation;
 use App\Models\Order;
 use App\Models\User;
-use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -20,15 +20,18 @@ class OrderController extends Controller
 {
     private OrderCreation $orderCreation;
 
-    public function __construct(OrderCreation $orderCreation)
+    private CartManagement $cartManagement;
+
+    public function __construct(OrderCreation $orderCreation, CartManagement $cartManagement)
     {
         $this->orderCreation = $orderCreation;
+        $this->cartManagement = $cartManagement;
     }
 
     public function show(string $id): View
     {
         $query = Order::with(['items.product', 'payment', 'user']);
-        
+
         /** @var User $user */
         $user = Auth::user();
         if ($user->getRole() !== 'admin') {
@@ -78,30 +81,12 @@ class OrderController extends Controller
     public function checkout(): View
     {
         $cart = session('cart', []);
-        $cartItems = [];
-        $total = 0;
-
-        foreach ($cart as $productId => $quantity) {
-            $product = Product::find($productId);
-
-            if ($product === null) {
-                continue;
-            }
-
-            $subtotal = $product->getPrice() * $quantity;
-            $total += $subtotal;
-
-            $cartItems[] = [
-                'product' => $product,
-                'quantity' => $quantity,
-                'subtotal' => $subtotal,
-            ];
-        }
+        $summary = $this->cartManagement->buildSummary($cart);
 
         $viewData = [];
         $viewData['title'] = __('order.checkoutTitle');
-        $viewData['cartItems'] = $cartItems;
-        $viewData['total'] = $total;
+        $viewData['cartItems'] = $summary['items'];
+        $viewData['total'] = $summary['total'];
 
         return view('order.checkout')->with('viewData', $viewData);
     }
