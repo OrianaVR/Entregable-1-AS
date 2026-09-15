@@ -16,6 +16,7 @@ return [
     'labelBrand' => 'Brand',
     'labelImage' => 'Image',
     'addToCart' => 'Add to Cart',
+    'addedToCart' => 'Product added to cart!',
     'outOfStock' => 'Out of stock',
     'noResults' => 'No products found.',
     'productInformation' => 'Product information',
