@@ -58,6 +58,12 @@
 
             <header class="lume-topbar justify-content-end">
                 <div class="lume-topbar-actions">
+                    <div class="lume-lang-switch">
+                        <a href="{{ route('language.switch', ['locale' => 'en']) }}" class="{{ app()->getLocale() === 'en' ? 'fw-bold' : '' }}">EN</a>
+                        /
+                        <a href="{{ route('language.switch', ['locale' => 'es']) }}" class="{{ app()->getLocale() === 'es' ? 'fw-bold' : '' }}">ES</a>
+                    </div>
+
                     <div class="lume-user-menu dropdown">
                         <a href="#" class="d-flex align-items-center gap-2 text-decoration-none text-dark dropdown-toggle" id="adminUserDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle fs-5 text-secondary"></i>

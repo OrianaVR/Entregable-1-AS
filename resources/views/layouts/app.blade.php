@@ -27,6 +27,12 @@
             </div>
 
             <div class="lume-nav-actions d-flex align-items-center gap-3">
+                <div class="lume-lang-switch">
+                    <a href="{{ route('language.switch', ['locale' => 'en']) }}" class="{{ app()->getLocale() === 'en' ? 'fw-bold' : '' }}">EN</a>
+                    /
+                    <a href="{{ route('language.switch', ['locale' => 'es']) }}" class="{{ app()->getLocale() === 'es' ? 'fw-bold' : '' }}">ES</a>
+                </div>
+
                 @guest
                     <a class="nav-link" href="{{ route('login') }}">{{ __('auth.navLogin') }}</a>
                     <a class="nav-link" href="{{ route('register') }}">{{ __('auth.navRegister') }}</a>
