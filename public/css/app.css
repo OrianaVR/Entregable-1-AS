@@ -747,3 +747,35 @@ a {
 }
 
 
+
+.star-rating {
+    display: flex;
+    gap: 4px;
+}
+
+.star-rating .star-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 22px;
+    color: var(--coral);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.lume-lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.lume-lang-switch a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.lume-lang-switch a.fw-bold {
+    color: var(--coral);
+}

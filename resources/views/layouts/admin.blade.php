@@ -29,8 +29,23 @@
                     </div>
                     <ul class="lume-nav-list">
                         <li>
-                            <a href="{{ route('admin.user.index') }}" class="lume-nav-item active">
+                            <a href="{{ route('admin.user.index') }}" class="lume-nav-item {{ request()->routeIs('admin.user.*') ? 'active' : '' }}">
                                 <i class="bi bi-people me-2"></i>{{ __('admin.pageTitleUsers') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.category.index') }}" class="lume-nav-item {{ request()->routeIs('admin.category.*') ? 'active' : '' }}">
+                                <i class="bi bi-tags me-2"></i>{{ __('category.pageTitle') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.product.index') }}" class="lume-nav-item {{ request()->routeIs('admin.product.*') || request()->routeIs('product.create') || request()->routeIs('product.edit') ? 'active' : '' }}">
+                                <i class="bi bi-box-seam me-2"></i>{{ __('product.pageTitle') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.order.index') }}" class="lume-nav-item {{ request()->routeIs('admin.order.*') ? 'active' : '' }}">
+                                <i class="bi bi-receipt me-2"></i>{{ __('payment.pageTitle') }}
                             </a>
                         </li>
                     </ul>
@@ -43,6 +58,12 @@
 
             <header class="lume-topbar justify-content-end">
                 <div class="lume-topbar-actions">
+                    <div class="lume-lang-switch">
+                        <a href="{{ route('language.switch', ['locale' => 'en']) }}" class="{{ app()->getLocale() === 'en' ? 'fw-bold' : '' }}">EN</a>
+                        /
+                        <a href="{{ route('language.switch', ['locale' => 'es']) }}" class="{{ app()->getLocale() === 'es' ? 'fw-bold' : '' }}">ES</a>
+                    </div>
+
                     <div class="lume-user-menu dropdown">
                         <a href="#" class="d-flex align-items-center gap-2 text-decoration-none text-dark dropdown-toggle" id="adminUserDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle fs-5 text-secondary"></i>

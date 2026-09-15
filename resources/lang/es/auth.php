@@ -22,4 +22,9 @@ return [
     'navAdminPanel' => 'Panel de administración',
     'navLogout' => 'Cerrar sesión',
     'invalidCredentials' => 'Credenciales inválidas.',
+    'personalInformation' => 'Información personal',
+    'myOrders' => 'Mis pedidos',
+    'passwordHint' => '(déjalo en blanco para mantener la contraseña actual)',
+    'passwordPlaceholder' => 'Ingresa una nueva contraseña',
+    'updateChanges' => 'Actualizar cambios',
 ];

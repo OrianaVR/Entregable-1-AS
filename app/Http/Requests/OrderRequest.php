@@ -20,8 +20,8 @@ class OrderRequest extends FormRequest
     {
         return [
             'address' => ['required', 'string'],
-            'state' => ['required', 'string'],
             'delivery_date' => ['required', Rule::date()->format('Y-m-d')],
+            'payment_method' => ['required', 'string'],
         ];
     }
 }

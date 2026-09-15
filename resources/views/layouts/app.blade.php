@@ -21,17 +21,31 @@
 
             <div class="lume-menu">
                 <a class="nav-link active" href="{{ route('home.index') }}">{{ __('layout.navHome') }}</a>
+                <a class="nav-link" href="{{ route('product.index') }}">{{ __('layout.navProducts') }}</a>
                 <a class="nav-link" href="{{ route('home.about') }}">{{ __('layout.navAbout') }}</a>
                 <a class="nav-link" href="{{ route('home.contact') }}">{{ __('layout.navContact') }}</a>
             </div>
 
             <div class="lume-nav-actions d-flex align-items-center gap-3">
+                <div class="lume-lang-switch">
+                    <a href="{{ route('language.switch', ['locale' => 'en']) }}" class="{{ app()->getLocale() === 'en' ? 'fw-bold' : '' }}">EN</a>
+                    /
+                    <a href="{{ route('language.switch', ['locale' => 'es']) }}" class="{{ app()->getLocale() === 'es' ? 'fw-bold' : '' }}">ES</a>
+                </div>
+
                 @guest
                     <a class="nav-link" href="{{ route('login') }}">{{ __('auth.navLogin') }}</a>
                     <a class="nav-link" href="{{ route('register') }}">{{ __('auth.navRegister') }}</a>
                 @endguest
 
                 @auth
+                    <a href="{{ route('order.checkout') }}" class="nav-icon-link text-decoration-none position-relative" title="{{ __('layout.navCart') }}">
+                        <i class="bi bi-bag fs-4"></i>
+                        @if (count(session('cart', [])) > 0)
+                            <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle" style="font-size: 10px;">{{ count(session('cart', [])) }}</span>
+                        @endif
+                    </a>
+
                     <div class="dropdown">
                         <a href="#" class="nav-icon-link text-decoration-none" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Account">
                             <i class="bi bi-person fs-4"></i>

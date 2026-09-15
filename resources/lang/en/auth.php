@@ -22,4 +22,9 @@ return [
     'navAdminPanel' => 'Admin Panel',
     'navLogout' => 'Logout',
     'invalidCredentials' => 'Invalid credentials.',
+    'personalInformation' => 'Personal Information',
+    'myOrders' => 'My Orders',
+    'passwordHint' => '(leave blank to keep current password)',
+    'passwordPlaceholder' => 'Enter new password',
+    'updateChanges' => 'Update Changes',
 ];

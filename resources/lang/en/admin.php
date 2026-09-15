@@ -32,4 +32,5 @@ return [
     'sidebarDashboard' => 'Dashboard',
     'storeHome' => 'Store Home',
     'adminFallbackName' => 'Admin',
+    'delete' => 'Delete',
 ];

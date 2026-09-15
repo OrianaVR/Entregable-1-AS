@@ -16,6 +16,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         if (Auth::check()) {
+            /** @var \App\Models\User $user */
             $user = Auth::user();
 
             if (in_array($user->getRole(), $roles, true)) {
