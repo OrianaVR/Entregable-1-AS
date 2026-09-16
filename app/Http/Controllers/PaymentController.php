@@ -19,7 +19,11 @@ class PaymentController extends Controller
     {
         $query = Order::with(['payment', 'items.product', 'user']);
 
-        $query = $this->restrictToAuthenticatedUser($query);
+        /** @var User $user */
+        $user = Auth::user();
+        if ($user->getRole() !== 'admin') {
+            $query->where('user_id', Auth::id());
+        }
 
         $order = $query->where('id', $id)->firstOrFail();
 

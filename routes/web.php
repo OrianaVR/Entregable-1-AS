@@ -67,9 +67,9 @@ Route::post($basePath.$orderPath.'/{id}/reject', [PaymentController::class, 'rej
 
 Route::get($basePath.$productPath, [ProductController::class, 'index'])->name('product.index');
 Route::get($basePath.$productPath.'/{id}', [ProductController::class, 'show'])->whereNumber('id')->name('product.show');
-Route::post($basePath.$productPath.'/{id}/'.$reviewPath, [ReviewController::class, 'store'])->whereNumber('id')->middleware('auth')->name('review.store');
+Route::post($basePath.$productPath.'/{id}/reviews', [ReviewController::class, 'store'])->whereNumber('id')->middleware('auth')->name('review.store');
 Route::delete($basePath.$reviewPath.'/{id}', [ReviewController::class, 'delete'])->whereNumber('id')->middleware('auth')->name('review.delete');
-Route::post($basePath.$productPath.'/{id}/'.$cartPath, [CartController::class, 'add'])->whereNumber('id')->middleware('auth')->name('cart.add');
+Route::post($basePath.$productPath.'/{id}/cart', [CartController::class, 'add'])->whereNumber('id')->middleware('auth')->name('cart.add');
 Route::get($basePath.$adminPath.'/'.$productPath, [ProductController::class, 'adminIndex'])->middleware('role:admin')->name('admin.product.index');
 Route::get($basePath.$adminPath.'/'.$productPath.'/create', [ProductController::class, 'create'])->middleware('role:admin')->name('product.create');
 Route::post($basePath.$adminPath.'/'.$productPath.'/save', [ProductController::class, 'save'])->middleware('role:admin')->name('product.save');

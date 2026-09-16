@@ -29,7 +29,7 @@ class CartController extends Controller
         $cart = $this->cartManagement->addToCart($cart, $product->getId(), $quantity, $product->getStock());
         session(['cart' => $cart]);
 
-        return redirect()->route('product.show', ['id' => $id])->with('success', __('product.addedToCart'));
+        return redirect()->route('product.show', ['id' => $id])->with('success', 'Product added to cart!');
     }
 
     public function remove(string $id): RedirectResponse

@@ -16,7 +16,6 @@ return [
     'labelBrand' => 'Marca',
     'labelImage' => 'Imagen',
     'addToCart' => 'Agregar al carrito',
-    'addedToCart' => '¡Producto añadido al carrito!',
     'outOfStock' => 'Sin existencias',
     'noResults' => 'No se encontraron productos.',
     'productInformation' => 'Información del producto',

@@ -26,7 +26,7 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request): RedirectResponse
     {
-        $credentials = $request->validated();
+        $credentials = $request->only(['email', 'password']);
 
         if (! Auth::attempt($credentials)) {
             return back()->withErrors(['email' => __('auth.invalidCredentials')])->onlyInput('email');
@@ -60,7 +60,8 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): RedirectResponse
     {
-        $data = $request->validated();
+        $data = $request->only(['name', 'email', 'password', 'address', 'phone']);
+        $data['role'] = 'user';
 
         $user = User::create($data);
 
