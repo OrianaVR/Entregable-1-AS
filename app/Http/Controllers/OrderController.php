@@ -8,26 +8,18 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InsufficientStockException;
 use App\Http\Requests\OrderRequest;
-use App\Interfaces\CartManagement;
-use App\Interfaces\OrderCreation;
+use App\Models\Item;
 use App\Models\Order;
+use App\Models\Payment;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-    private OrderCreation $orderCreation;
-
-    private CartManagement $cartManagement;
-
-    public function __construct(OrderCreation $orderCreation, CartManagement $cartManagement)
-    {
-        $this->orderCreation = $orderCreation;
-        $this->cartManagement = $cartManagement;
-    }
-
     public function show(string $id): View
     {
         $query = Order::with(['items.product', 'payment', 'user']);
@@ -81,12 +73,30 @@ class OrderController extends Controller
     public function checkout(): View
     {
         $cart = session('cart', []);
-        $summary = $this->cartManagement->buildSummary($cart);
+        $cartItems = [];
+        $total = 0;
+
+        foreach ($cart as $productId => $quantity) {
+            $product = Product::find($productId);
+
+            if ($product === null) {
+                continue;
+            }
+
+            $subtotal = $product->getPrice() * $quantity;
+            $total += $subtotal;
+
+            $cartItems[] = [
+                'product' => $product,
+                'quantity' => $quantity,
+                'subtotal' => $subtotal,
+            ];
+        }
 
         $viewData = [];
         $viewData['title'] = __('order.checkoutTitle');
-        $viewData['cartItems'] = $summary['items'];
-        $viewData['total'] = $summary['total'];
+        $viewData['cartItems'] = $cartItems;
+        $viewData['total'] = $total;
 
         return view('order.checkout')->with('viewData', $viewData);
     }
@@ -104,7 +114,7 @@ class OrderController extends Controller
         unset($data['payment_method']);
 
         try {
-            $order = $this->orderCreation->createFromCart($cart, $data, $paymentMethod, Auth::id());
+            $order = $this->createOrderFromCart($cart, $data, $paymentMethod, Auth::id());
         } catch (InsufficientStockException) {
             return redirect()->route('order.checkout')->with('error', __('order.insufficientStock'));
         }
@@ -112,5 +122,47 @@ class OrderController extends Controller
         session()->forget('cart');
 
         return redirect()->route('order.show', ['id' => $order->getId()])->with('success', __('order.orderPlaced'));
+    }
+
+    private function createOrderFromCart(array $cart, array $orderData, string $paymentMethod, int $userId): Order
+    {
+        return DB::transaction(function () use ($cart, $orderData, $paymentMethod, $userId): Order {
+            foreach ($cart as $productId => $quantity) {
+                $product = Product::find($productId);
+
+                if ($product === null || $product->getStock() < $quantity) {
+                    throw new InsufficientStockException;
+                }
+            }
+
+            $orderData['user_id'] = $userId;
+            $orderData['state'] = 'inProcess';
+
+            $order = Order::create($orderData);
+
+            foreach ($cart as $productId => $quantity) {
+                $product = Product::find($productId);
+
+                Item::create([
+                    'quantity' => $quantity,
+                    'price' => $product->getPrice(),
+                    'product_id' => $product->getId(),
+                    'order_id' => $order->getId(),
+                ]);
+
+                $product->setStock($product->getStock() - $quantity);
+                $product->save();
+            }
+
+            Payment::create([
+                'method' => $paymentMethod,
+                'date' => now(),
+                'status' => 'pending',
+                'transaction_code' => random_int(100000, 999999),
+                'order_id' => $order->getId(),
+            ]);
+
+            return $order;
+        });
     }
 }

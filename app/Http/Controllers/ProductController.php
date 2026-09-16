@@ -8,35 +8,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Interfaces\ImageStorage;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    private ImageStorage $imageStorage;
-
-    public function __construct(ImageStorage $imageStorage)
-    {
-        $this->imageStorage = $imageStorage;
-    }
-
     public function index(Request $request): View
     {
         $viewData = [];
         $viewData['title'] = __('product.pageTitle');
         $viewData['subtitle'] = __('product.pageSubtitle');
-        
-        
+
         $searchTerm = (string) $request->query('search', '');
         $viewData['searchTerm'] = $searchTerm;
 
         if ($searchTerm !== '') {
-            $viewData['products'] = Product::where('name', 'LIKE', '%' . $searchTerm . '%')
-                ->orWhere('brand', 'LIKE', '%' . $searchTerm . '%')
+            $viewData['products'] = Product::where('name', 'LIKE', '%'.$searchTerm.'%')
+                ->orWhere('brand', 'LIKE', '%'.$searchTerm.'%')
                 ->orderByDesc('featured')
                 ->orderBy('name')
                 ->get();
@@ -48,6 +39,7 @@ class ProductController extends Controller
 
         return view('product.index')->with('viewData', $viewData);
     }
+
     public function show(string $id): View
     {
         $product = Product::with(['category', 'reviews.user'])->findOrFail($id);
@@ -82,7 +74,7 @@ class ProductController extends Controller
     public function save(StoreProductRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['image'] = $this->imageStorage->store($request);
+        $data['image'] = $this->storeProductImage($request);
 
         Product::create($data);
 
@@ -106,7 +98,7 @@ class ProductController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->imageStorage->store($request);
+            $data['image'] = $this->storeProductImage($request);
         } else {
             unset($data['image']);
         }
@@ -122,5 +114,16 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('admin.product.index');
+    }
+
+    private function storeProductImage(Request $request): string
+    {
+        $image = $request->file('image');
+
+        $imageName = time().'_'.$image->getClientOriginalName();
+
+        $image->move(public_path('images/products'), $imageName);
+
+        return $imageName;
     }
 }
