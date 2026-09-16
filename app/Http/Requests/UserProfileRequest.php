@@ -1,8 +1,6 @@
 <?php
 
-/**
- * @author Maria Laura Tafur Gomez
- */
+// AUTHOR: Maria Laura Tafur Gomez
 
 namespace App\Http\Requests;
 
