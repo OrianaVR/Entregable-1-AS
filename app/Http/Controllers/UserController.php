@@ -1,6 +1,8 @@
 <?php
 
-// AUTHOR: Maria Laura Tafur Gomez
+/**
+ * @author Maria Laura Tafur Gomez
+ */
 
 namespace App\Http\Controllers;
 
@@ -15,8 +17,8 @@ class UserController extends Controller
     public function profile(string $id): View
     {
         $viewData = [];
-        $viewData['title'] = 'LUME - My profile';
-        $viewData['subtitle'] = 'My profile';
+        $viewData['title'] = __('user.myProfileTitle');
+        $viewData['subtitle'] = __('user.myProfileSubtitle');
         $viewData['user'] = User::findOrFail($id);
 
         return view('user.profile')->with('viewData', $viewData);
@@ -34,13 +36,13 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('user.profile', ['id' => $id])->with('success', 'Profile updated successfully.');
+        return redirect()->route('user.profile', ['id' => $id])->with('success', __('user.profileUpdated'));
     }
 
     public function create(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Create User';
+        $viewData['title'] = __('admin.createUser');
 
         return view('admin.user.create')->with('viewData', $viewData);
     }
@@ -63,8 +65,8 @@ class UserController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['title'] = 'LUME - Users';
-        $viewData['subtitle'] = 'List of Users';
+        $viewData['title'] = __('admin.pageTitleUsers');
+        $viewData['subtitle'] = __('admin.subtitleUsersList');
         $viewData['users'] = User::all();
 
         return view('admin.user.index')->with('viewData', $viewData);
@@ -73,7 +75,7 @@ class UserController extends Controller
     public function edit(string $id): View
     {
         $viewData = [];
-        $viewData['title'] = 'Edit User';
+        $viewData['title'] = __('admin.editUser');
         $viewData['user'] = User::findOrFail($id);
 
         return view('admin.user.edit')->with('viewData', $viewData);
