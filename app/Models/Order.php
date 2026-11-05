@@ -1,6 +1,20 @@
 <?php
 
-// AUTHOR: Maria Laura Tafur Gomez
+/**
+ * @author Maria Laura Tafur Gomez
+ * @author Ana Sofía Angarita Barrios
+ *
+ * @property int $id
+ * @property string $address
+ * @property string $state
+ * @property string $delivery_date
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * @property \App\Models\User $user
+ * @property \App\Models\Payment|null $payment
+ * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
+ */
 
 namespace App\Models;
 
@@ -13,20 +27,6 @@ use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
-    /**
-     * ORDER ATTRIBUTES
-     *
-     * @property int $id
-     * @property string $address
-     * @property string $state
-     * @property string $delivery_date
-     * @property int $user_id
-     * @property User $user
-     * @property Carbon $created_at
-     * @property Carbon $updated_at
-     */
-    public $timestamps = true;
-
     protected $fillable = ['address', 'state', 'delivery_date', 'user_id'];
 
     protected $guarded = ['id'];
@@ -65,7 +65,7 @@ class Order extends Model
     {
         return $this->attributes['delivery_date'];
     }
-   
+
     public function getUserId(): int
     {
         return $this->attributes['user_id'];
@@ -81,6 +81,7 @@ class Order extends Model
         return $this->updated_at;
     }
 
+    // relations
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

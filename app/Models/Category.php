@@ -8,6 +8,7 @@
  * @property string $description
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  */
 
 namespace App\Models;
@@ -18,8 +19,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Category extends Model
 {
-    public $timestamps = true;
-
     protected $fillable = ['name', 'description'];
 
     protected $guarded = ['id'];
@@ -49,6 +48,7 @@ class Category extends Model
         return $this->attributes['description'];
     }
 
+    // relations
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

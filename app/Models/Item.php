@@ -10,6 +10,8 @@
  * @property int $order_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property \App\Models\Product $product
+ * @property \App\Models\Order $order
  */
 
 namespace App\Models;
@@ -19,8 +21,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Item extends Model
 {
-    public $timestamps = true;
-
     protected $fillable = ['quantity', 'price', 'product_id', 'order_id'];
 
     protected $guarded = ['id'];
@@ -70,6 +70,7 @@ class Item extends Model
         return $this->attributes['order_id'];
     }
 
+    // relations
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);

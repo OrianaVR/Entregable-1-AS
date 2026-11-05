@@ -11,6 +11,7 @@
  * @property int $order_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property \App\Models\Order $order
  */
 
 namespace App\Models;
@@ -20,8 +21,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends Model
 {
-    public $timestamps = true;
-
     protected $fillable = ['method', 'date', 'status', 'transaction_code', 'order_id'];
 
     protected $guarded = ['id'];
@@ -81,6 +80,7 @@ class Payment extends Model
         return $this->attributes['order_id'];
     }
 
+    // relations
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
