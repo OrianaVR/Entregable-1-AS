@@ -94,7 +94,7 @@ class ProductSeeder extends Seeder
 
         foreach ($products as $data) {
             if ($data['category_id'] !== null) {
-                $product = new Product();
+                $product = new Product;
                 $product->setName($data['name']);
                 $product->setBrand($data['brand']);
                 $product->setPrice($data['price']);
