@@ -66,15 +66,6 @@ class OrderController extends Controller
         return view('order.index')->with('viewData', $viewData);
     }
 
-    public function adminIndex(): View
-    {
-        $viewData = [];
-        $viewData['title'] = __('order.pageTitle');
-        $viewData['orders'] = Order::with(['user', 'payment'])->latest()->get();
-
-        return view('admin.order.index')->with('viewData', $viewData);
-    }
-
     public function checkout(): View
     {
         $cart = session('cart', []);
