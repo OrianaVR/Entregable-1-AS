@@ -1,6 +1,6 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
-@section('content') 
+@section('content')
 
 <header class="lume-hero">
     <div class="hero-content">
@@ -22,10 +22,10 @@
         </div>
     </div>
 
-    @foreach ($viewData['routineCategories'] as $index => $category)
+    @foreach ($viewData['categories'] as $index => $category)
         <div class="mb-5">
             <div class="d-flex align-items-center mb-2">
-                <span class="rounded-circle me-3 fs-6 d-flex align-items-center justify-content-center fw-bold text-white shadow-sm" 
+                <span class="rounded-circle me-3 fs-6 d-flex align-items-center justify-content-center fw-bold text-white shadow-sm"
                       style="width: 38px; height: 38px; background-color: var(--coral, #f4a2a1);">
                     {{ $index + 1 }}
                 </span>

@@ -16,7 +16,7 @@ class HomeController extends Controller
         $viewData = [];
         $viewData['title'] = __('home.title');
         $viewData['subtitle'] = __('home.subtitle');
-        $viewData['routineCategories'] = Category::with('products')->get();
+        $viewData['categories'] = Category::with('products')->get();
 
         return view('home.index')->with('viewData', $viewData);
     }
