@@ -4,6 +4,7 @@
  * @author Ana Sofía Angarita Barrios
  */
 
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -18,6 +19,7 @@ $app = Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            'admin' => AdminMiddleware::class,
             'role' => RoleMiddleware::class,
         ]);
     })
