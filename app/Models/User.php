@@ -8,11 +8,13 @@
  * @property string $role
  * @property string $name
  * @property string $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string $address
  * @property string $phone
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property string|null $remember_token
  * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
  */
 
