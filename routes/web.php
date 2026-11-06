@@ -80,6 +80,7 @@ Route::middleware(['auth', 'admin'])->prefix($adminPath)->group(function () use 
     Route::delete('/'.$categoryPath.'/delete/{id}', [AdminCategoryController::class, 'delete'])->whereNumber('id')->name('admin.category.delete');
 
     Route::get('/'.$orderPath, [AdminOrderController::class, 'index'])->name('admin.order.index');
+    Route::get('/'.$orderPath.'/report', [AdminOrderController::class, 'report'])->name('admin.order.report');
     Route::post('/'.$orderPath.'/{id}/confirm', [AdminPaymentController::class, 'confirm'])->whereNumber('id')->name('payment.confirm');
     Route::post('/'.$orderPath.'/{id}/reject', [AdminPaymentController::class, 'reject'])->whereNumber('id')->name('payment.reject');
 

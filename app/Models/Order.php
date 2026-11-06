@@ -117,4 +117,14 @@ class Order extends Model
     {
         return $this->items;
     }
+
+    public function getTotal(): float
+    {
+        $total = 0;
+        foreach ($this->getItems() as $item) {
+            $total += $item->getPrice() * $item->getQuantity();
+        }
+
+        return $total;
+    }
 }

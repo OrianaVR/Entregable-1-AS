@@ -23,7 +23,18 @@
         </div>
     </div>
 
-    <h2 class="lume-page-title mb-3">{{ __('payment.pageTitle') }}</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="lume-page-title m-0">{{ __('payment.pageTitle') }}</h2>
+
+        <div class="d-flex gap-2">
+            <a href="{{ route('admin.order.report', ['format' => 'pdf']) }}" class="btn btn-primary px-3 py-2 fw-semibold">
+                <i class="bi bi-file-earmark-pdf me-1"></i> {{ __('order.downloadPdf') }}
+            </a>
+            <a href="{{ route('admin.order.report', ['format' => 'excel']) }}" class="btn btn-primary px-3 py-2 fw-semibold">
+                <i class="bi bi-file-earmark-spreadsheet me-1"></i> {{ __('order.downloadExcel') }}
+            </a>
+        </div>
+    </div>
 
     <div class="card border-0 shadow-sm rounded-3 bg-white overflow-hidden mb-4">
 
