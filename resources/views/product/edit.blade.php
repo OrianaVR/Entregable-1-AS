@@ -32,7 +32,7 @@
     @endif
 
     <div class="lume-card p-4">
-        <form action="{{ route('product.update', ['id' => $viewData['product']->getId()]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.product.update', ['id' => $viewData['product']->getId()]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

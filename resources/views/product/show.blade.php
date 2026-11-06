@@ -79,7 +79,7 @@
                     @endauth
 
                     @if (auth()->user()?->getRole() === 'admin')
-                        <form action="{{ route('product.delete', ['id' => $viewData['product']->getId()]) }}" method="POST" class="mt-3">
+                        <form action="{{ route('admin.product.delete', ['id' => $viewData['product']->getId()]) }}" method="POST" class="mt-3">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">{{ __('admin.delete') }}</button>
