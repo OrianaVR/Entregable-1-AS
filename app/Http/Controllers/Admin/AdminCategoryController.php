@@ -4,14 +4,15 @@
  * @author Ana Sofía Angarita Barrios
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class CategoryController extends Controller
+class AdminCategoryController extends Controller
 {
     public function index(): View
     {

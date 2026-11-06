@@ -44,5 +44,5 @@ return [
     'searchPlaceholder' => 'Search by name or brand...',
     'searchAction' => 'Search',
     'clearAction' => 'Clear',
-    'backToCatalog' => 'Back to Catalog'
+    'backToCatalog' => 'Back to Catalog',
 ];

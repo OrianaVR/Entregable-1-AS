@@ -10,6 +10,8 @@
  * @property int $product_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property \App\Models\User $user
+ * @property \App\Models\Product $product
  */
 
 namespace App\Models;
@@ -19,8 +21,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Review extends Model
 {
-    public $timestamps = true;
-
     protected $fillable = ['rating', 'comment', 'user_id', 'product_id'];
 
     protected $guarded = ['id'];
@@ -70,6 +70,7 @@ class Review extends Model
         return $this->attributes['product_id'];
     }
 
+    // relations
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

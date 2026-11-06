@@ -11,9 +11,9 @@
  * @property int $stock
  * @property string $image
  * @property int $category_id
+ * @property bool $featured
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
- * @property bool $featured
  * @property \App\Models\Category $category
  * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
@@ -28,9 +28,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-    public $timestamps = true;
-
-    protected $fillable = ['name', 'brand', 'price', 'description', 'stock', 'image', 'category_id'];
+    protected $fillable = ['name', 'brand', 'price', 'description', 'stock', 'image', 'category_id', 'featured'];
 
     protected $guarded = ['id'];
 
@@ -119,6 +117,7 @@ class Product extends Model
         return $this->attributes['featured'];
     }
 
+    // relations
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

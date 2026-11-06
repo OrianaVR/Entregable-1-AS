@@ -29,7 +29,7 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $data) {
-            $category = new Category();
+            $category = new Category;
             $category->setName($data['name']);
             $category->setDescription($data['description']);
             $category->save();

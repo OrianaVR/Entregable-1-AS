@@ -44,5 +44,5 @@ return [
     'searchPlaceholder' => 'Busca por nombre o marca...',
     'searchAction' => 'Buscar',
     'clearAction' => 'Limpiar',
-    'backToCatalog' => 'Regresar al catalogo'
+    'backToCatalog' => 'Regresar al catalogo',
 ];

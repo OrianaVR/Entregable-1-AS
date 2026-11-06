@@ -8,18 +8,23 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InsufficientStockException;
 use App\Http\Requests\OrderRequest;
-use App\Models\Item;
 use App\Models\Order;
-use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
+use App\Utils\CartUtil;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class OrderController extends Controller
 {
+    private CartUtil $cartUtil;
+
+    public function __construct(CartUtil $cartUtil)
+    {
+        $this->cartUtil = $cartUtil;
+    }
+
     public function show(string $id): View
     {
         $query = Order::with(['items.product', 'payment', 'user']);
@@ -59,15 +64,6 @@ class OrderController extends Controller
         $viewData['canceledCount'] = $orders->filter(fn (Order $order): bool => $order->getState() === 'canceled')->count();
 
         return view('order.index')->with('viewData', $viewData);
-    }
-
-    public function adminIndex(): View
-    {
-        $viewData = [];
-        $viewData['title'] = __('order.pageTitle');
-        $viewData['orders'] = Order::with(['user', 'payment'])->latest()->get();
-
-        return view('admin.order.index')->with('viewData', $viewData);
     }
 
     public function checkout(): View
@@ -114,7 +110,7 @@ class OrderController extends Controller
         unset($data['payment_method']);
 
         try {
-            $order = $this->createOrderFromCart($cart, $data, $paymentMethod, Auth::id());
+            $order = $this->cartUtil->createOrderFromCart($cart, $data, $paymentMethod, Auth::id());
         } catch (InsufficientStockException) {
             return redirect()->route('order.checkout')->with('error', __('order.insufficientStock'));
         }
@@ -122,47 +118,5 @@ class OrderController extends Controller
         session()->forget('cart');
 
         return redirect()->route('order.show', ['id' => $order->getId()])->with('success', __('order.orderPlaced'));
-    }
-
-    private function createOrderFromCart(array $cart, array $orderData, string $paymentMethod, int $userId): Order
-    {
-        return DB::transaction(function () use ($cart, $orderData, $paymentMethod, $userId): Order {
-            foreach ($cart as $productId => $quantity) {
-                $product = Product::find($productId);
-
-                if ($product === null || $product->getStock() < $quantity) {
-                    throw new InsufficientStockException;
-                }
-            }
-
-            $orderData['user_id'] = $userId;
-            $orderData['state'] = 'inProcess';
-
-            $order = Order::create($orderData);
-
-            foreach ($cart as $productId => $quantity) {
-                $product = Product::find($productId);
-
-                Item::create([
-                    'quantity' => $quantity,
-                    'price' => $product->getPrice(),
-                    'product_id' => $product->getId(),
-                    'order_id' => $order->getId(),
-                ]);
-
-                $product->setStock($product->getStock() - $quantity);
-                $product->save();
-            }
-
-            Payment::create([
-                'method' => $paymentMethod,
-                'date' => now(),
-                'status' => 'pending',
-                'transaction_code' => random_int(100000, 999999),
-                'order_id' => $order->getId(),
-            ]);
-
-            return $order;
-        });
     }
 }
