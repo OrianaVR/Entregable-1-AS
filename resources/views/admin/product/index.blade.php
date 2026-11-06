@@ -26,7 +26,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="lume-page-title m-0">{{ __('product.pageTitle') }}</h2>
 
-        <a href="{{ route('product.create') }}" class="btn btn-primary px-3 py-2 fw-semibold">
+        <a href="{{ route('admin.product.create') }}" class="btn btn-primary px-3 py-2 fw-semibold">
             <i class="bi bi-plus-lg me-1"></i> {{ __('product.createProduct') }}
         </a>
     </div>
@@ -53,7 +53,7 @@
                                 <img src="{{ asset('images/products/'.$product->getImage()) }}" alt="{{ $product->getName() }}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px;">
                             </td>
                             <td class="fw-medium text-dark">
-                                <a href="{{ route('product.edit', ['id' => $product->getId()]) }}" class="lume-id-link text-decoration-none">
+                                <a href="{{ route('admin.product.edit', ['id' => $product->getId()]) }}" class="lume-id-link text-decoration-none">
                                     {{ $product->getName() }}
                                 </a>
                             </td>
@@ -74,10 +74,10 @@
                                     <a href="{{ route('product.show', ['id' => $product->getId()]) }}" class="lume-action-icon" title="{{ __('product.viewAction') }}">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ route('product.edit', ['id' => $product->getId()]) }}" class="lume-action-icon" title="{{ __('product.editAction') }}">
+                                    <a href="{{ route('admin.product.edit', ['id' => $product->getId()]) }}" class="lume-action-icon" title="{{ __('product.editAction') }}">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('product.delete', ['id' => $product->getId()]) }}" method="POST" onsubmit="return confirm('{{ __('product.confirmDelete') }}');">
+                                    <form action="{{ route('admin.product.delete', ['id' => $product->getId()]) }}" method="POST" onsubmit="return confirm('{{ __('product.confirmDelete') }}');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="lume-action-icon text-danger border-0 bg-transparent p-0" title="{{ __('product.deleteAction') }}">

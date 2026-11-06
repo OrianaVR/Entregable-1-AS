@@ -32,7 +32,7 @@
     @endif
 
     <div class="lume-card p-4">
-        <form action="{{ route('product.save') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.product.save') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="row g-4">
