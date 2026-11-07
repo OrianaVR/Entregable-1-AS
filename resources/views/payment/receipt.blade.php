@@ -1,3 +1,4 @@
+{{-- Author: Ana Sofía Angarita Barrios --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>

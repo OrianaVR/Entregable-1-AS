@@ -1,3 +1,4 @@
+{{-- Author: Ana Sofía Angarita Barrios --}}
 @extends('layouts.app')
 
 @section('title', $viewData['title'])
