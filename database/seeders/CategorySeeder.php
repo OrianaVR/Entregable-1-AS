@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Maria Laura Tafur Gómez
+ * @author Ana Sofía Angarita Barrios
+ */
+
 namespace Database\Seeders;
 
 use App\Models\Category;
