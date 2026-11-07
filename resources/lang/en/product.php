@@ -45,4 +45,9 @@ return [
     'searchAction' => 'Search',
     'clearAction' => 'Clear',
     'backToCatalog' => 'Back to Catalog',
+    'inStock' => ':count in stock',
+    'loginToBuy' => 'Log in to buy',
+    'perkAuthentic' => '100% authentic products',
+    'perkSecure' => 'Secure checkout',
+    'perkDelivery' => 'Delivery across Colombia',
 ];
