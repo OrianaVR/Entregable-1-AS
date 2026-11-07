@@ -25,8 +25,7 @@ class HomeController extends Controller
     {
         $viewData = [];
         $viewData['title'] = __('about.title');
-        $viewData['description'] = __('about.description');
-        $viewData['author'] = __('about.author');
+        $viewData['subtitle'] = __('about.subtitle');
 
         return view('home.about')->with('viewData', $viewData);
     }
@@ -35,10 +34,13 @@ class HomeController extends Controller
     {
         $viewData = [];
         $viewData['title'] = __('contact.title');
-        $viewData['name'] = 'Oriana, Laura, Ana';
-        $viewData['email'] = 'lumestore@example.com';
-        $viewData['phone'] = '+1 (123) 456-7890';
-        $viewData['address'] = '123 Main Street, City, Country';
+        $viewData['subtitle'] = __('contact.subtitle');
+        $viewData['composeUrl'] = 'https://mail.google.com/mail/?'.http_build_query([
+            'view' => 'cm',
+            'fs' => 1,
+            'to' => __('contact.emailValue'),
+            'su' => __('contact.emailSubject'),
+        ]);
 
         return view('home.contact')->with('viewData', $viewData);
     }

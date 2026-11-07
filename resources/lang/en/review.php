@@ -15,4 +15,8 @@ return [
     'deletedSuccess' => 'Review deleted.',
     'deleteAction' => 'Delete review',
     'confirmDelete' => 'Are you sure you want to delete this review?',
+    'count' => '{0} No reviews yet|{1} 1 review|[2,*] :count reviews',
+    'writeHeading' => 'Write a review',
+    'commentPlaceholder' => 'Tell others what you think about this product...',
+    'loginHint' => 'Share your experience with this product and help others choose.',
 ];
