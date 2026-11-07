@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Maria Laura Tafur Gómez
+ * @author Ana Sofía Angarita Barrios
+ */
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
+            ReviewSeeder::class,
         ]);
     }
 }

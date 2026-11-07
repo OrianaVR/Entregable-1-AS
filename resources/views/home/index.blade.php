@@ -1,3 +1,4 @@
+{{-- Author: Maria Laura Tafur Gómez, Ana Sofía Angarita Barrios --}}
 @extends('layouts.app')
 
 @section('content')

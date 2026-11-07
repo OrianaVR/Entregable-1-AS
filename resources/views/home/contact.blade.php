@@ -1,30 +1,62 @@
-@extends('layouts.app') 
-@section('content') 
+{{-- Author: Ana Sofía Angarita Barrios --}}
+@extends('layouts.app')
 
-<div class="text-center"> 
-  <div class="container"> 
-    <div class="row"> 
-        
-        <h1 class="mt-4 mb-3">{{ $viewData['title'] }}</h1>
-      
-      <div class="col-lg-4 ms-auto">
-        <p class="lead">{{ __('contact.labelName') }}: {{ $viewData['name'] }}</p>
-      </div>
+@section('title', $viewData['title'])
 
-      <div class="col-lg-4 me-auto">
-        <p class="lead">{{ __('contact.labelEmail') }}: {{ $viewData['email'] }}</p>
-      </div>
+@section('content')
 
-      <div class="col-lg-4 me-auto">
-        <p class="lead">{{ __('contact.labelAddress') }}: {{ $viewData['address'] }}</p>
-      </div>
+<header class="lume-page-hero">
+    <p class="lume-eyebrow">{{ __('contact.eyebrow') }}</p>
+    <h1>
+        {{ $viewData['title'] }}
+        <br>
+        <em>{{ $viewData['subtitle'] }}</em>
+    </h1>
+</header>
 
-      <div class="col-lg-4 me-auto">
-        <p class="lead">{{ __('contact.labelPhone') }}: {{ $viewData['phone'] }}</p>
-      </div>
+<div class="container pb-5">
 
-    </div> 
-  </div> 
+    <div class="row g-4">
+        <div class="col-sm-6 col-lg-3">
+            <div class="lume-info-card">
+                <div class="lume-info-icon"><i class="bi bi-envelope"></i></div>
+                <span class="lume-label">{{ __('contact.labelEmail') }}</span>
+                <a href="{{ $viewData['composeUrl'] }}" target="_blank" rel="noopener" class="lume-info-value">{{ __('contact.emailValue') }}</a>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="lume-info-card">
+                <div class="lume-info-icon"><i class="bi bi-telephone"></i></div>
+                <span class="lume-label">{{ __('contact.labelPhone') }}</span>
+                <p class="lume-info-value">{{ __('contact.phoneValue') }}</p>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="lume-info-card">
+                <div class="lume-info-icon"><i class="bi bi-geo-alt"></i></div>
+                <span class="lume-label">{{ __('contact.labelAddress') }}</span>
+                <p class="lume-info-value">{{ __('contact.addressValue') }}</p>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="lume-info-card">
+                <div class="lume-info-icon"><i class="bi bi-clock"></i></div>
+                <span class="lume-label">{{ __('contact.labelHours') }}</span>
+                <p class="lume-info-value">{{ __('contact.hoursValue') }}</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="lume-contact-cta">
+        <div>
+            <h2 class="lume-section-title mb-2">{{ __('contact.ctaTitle') }}</h2>
+            <p class="lume-product-text mb-0">{{ __('contact.ctaText') }}</p>
+        </div>
+        <a href="{{ $viewData['composeUrl'] }}" target="_blank" rel="noopener" class="btn lume-btn-dark">
+            <i class="bi bi-send me-2"></i>{{ __('contact.ctaAction') }}
+        </a>
+    </section>
+
 </div>
 
-@endsection 
+@endsection

@@ -1,3 +1,4 @@
+{{-- Author: Maria Laura Tafur Gómez, Ana Sofía Angarita Barrios --}}
 <!doctype html>
 <html lang="en">
 

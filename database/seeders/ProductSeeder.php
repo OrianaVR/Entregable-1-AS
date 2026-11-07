@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Ana Sofía Angarita Barrios
+ */
+
 namespace Database\Seeders;
 
 use App\Models\Category;
@@ -16,7 +20,6 @@ class ProductSeeder extends Seeder
         $sunscreens = Category::where('name', 'Sunscreens')->first();
 
         $products = [
-            // Step 1: Cleansers
             [
                 'name' => 'Gentle Foaming Cleanser',
                 'brand' => 'LUMÉ SKIN',
@@ -37,7 +40,26 @@ class ProductSeeder extends Seeder
                 'category_id' => $cleansers?->getId(),
                 'featured' => false,
             ],
-            // Step 2: Serums & Treatments
+            [
+                'name' => 'Micellar Cleansing Water',
+                'brand' => 'LUMÉ SKIN',
+                'price' => 19.90,
+                'description' => 'No-rinse micellar water that gently lifts makeup and impurities, ideal for sensitive skin.',
+                'stock' => 55,
+                'image' => 'cleanser3.jpg',
+                'category_id' => $cleansers?->getId(),
+                'featured' => false,
+            ],
+            [
+                'name' => 'Toleriane Hydrating Gentle Cleanser',
+                'brand' => 'LUMÉ SKIN',
+                'price' => 26.00,
+                'description' => 'Creamy cleanser with ceramides and niacinamide that cleans while preserving the skin barrier.',
+                'stock' => 42,
+                'image' => 'cleanser4.jpg',
+                'category_id' => $cleansers?->getId(),
+                'featured' => false,
+            ],
             [
                 'name' => 'Vitamin C Glow Serum',
                 'brand' => 'LUMÉ SKIN',
@@ -58,7 +80,26 @@ class ProductSeeder extends Seeder
                 'category_id' => $serums?->getId(),
                 'featured' => false,
             ],
-            // Step 3: Moisturizers
+            [
+                'name' => 'Niacinamide 10% + Zinc 1% Serum',
+                'brand' => 'LUMÉ SKIN',
+                'price' => 18.50,
+                'description' => 'Lightweight serum that reduces the look of pores and balances excess oil.',
+                'stock' => 48,
+                'image' => 'serum3.jpg',
+                'category_id' => $serums?->getId(),
+                'featured' => false,
+            ],
+            [
+                'name' => 'Retinol 0.5% Night Serum',
+                'brand' => 'LUMÉ SKIN',
+                'price' => 21.00,
+                'description' => 'Squalane-based retinol serum that smooths texture and fine lines overnight.',
+                'stock' => 30,
+                'image' => 'serum4.jpg',
+                'category_id' => $serums?->getId(),
+                'featured' => false,
+            ],
             [
                 'name' => 'Barrier Repair Moisture Cream',
                 'brand' => 'LUMÉ SKIN',
@@ -79,7 +120,16 @@ class ProductSeeder extends Seeder
                 'category_id' => $moisturizers?->getId(),
                 'featured' => false,
             ],
-            // Step 4: Sunscreens
+            [
+                'name' => 'Double Repair Face Moisturizer',
+                'brand' => 'LUMÉ SKIN',
+                'price' => 32.00,
+                'description' => 'Daily moisturizer with prebiotic water and ceramides that restores comfort for up to 48 hours.',
+                'stock' => 38,
+                'image' => 'moisturizer3.jpg',
+                'category_id' => $moisturizers?->getId(),
+                'featured' => false,
+            ],
             [
                 'name' => 'Invisible Daily Defense SPF 50',
                 'brand' => 'LUMÉ SKIN',
@@ -87,6 +137,26 @@ class ProductSeeder extends Seeder
                 'description' => 'Lightweight broad-spectrum UV protection with no white cast or greasy feel.',
                 'stock' => 50,
                 'image' => 'sunscreen1.jpg',
+                'category_id' => $sunscreens?->getId(),
+                'featured' => false,
+            ],
+            [
+                'name' => 'Fusion Water Sunscreen SPF 50',
+                'brand' => 'LUMÉ SKIN',
+                'price' => 31.50,
+                'description' => 'Ultra-light water-based sunscreen that absorbs instantly, perfect for daily use.',
+                'stock' => 44,
+                'image' => 'sunscreen2.jpg',
+                'category_id' => $sunscreens?->getId(),
+                'featured' => false,
+            ],
+            [
+                'name' => 'UVmune 400 Fluid SPF 50+',
+                'brand' => 'LUMÉ SKIN',
+                'price' => 35.00,
+                'description' => 'Very high protection fluid against UVA, UVB and ultra-long UVA rays.',
+                'stock' => 36,
+                'image' => 'sunscreen3.jpg',
                 'category_id' => $sunscreens?->getId(),
                 'featured' => false,
             ],

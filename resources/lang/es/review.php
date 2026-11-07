@@ -15,4 +15,8 @@ return [
     'deletedSuccess' => 'Reseña eliminada.',
     'deleteAction' => 'Eliminar reseña',
     'confirmDelete' => '¿Seguro que quieres eliminar esta reseña?',
+    'count' => '{0} Sin reseñas|{1} 1 reseña|[2,*] :count reseñas',
+    'writeHeading' => 'Escribe una reseña',
+    'commentPlaceholder' => 'Cuéntales a otros qué opinas de este producto...',
+    'loginHint' => 'Comparte tu experiencia con este producto y ayuda a otros a elegir.',
 ];

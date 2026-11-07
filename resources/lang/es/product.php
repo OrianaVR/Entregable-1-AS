@@ -45,4 +45,9 @@ return [
     'searchAction' => 'Buscar',
     'clearAction' => 'Limpiar',
     'backToCatalog' => 'Regresar al catalogo',
+    'inStock' => ':count disponibles',
+    'loginToBuy' => 'Inicia sesión para comprar',
+    'perkAuthentic' => 'Productos 100% originales',
+    'perkSecure' => 'Pago seguro',
+    'perkDelivery' => 'Envíos a toda Colombia',
 ];
