@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'currency' => [
+        'api_key' => env('ALLRATES_API_KEY'),
+        'ca_bundle' => env('CURL_CA_BUNDLE', true),
+    ],
+
 ];

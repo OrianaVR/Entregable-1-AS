@@ -65,6 +65,98 @@ a {
     top: -1px;
 }
 
+.lume-currency-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--brown);
+}
+
+.lume-nav-actions {
+    margin-left: 28px;
+}
+
+.lume-auth-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    background-color: rgba(238, 109, 98, 0.12);
+    color: var(--coral);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.lume-auth-link:hover {
+    background-color: rgba(238, 109, 98, 0.22);
+    color: var(--coral);
+}
+
+.lume-country-flag {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(40, 20, 13, 0.12);
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.lume-flag-colombia {
+    background: linear-gradient(to bottom, #f8c537 0 50%, #244aa5 50% 75%, #d92332 75%);
+}
+
+.lume-flag-united-states {
+    background: repeating-linear-gradient(to bottom, #c82436 0 10%, #fff 10% 20%);
+}
+
+.lume-flag-united-states::before {
+    content: '';
+    position: absolute;
+    inset: 0 52% 50% 0;
+    background: #3155a5;
+}
+
+.lume-currency-menu {
+    min-width: 260px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.lume-currency-title {
+    margin: 0 0 12px;
+    color: var(--brown);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+}
+
+.lume-currency-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 0;
+    border: 0;
+    background: transparent;
+    color: var(--brown);
+    text-align: left;
+}
+
+.lume-currency-option:hover {
+    color: var(--coral);
+}
+
+.lume-currency-option small {
+    margin-left: auto;
+    color: var(--muted);
+}
+
 .lume-menu {
     display: flex;
     align-items: center;

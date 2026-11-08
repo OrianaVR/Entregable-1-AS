@@ -11,4 +11,7 @@ return [
     'navAbout' => 'Nosotros',
     'navContact' => 'Contacto',
     'footerRights' => 'Todos los derechos reservados.',
+    'currencySelector' => 'Selecciona tu país',
+    'currencyColombia' => 'Colombia',
+    'currencyUnitedStates' => 'Estados Unidos',
 ];

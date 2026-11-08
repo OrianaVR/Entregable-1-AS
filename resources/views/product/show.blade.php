@@ -44,7 +44,7 @@
                 </a>
             </div>
 
-            <p class="lume-product-price">${{ number_format($viewData['product']->getPrice(), 2) }}</p>
+            <p class="lume-product-price">{{ $viewData['currencyPrice'] }}</p>
 
             <div class="lume-product-section">
                 <span class="lume-label">{{ __('product.labelDescription') }}</span>

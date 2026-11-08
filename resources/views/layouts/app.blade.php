@@ -29,8 +29,14 @@
 
             <div class="lume-nav-actions d-flex align-items-center gap-3">
                 @guest
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('auth.navLogin') }}</a>
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('auth.navRegister') }}</a>
+                    <a class="lume-auth-link" href="{{ route('login') }}">
+                        <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+                        {{ __('auth.navLogin') }}
+                    </a>
+                    <a class="lume-auth-link" href="{{ route('register') }}">
+                        <i class="bi bi-person-plus" aria-hidden="true"></i>
+                        {{ __('auth.navRegister') }}
+                    </a>
                 @endguest
 
                 @auth
@@ -70,6 +76,29 @@
                         </ul>
                     </div>
                 @endauth
+
+                <div class="dropdown">
+                    <a href="#" class="lume-currency-trigger" id="currencyMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="{{ __('layout.currencySelector') }}">
+                        <span class="lume-country-flag {{ session('currency', 'USD') === 'COP' ? 'lume-flag-colombia' : 'lume-flag-united-states' }}" aria-hidden="true"></span>
+                        <i class="bi bi-chevron-down small"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end lume-currency-menu shadow-sm" aria-labelledby="currencyMenuDropdown">
+                        <p class="lume-currency-title">{{ __('layout.currencySelector') }}</p>
+                        <form action="{{ route('currency.update') }}" method="POST">
+                            @csrf
+                            <button type="submit" name="currency" value="COP" class="lume-currency-option">
+                                <span class="lume-country-flag lume-flag-colombia" aria-hidden="true"></span>
+                                <span>{{ __('layout.currencyColombia') }}</span>
+                                <small>COP</small>
+                            </button>
+                            <button type="submit" name="currency" value="USD" class="lume-currency-option">
+                                <span class="lume-country-flag lume-flag-united-states" aria-hidden="true"></span>
+                                <span>{{ __('layout.currencyUnitedStates') }}</span>
+                                <small>USD</small>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
