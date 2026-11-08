@@ -54,7 +54,6 @@
                                 <div>
                                     <p class="card-text mb-1 text-muted">{{ $product->getBrand() }}</p>
                                     <h5 class="card-title mb-2 text-dark">{{ $product->getName() }}</h5>
-                                    <p class="card-text fw-bold mb-3 fs-5">${{ number_format($product->getPrice(), 2) }}</p>
                                 </div>
                                 <a href="{{ route('product.show', ['id' => $product->getId()]) }}"
                                    class="btn btn-primary w-100">{{ __('product.viewAction') }}</a>

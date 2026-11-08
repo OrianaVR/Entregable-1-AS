@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
@@ -32,12 +33,14 @@ $productPath = 'product';
 $cartPath = 'cart';
 $categoryPath = 'category';
 $reviewPath = 'reviews';
+$currencyPath = 'currency';
 
 Route::get($basePath, [HomeController::class, 'index'])->name('home.index');
 Route::get($basePath.$aboutPath, [HomeController::class, 'about'])->name('home.about');
 Route::get($basePath.$contactPath, [HomeController::class, 'contact'])->name('home.contact');
 Route::get($basePath.$productPath, [ProductController::class, 'index'])->name('product.index');
 Route::get($basePath.$productPath.'/{id}', [ProductController::class, 'show'])->whereNumber('id')->name('product.show');
+Route::post($basePath.$currencyPath, [CurrencyController::class, 'update'])->name('currency.update');
 
 Route::middleware(['guest'])->group(function () use ($basePath, $loginPath, $registerPath): void {
     Route::get($basePath.$loginPath, [AuthController::class, 'showLogin'])->name('login');
@@ -91,3 +94,5 @@ Route::middleware(['auth', 'admin'])->prefix($adminPath)->group(function () use 
     Route::put('/'.$productPath.'/update/{id}', [AdminProductController::class, 'update'])->whereNumber('id')->name('admin.product.update');
     Route::delete('/'.$productPath.'/delete/{id}', [AdminProductController::class, 'delete'])->whereNumber('id')->name('admin.product.delete');
 });
+
+Route::get('/test-api', [CurrencyController::class, 'testApi'])->name('currency.test');

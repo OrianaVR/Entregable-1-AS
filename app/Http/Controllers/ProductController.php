@@ -2,11 +2,14 @@
 
 /**
  * @author Ana Sofía Angarita Barrios
+ * @author Maria Laura Tafur Gomez
+ *
  */
 
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Utils\CurrencyUtil;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -17,6 +20,7 @@ class ProductController extends Controller
         $viewData = [];
         $viewData['title'] = __('product.pageTitle');
         $viewData['subtitle'] = __('product.pageSubtitle');
+        $viewData['currency'] = session('currency', 'USD');
 
         $searchTerm = (string) $request->query('search', '');
         $viewData['searchTerm'] = $searchTerm;
@@ -33,17 +37,30 @@ class ProductController extends Controller
                 ->get();
         }
 
+        $viewData['currencyPrices'] = [];
+
+        foreach ($viewData['products'] as $product) {
+            $viewData['currencyPrices'][$product->getId()] = CurrencyUtil::convertAndFormat(
+                $product->getPrice(),
+                $viewData['currency']
+            );
+        }
+
         return view('product.index')->with('viewData', $viewData);
     }
 
     public function show(string $id): View
     {
         $product = Product::with(['category', 'reviews.user'])->findOrFail($id);
+        $currency = session('currency', 'USD');
+
+        $currencyPrice = CurrencyUtil::convertAndFormat($product->getPrice(), $currency);
 
         $viewData = [];
         $viewData['title'] = $product->getName();
         $viewData['subtitle'] = __('product.productInformation');
         $viewData['product'] = $product;
+        $viewData['currencyPrice'] = $currencyPrice;
 
         return view('product.show')->with('viewData', $viewData);
     }
