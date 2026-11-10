@@ -7,19 +7,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CurrencyRequest;
-use App\Utils\CurrencyUtil;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
 class CurrencyController extends Controller
 {
-    public function testApi(): JsonResponse
-    {
-        return response()->json([
-            'rate' => CurrencyUtil::getUsdToCopRate(),
-        ]);
-    }
-
     public function update(CurrencyRequest $request): RedirectResponse
     {
         $request->session()->put('currency', $request->validated('currency'));
