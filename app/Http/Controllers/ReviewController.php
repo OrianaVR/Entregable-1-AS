@@ -32,8 +32,7 @@ class ReviewController extends Controller
     public function delete(string $id): RedirectResponse
     {
         $review = Review::findOrFail($id);
-        /** @var User $user */
-        $user = Auth::user();
+        $user = User::findOrFail(Auth::id());
 
         if ($review->getUserId() !== $user->getId() && $user->getRole() !== 'admin') {
             abort(403);

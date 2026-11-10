@@ -15,4 +15,7 @@ return [
     'currencySelector' => 'Selecciona tu país',
     'currencyColombia' => 'Colombia',
     'currencyUnitedStates' => 'Estados Unidos',
+    'accountTitle' => 'Cuenta',
+    'close' => 'Cerrar',
+    'breadcrumbLabel' => 'Ruta de navegación',
 ];

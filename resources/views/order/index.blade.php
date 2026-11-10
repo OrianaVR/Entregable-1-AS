@@ -8,7 +8,7 @@
 
     <div class="profile-header text-center" style="padding-top: 60px; padding-bottom: 30px;">
         <h1 class="profile-title text-center mb-2" style="font-size: 42px;">{{ __('order.pageTitle') }}</h1>
-        <nav aria-label="breadcrumb">
+        <nav aria-label="{{ __('layout.breadcrumbLabel') }}">
             <ol class="breadcrumb justify-content-center profile-breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{ route('home.index') }}">{{ __('layout.navHome') }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ __('order.pageTitle') }}</li>
@@ -21,7 +21,7 @@
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
                 {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('layout.close') }}"></button>
             </div>
         @endif
 

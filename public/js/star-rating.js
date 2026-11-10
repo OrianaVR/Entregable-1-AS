@@ -1,3 +1,7 @@
+/**
+ * @author Ana Sofía Angarita Barrios
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
     var container = document.getElementById('starRating');
 

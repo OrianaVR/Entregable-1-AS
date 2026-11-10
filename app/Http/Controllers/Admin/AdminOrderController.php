@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Interfaces\OrderReport;
 use App\Models\Order;
+use App\Utils\OrderUtil;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,23 +27,15 @@ class AdminOrderController extends Controller
         $viewData['title'] = __('order.pageTitle');
         $viewData['orders'] = $orders;
 
-        $viewData['inProcessCount'] = $orders
-            ->where('state', 'inProcess')
-            ->count();
+        $viewData['inProcessCount'] = OrderUtil::countByState($orders, 'inProcess');
+        $viewData['completedCount'] = OrderUtil::countByState($orders, 'completed');
+        $viewData['canceledCount'] = OrderUtil::countByState($orders, 'canceled');
 
-        $viewData['completedCount'] = $orders
-            ->where('state', 'completed')
-            ->count();
-
-        $viewData['canceledCount'] = $orders
-            ->where('state', 'canceled')
-            ->count();
-
-        $viewData['totals'] = [];
-
-        foreach ($orders as $order) {
-            $viewData['totals'][$order->getId()] = $order->getTotal();
-        }
+        $currency = session('currency', 'USD');
+        $items = OrderUtil::itemsOf($orders);
+        $viewData['totals'] = OrderUtil::formatTotals($orders, $currency);
+        $viewData['unitPrices'] = OrderUtil::formatUnitPrices($items, $currency);
+        $viewData['subtotals'] = OrderUtil::formatSubtotals($items, $currency);
 
         return view('admin.order.index')->with('viewData', $viewData);
     }

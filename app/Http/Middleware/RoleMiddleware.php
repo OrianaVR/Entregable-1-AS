@@ -15,14 +15,13 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         if (Auth::check()) {
-            /** @var User $user */
-            $user = Auth::user();
+            $user = User::findOrFail(Auth::id());
 
             if (in_array($user->getRole(), $roles, true)) {
                 return $next($request);
             }
         }
 
-        abort(403, 'Unauthorized access.');
+        abort(403, __('auth.unauthorized'));
     }
 }

@@ -50,4 +50,5 @@ return [
     'perkAuthentic' => 'Productos 100% originales',
     'perkSecure' => 'Pago seguro',
     'perkDelivery' => 'Envíos a toda Colombia',
+    'addedToCart' => '¡Producto agregado al carrito!',
 ];

@@ -15,6 +15,27 @@ use Illuminate\Support\Facades\DB;
 
 class CartUtil
 {
+    public function buildCartItems(array $cart): array
+    {
+        $cartItems = [];
+
+        foreach ($cart as $productId => $quantity) {
+            $product = Product::find($productId);
+
+            if ($product === null) {
+                continue;
+            }
+
+            $cartItems[] = [
+                'product' => $product,
+                'quantity' => $quantity,
+                'subtotal' => $product->getPrice() * $quantity,
+            ];
+        }
+
+        return $cartItems;
+    }
+
     public function createOrderFromCart(array $cart, array $orderData, string $paymentMethod, int $userId): Order
     {
         return DB::transaction(function () use ($cart, $orderData, $paymentMethod, $userId): Order {

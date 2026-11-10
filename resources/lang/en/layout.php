@@ -15,4 +15,7 @@ return [
     'currencySelector' => 'Choose your country',
     'currencyColombia' => 'Colombia',
     'currencyUnitedStates' => 'United States',
+    'accountTitle' => 'Account',
+    'close' => 'Close',
+    'breadcrumbLabel' => 'Breadcrumb',
 ];

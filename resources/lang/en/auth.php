@@ -27,4 +27,5 @@ return [
     'passwordHint' => '(leave blank to keep current password)',
     'passwordPlaceholder' => 'Enter new password',
     'updateChanges' => 'Update Changes',
+    'unauthorized' => 'Unauthorized access.',
 ];

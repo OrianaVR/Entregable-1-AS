@@ -45,7 +45,7 @@
                         <tr>
                             <td>{{ $cartItem['product']->getName() }}</td>
                             <td>{{ $cartItem['quantity'] }}</td>
-                            <td>{{ number_format($cartItem['subtotal'], 2) }}</td>
+                            <td>{{ $viewData['subtotals'][$cartItem['product']->getId()] }}</td>
                             <td>
                                 <form action="{{ route('cart.remove', ['id' => $cartItem['product']->getId()]) }}" method="POST">
                                     @csrf
@@ -59,7 +59,7 @@
                 <tfoot>
                     <tr>
                         <th colspan="2">{{ __('order.total') }}</th>
-                        <th>{{ number_format($viewData['total'], 2) }}</th>
+                        <th>{{ $viewData['total'] }}</th>
                         <th></th>
                     </tr>
                 </tfoot>

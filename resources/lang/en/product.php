@@ -50,4 +50,5 @@ return [
     'perkAuthentic' => '100% authentic products',
     'perkSecure' => 'Secure checkout',
     'perkDelivery' => 'Delivery across Colombia',
+    'addedToCart' => 'Product added to cart!',
 ];

@@ -29,7 +29,7 @@
     @endif
 
     <div class="lume-card p-4">
-        <form action="{{ route('admin.user.store') }}" method="POST" novalidate data-live-validate>
+        <form action="{{ route('admin.user.save') }}" method="POST" novalidate data-live-validate>
             @csrf
 
             <div class="row g-4">

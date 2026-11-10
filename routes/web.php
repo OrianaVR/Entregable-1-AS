@@ -30,6 +30,7 @@ $registerPath = 'register';
 $logoutPath = 'logout';
 $profilePath = 'profile';
 $adminPath = 'admin';
+$userPath = 'user';
 $orderPath = 'order';
 $productPath = 'product';
 $cartPath = 'cart';
@@ -73,25 +74,25 @@ Route::middleware(['auth'])->group(function () use ($basePath, $logoutPath, $pro
     Route::delete($basePath.$cartPath.'/{id}', [CartController::class, 'remove'])->whereNumber('id')->name('cart.remove');
 });
 
-Route::middleware(['auth', 'admin'])->prefix($adminPath)->group(function () use ($orderPath, $productPath, $categoryPath): void {
-    Route::get('/index', [AdminUserController::class, 'index'])->name('admin.user.index');
-    Route::get('/create', [AdminUserController::class, 'create'])->name('admin.user.create');
-    Route::post('/store', [AdminUserController::class, 'save'])->name('admin.user.store');
-    Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->whereNumber('id')->name('admin.user.edit');
-    Route::put('/update/{id}', [AdminUserController::class, 'update'])->whereNumber('id')->name('admin.user.update');
-    Route::delete('/delete/{id}', [AdminUserController::class, 'delete'])->whereNumber('id')->name('admin.user.delete');
+Route::middleware(['auth', 'admin'])->prefix($adminPath)->group(function () use ($userPath, $orderPath, $productPath, $categoryPath): void {
+    Route::get('/'.$userPath, [AdminUserController::class, 'index'])->name('admin.user.index');
+    Route::get('/'.$userPath.'/create', [AdminUserController::class, 'create'])->name('admin.user.create');
+    Route::post('/'.$userPath.'/save', [AdminUserController::class, 'save'])->name('admin.user.save');
+    Route::get('/'.$userPath.'/edit/{id}', [AdminUserController::class, 'edit'])->whereNumber('id')->name('admin.user.edit');
+    Route::put('/'.$userPath.'/update/{id}', [AdminUserController::class, 'update'])->whereNumber('id')->name('admin.user.update');
+    Route::delete('/'.$userPath.'/delete/{id}', [AdminUserController::class, 'delete'])->whereNumber('id')->name('admin.user.delete');
 
     Route::get('/'.$categoryPath, [AdminCategoryController::class, 'index'])->name('admin.category.index');
     Route::get('/'.$categoryPath.'/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
-    Route::post('/'.$categoryPath.'/store', [AdminCategoryController::class, 'save'])->name('admin.category.store');
+    Route::post('/'.$categoryPath.'/save', [AdminCategoryController::class, 'save'])->name('admin.category.save');
     Route::get('/'.$categoryPath.'/edit/{id}', [AdminCategoryController::class, 'edit'])->whereNumber('id')->name('admin.category.edit');
     Route::put('/'.$categoryPath.'/update/{id}', [AdminCategoryController::class, 'update'])->whereNumber('id')->name('admin.category.update');
     Route::delete('/'.$categoryPath.'/delete/{id}', [AdminCategoryController::class, 'delete'])->whereNumber('id')->name('admin.category.delete');
 
     Route::get('/'.$orderPath, [AdminOrderController::class, 'index'])->name('admin.order.index');
     Route::get('/'.$orderPath.'/report', [AdminOrderController::class, 'report'])->name('admin.order.report');
-    Route::post('/'.$orderPath.'/{id}/confirm', [AdminPaymentController::class, 'confirm'])->whereNumber('id')->name('payment.confirm');
-    Route::post('/'.$orderPath.'/{id}/reject', [AdminPaymentController::class, 'reject'])->whereNumber('id')->name('payment.reject');
+    Route::post('/'.$orderPath.'/{id}/confirm', [AdminPaymentController::class, 'confirm'])->whereNumber('id')->name('admin.payment.confirm');
+    Route::post('/'.$orderPath.'/{id}/reject', [AdminPaymentController::class, 'reject'])->whereNumber('id')->name('admin.payment.reject');
 
     Route::get('/'.$productPath, [AdminProductController::class, 'index'])->name('admin.product.index');
     Route::get('/'.$productPath.'/create', [AdminProductController::class, 'create'])->name('admin.product.create');
@@ -100,5 +101,3 @@ Route::middleware(['auth', 'admin'])->prefix($adminPath)->group(function () use 
     Route::put('/'.$productPath.'/update/{id}', [AdminProductController::class, 'update'])->whereNumber('id')->name('admin.product.update');
     Route::delete('/'.$productPath.'/delete/{id}', [AdminProductController::class, 'delete'])->whereNumber('id')->name('admin.product.delete');
 });
-
-Route::get('/test-api', [CurrencyController::class, 'testApi'])->name('currency.test');

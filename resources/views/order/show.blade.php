@@ -106,11 +106,11 @@
 
             @if (auth()->user()->getRole() === 'admin' && $viewData['order']->getPayment()->getStatus() === 'pending')
                 <div class="d-flex gap-2 mt-2">
-                    <form action="{{ route('payment.confirm', ['id' => $viewData['order']->getId()]) }}" method="POST">
+                    <form action="{{ route('admin.payment.confirm', ['id' => $viewData['order']->getId()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-success btn-sm">{{ __('payment.confirmPayment') }}</button>
                     </form>
-                    <form action="{{ route('payment.reject', ['id' => $viewData['order']->getId()]) }}" method="POST">
+                    <form action="{{ route('admin.payment.reject', ['id' => $viewData['order']->getId()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger btn-sm">{{ __('payment.rejectPayment') }}</button>
                     </form>

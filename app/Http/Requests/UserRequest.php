@@ -17,7 +17,7 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'password' => ['required', 'string', 'size:6'],
+            'password' => [$this->isMethod('put') ? 'nullable' : 'required', 'string', 'size:6'],
             'email' => ['required', 'string', 'email'],
             'address' => ['required', 'string', 'min:8'],
             'phone' => ['required', 'int', 'min:10'],

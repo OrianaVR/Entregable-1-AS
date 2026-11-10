@@ -22,7 +22,7 @@
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
                 {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('layout.close') }}"></button>
             </div>
         @endif
 
@@ -53,7 +53,17 @@
                 <div class="profile-card p-0">
 
                     <div class="p-4 pb-0">
-                        <h4 class="fw-semibold mb-4 text-dark">{{ __('order.myOrdersHeading') }}</h4>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                            <h4 class="fw-semibold mb-0 text-dark">{{ __('order.myOrdersHeading') }}</h4>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('admin.order.report', ['format' => 'pdf']) }}" class="btn btn-primary px-3 py-2 fw-semibold">
+                                    <i class="bi bi-file-earmark-pdf me-1"></i> {{ __('order.downloadPdf') }}
+                                </a>
+                                <a href="{{ route('admin.order.report', ['format' => 'excel']) }}" class="btn btn-primary px-3 py-2 fw-semibold">
+                                    <i class="bi bi-file-earmark-spreadsheet me-1"></i> {{ __('order.downloadExcel') }}
+                                </a>
+                            </div>
+                        </div>
 
                         <div class="d-flex gap-2 flex-wrap mb-4 order-tabs">
                             <span class="order-tab order-tab-active px-4 py-2 rounded-pill border d-inline-block text-center fw-medium" data-status="all" style="cursor: pointer; background-color: #2b3a33; color: #ffffff; border-color: #2b3a33;">{{ __('order.tabAll') }} ({{ count($viewData['orders']) }})</span>
@@ -109,8 +119,8 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="text-end">{{ $item->getQuantity() }}</td>
-                                                                    <td class="text-end">{{ $item->getPrice() }}</td>
-                                                                    <td class="text-end">{{ $item->getSubtotal() }}</td>
+                                                                    <td class="text-end">{{ $viewData['unitPrices'][$item->getId()] }}</td>
+                                                                    <td class="text-end">{{ $viewData['subtotals'][$item->getId()] }}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>

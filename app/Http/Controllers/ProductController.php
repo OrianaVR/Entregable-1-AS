@@ -3,7 +3,6 @@
 /**
  * @author Ana Sofía Angarita Barrios
  * @author Maria Laura Tafur Gomez
- * @author Maria Laura Tafur Gomez
  */
 
 namespace App\Http\Controllers;
