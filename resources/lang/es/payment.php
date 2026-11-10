@@ -25,4 +25,6 @@ return [
     'tableActions' => 'ACCIONES',
     'viewAction' => 'Ver pedido',
     'noOrdersFound' => 'No se encontraron pedidos.',
+    'receiptTitle' => 'Recibo #:id',
+    'receiptSubtitle' => 'Recibo / Factura',
 ];

@@ -1,9 +1,9 @@
 {{-- Author: Ana Sofía Angarita Barrios --}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
-    <title>Receipt #{{ $viewData['order']->getId() }}</title>
+    <title>{{ __('payment.receiptTitle', ['id' => $viewData['order']->getId()]) }}</title>
     <style>
         body {
             font-family: sans-serif;
@@ -45,18 +45,18 @@
 </head>
 <body>
 
-    <h1>LUMÉ STORE</h1>
-    <p class="muted">Receipt / Invoice</p>
+    <h1>{{ __('order.reportStoreName') }}</h1>
+    <p class="muted">{{ __('payment.receiptSubtitle') }}</p>
 
     <div class="section">
-        <strong>Order #{{ $viewData['order']->getId() }}</strong><br>
-        Date: {{ $viewData['order']->getCreatedAt()->format('Y-m-d') }}<br>
-        Delivery date: {{ $viewData['order']->getDeliveryDate() }}<br>
-        Status: {{ $viewData['order']->getState() }}
+        <strong>{{ __('order.orderHeading', ['id' => $viewData['order']->getId()]) }}</strong><br>
+        {{ __('payment.labelDate') }}: {{ $viewData['order']->getCreatedAt()->format('Y-m-d') }}<br>
+        {{ __('order.colDeliveryDate') }}: {{ $viewData['order']->getDeliveryDate() }}<br>
+        {{ __('payment.labelStatus') }}: {{ $viewData['order']->getState() }}
     </div>
 
     <div class="section">
-        <strong>Customer</strong><br>
+        <strong>{{ __('order.reportColCustomer') }}</strong><br>
         {{ $viewData['order']->getUser()->getName() }}<br>
         {{ $viewData['order']->getUser()->getEmail() }}<br>
         {{ $viewData['order']->getAddress() }}
@@ -66,10 +66,10 @@
         <table>
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th class="text-right">Quantity</th>
-                    <th class="text-right">Unit Price</th>
-                    <th class="text-right">Subtotal</th>
+                    <th>{{ __('order.colProduct') }}</th>
+                    <th class="text-right">{{ __('order.colQuantity') }}</th>
+                    <th class="text-right">{{ __('order.colUnitPrice') }}</th>
+                    <th class="text-right">{{ __('order.colSubtotal') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,11 +78,11 @@
                         <td>{{ $item->getProduct()->getName() }}</td>
                         <td class="text-right">{{ $item->getQuantity() }}</td>
                         <td class="text-right">{{ number_format($item->getPrice(), 2) }}</td>
-                        <td class="text-right">{{ number_format($item->getPrice() * $item->getQuantity(), 2) }}</td>
+                        <td class="text-right">{{ number_format($item->getSubtotal(), 2) }}</td>
                     </tr>
                 @endforeach
                 <tr class="total-row">
-                    <td colspan="3" class="text-right">Total</td>
+                    <td colspan="3" class="text-right">{{ __('order.total') }}</td>
                     <td class="text-right">{{ number_format($viewData['total'], 2) }}</td>
                 </tr>
             </tbody>
@@ -91,11 +91,11 @@
 
     @if ($viewData['payment'] !== null)
         <div class="section">
-            <strong>Payment</strong><br>
-            Method: {{ $viewData['payment']->getMethod() }}<br>
-            Status: {{ $viewData['payment']->getStatus() }}<br>
-            Transaction code: {{ $viewData['payment']->getTransactionCode() }}<br>
-            Date: {{ $viewData['payment']->getDate() }}
+            <strong>{{ __('payment.heading') }}</strong><br>
+            {{ __('payment.labelMethod') }}: {{ $viewData['payment']->getMethod() }}<br>
+            {{ __('payment.labelStatus') }}: {{ $viewData['payment']->getStatus() }}<br>
+            {{ __('payment.labelTransactionCode') }}: {{ $viewData['payment']->getTransactionCode() }}<br>
+            {{ __('payment.labelDate') }}: {{ $viewData['payment']->getDate() }}
         </div>
     @endif
 

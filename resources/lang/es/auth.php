@@ -27,4 +27,5 @@ return [
     'passwordHint' => '(déjalo en blanco para mantener la contraseña actual)',
     'passwordPlaceholder' => 'Ingresa una nueva contraseña',
     'updateChanges' => 'Actualizar cambios',
+    'unauthorized' => 'Acceso no autorizado.',
 ];

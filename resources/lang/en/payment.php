@@ -25,4 +25,6 @@ return [
     'tableActions' => 'ACTIONS',
     'viewAction' => 'View Order',
     'noOrdersFound' => 'No orders found.',
+    'receiptTitle' => 'Receipt #:id',
+    'receiptSubtitle' => 'Receipt / Invoice',
 ];

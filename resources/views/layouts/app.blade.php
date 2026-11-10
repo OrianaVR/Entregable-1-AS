@@ -56,7 +56,7 @@
                     </a>
 
                     <div class="dropdown">
-                        <a href="#" class="nav-icon-link text-decoration-none" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Account">
+                        <a href="#" class="nav-icon-link text-decoration-none" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="{{ __('layout.accountTitle') }}">
                             <i class="bi bi-person fs-4"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenuDropdown">

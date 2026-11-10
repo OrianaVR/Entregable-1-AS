@@ -22,7 +22,7 @@ class CartController extends Controller
         $cart[$product->getId()] = min($currentQuantity + $quantity, $product->getStock());
         session(['cart' => $cart]);
 
-        return redirect()->route('product.show', ['id' => $id])->with('success', 'Product added to cart!');
+        return redirect()->route('product.show', ['id' => $id])->with('success', __('product.addedToCart'));
     }
 
     public function remove(string $id): RedirectResponse

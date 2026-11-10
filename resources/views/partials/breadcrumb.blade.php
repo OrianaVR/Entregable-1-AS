@@ -1,5 +1,5 @@
 {{-- Author: Nawal Oriana Valoyes Renteria --}}
-<nav aria-label="breadcrumb">
+<nav aria-label="{{ __('layout.breadcrumbLabel') }}">
     <ol class="breadcrumb {{ $listClass ?? 'mb-1' }}">
         @foreach ($crumbs as $crumb)
             @if (isset($crumb['url']))
