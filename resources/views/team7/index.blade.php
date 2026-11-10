@@ -1,4 +1,4 @@
-{{-- Author: Oriana --}}
+{{-- Author: Nawal Oriana Valoyes Renteria --}}
 @extends('layouts.app')
 
 @section('title', $viewData['title'])

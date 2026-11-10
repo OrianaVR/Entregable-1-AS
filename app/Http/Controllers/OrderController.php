@@ -2,6 +2,7 @@
 
 /**
  * @author Ana Sofía Angarita Barrios
+ * @author Nawal Oriana Valoyes Renteria
  */
 
 namespace App\Http\Controllers;

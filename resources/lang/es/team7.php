@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @author Ana Sofía Angarita Barrios
+ * @author Nawal Oriana Valoyes Renteria
  */
 
 return [
