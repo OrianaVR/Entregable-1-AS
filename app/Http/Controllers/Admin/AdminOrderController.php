@@ -31,11 +31,11 @@ class AdminOrderController extends Controller
         $viewData['completedCount'] = OrderUtil::countByState($orders, 'completed');
         $viewData['canceledCount'] = OrderUtil::countByState($orders, 'canceled');
 
-        $viewData['totals'] = [];
-
-        foreach ($orders as $order) {
-            $viewData['totals'][$order->getId()] = $order->getTotal();
-        }
+        $currency = session('currency', 'USD');
+        $items = OrderUtil::itemsOf($orders);
+        $viewData['totals'] = OrderUtil::formatTotals($orders, $currency);
+        $viewData['unitPrices'] = OrderUtil::formatUnitPrices($items, $currency);
+        $viewData['subtotals'] = OrderUtil::formatSubtotals($items, $currency);
 
         return view('admin.order.index')->with('viewData', $viewData);
     }

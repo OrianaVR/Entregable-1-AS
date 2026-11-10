@@ -109,8 +109,8 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="text-end">{{ $item->getQuantity() }}</td>
-                                                                    <td class="text-end">{{ $item->getPrice() }}</td>
-                                                                    <td class="text-end">{{ $item->getSubtotal() }}</td>
+                                                                    <td class="text-end">{{ $viewData['unitPrices'][$item->getId()] }}</td>
+                                                                    <td class="text-end">{{ $viewData['subtotals'][$item->getId()] }}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>

@@ -52,7 +52,7 @@
         <strong>{{ __('order.orderHeading', ['id' => $viewData['order']->getId()]) }}</strong><br>
         {{ __('payment.labelDate') }}: {{ $viewData['order']->getCreatedAt()->format('Y-m-d') }}<br>
         {{ __('order.colDeliveryDate') }}: {{ $viewData['order']->getDeliveryDate() }}<br>
-        {{ __('payment.labelStatus') }}: {{ $viewData['order']->getState() }}
+        {{ __('payment.labelStatus') }}: {{ __('order.status'.ucfirst($viewData['order']->getState())) }}
     </div>
 
     <div class="section">
@@ -93,7 +93,7 @@
         <div class="section">
             <strong>{{ __('payment.heading') }}</strong><br>
             {{ __('payment.labelMethod') }}: {{ $viewData['payment']->getMethod() }}<br>
-            {{ __('payment.labelStatus') }}: {{ $viewData['payment']->getStatus() }}<br>
+            {{ __('payment.labelStatus') }}: {{ __('payment.status'.ucfirst($viewData['payment']->getStatus())) }}<br>
             {{ __('payment.labelTransactionCode') }}: {{ $viewData['payment']->getTransactionCode() }}<br>
             {{ __('payment.labelDate') }}: {{ $viewData['payment']->getDate() }}
         </div>
