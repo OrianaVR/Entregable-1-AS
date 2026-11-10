@@ -67,7 +67,8 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('order.colOrderNumber') }}</th>
-                                    <th>{{ __('order.colDeliveryDate') }}</th>
+                                    <th>{{ __('order.colOrderDate') }}</th>
+                                    <th>{{ __('order.colTotal') }}</th>
                                     <th>{{ __('order.colOrderStatus') }}</th>
                                     <th></th>
                                 </tr>
@@ -75,12 +76,9 @@
                             <tbody>
                                 @forelse ($viewData['orders'] as $order)
                                     <tr class="order-row" data-order-status="{{ $order->getState() }}" data-bs-toggle="collapse" data-bs-target="#orderDetail{{ $order->getId() }}" role="button">
-                                        <td class="fw-semibold">
-                                            <a href="{{ route('order.show', ['id' => $order->getId()]) }}" class="lume-id-link" onclick="event.stopPropagation()">
-                                                #{{ $order->getId() }}
-                                            </a>
-                                        </td>
-                                        <td>{{ $order->getDeliveryDate() }}</td>
+                                        <td class="fw-semibold lume-id-link">#{{ $order->getId() }}</td>
+                                        <td>{{ $order->getCreatedAt()->format('Y-m-d') }}</td>
+                                        <td class="fw-semibold">{{ $viewData['totals'][$order->getId()] }}</td>
                                         <td>
                                             <span class="order-status-dot order-status-{{ $order->getState() }}"></span>
                                             {{ __('order.status'.ucfirst($order->getState())) }}
@@ -88,22 +86,68 @@
                                         <td class="text-end"><i class="bi bi-chevron-down"></i></td>
                                     </tr>
                                     <tr class="collapse order-row-detail" data-order-status="{{ $order->getState() }}" id="orderDetail{{ $order->getId() }}">
-                                        <td colspan="4" class="p-0">
-                                            <div class="order-item-row">
-                                                <div class="order-item-thumb">
-                                                    <i class="bi bi-geo-alt"></i>
+                                        <td colspan="5" class="p-0">
+                                            <div class="p-4" style="background-color: #fbf6f0;">
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm align-middle mb-3">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{{ __('order.colProduct') }}</th>
+                                                                <th class="text-end">{{ __('order.colQuantity') }}</th>
+                                                                <th class="text-end">{{ __('order.colUnitPrice') }}</th>
+                                                                <th class="text-end">{{ __('order.colSubtotal') }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($order->getItems() as $item)
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center gap-2">
+                                                                            <img src="{{ asset('images/products/'.$item->getProduct()->getImage()) }}" alt="{{ $item->getProduct()->getName() }}" width="44" height="44" class="rounded" style="object-fit: cover;">
+                                                                            <a href="{{ route('product.show', ['id' => $item->getProduct()->getId()]) }}">{{ $item->getProduct()->getName() }}</a>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-end">{{ $item->getQuantity() }}</td>
+                                                                    <td class="text-end">{{ $viewData['unitPrices'][$item->getId()] }}</td>
+                                                                    <td class="text-end">{{ $viewData['subtotals'][$item->getId()] }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th colspan="3" class="text-end">{{ __('order.total') }}</th>
+                                                                <th class="text-end">{{ $viewData['totals'][$order->getId()] }}</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
                                                 </div>
-                                                <div class="order-item-name">{{ __('order.deliveryAddress') }}: {{ $order->getAddress() }}</div>
+
+                                                <div class="mb-1"><i class="bi bi-geo-alt me-2"></i>{{ __('order.deliveryAddress') }}: {{ $order->getAddress() }}</div>
+                                                <div class="mb-1"><i class="bi bi-truck me-2"></i>{{ __('order.colDeliveryDate') }}: {{ $order->getDeliveryDate() }}</div>
+
+                                                @if ($order->getPayment() !== null)
+                                                    <div class="mb-1">
+                                                        <i class="bi bi-credit-card me-2"></i>{{ __('payment.labelMethod') }}: {{ $order->getPayment()->getMethod() }}
+                                                        · {{ __('payment.labelStatus') }}: {{ __('payment.status'.ucfirst($order->getPayment()->getStatus())) }}
+                                                    </div>
+                                                @endif
+
+                                                <a href="{{ route('order.show', ['id' => $order->getId()]) }}" class="btn btn-outline-primary btn-sm mt-3">{{ __('order.viewFullOrder') }}</a>
                                             </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center py-5 text-muted">
+                                        <td colspan="5" class="text-center py-5 text-muted">
                                             {{ __('order.noOrders') }}
                                         </td>
                                     </tr>
                                 @endforelse
+                                <tr id="noOrdersInStatus" class="d-none">
+                                    <td colspan="5" class="text-center py-5 text-muted">
+                                        {{ __('order.noOrdersInStatus') }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -112,4 +156,6 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('js/order-tabs.js') }}"></script>
 @endsection

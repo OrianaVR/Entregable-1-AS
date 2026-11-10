@@ -12,6 +12,9 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Utils\CartUtil;
+use App\Utils\CurrencyUtil;
+use App\Utils\DeliveryDateUtil;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -36,29 +39,37 @@ class OrderController extends Controller
         }
 
         $order = $query->where('id', $id)->firstOrFail();
-
-        $total = 0;
-        foreach ($order->getItems() as $item) {
-            $total += $item->getPrice() * $item->getQuantity();
-        }
+        $currency = session('currency', 'USD');
 
         $viewData = [];
         $viewData['title'] = __('order.orderHeading', ['id' => $order->getId()]);
         $viewData['order'] = $order;
-        $viewData['total'] = $total;
+        $viewData['total'] = CurrencyUtil::convertAndFormat($order->getTotal(), $currency);
+        $viewData['unitPrices'] = $this->formatItemPrices(new Collection([$order]), $currency, false);
+        $viewData['subtotals'] = $this->formatItemPrices(new Collection([$order]), $currency, true);
 
         return view('order.show')->with('viewData', $viewData);
     }
 
     public function index(): View
     {
-        /** @var User $user */
-        $user = Auth::user();
-        $orders = $user->getOrders();
+        $orders = Order::with(['items.product', 'payment'])
+            ->where('user_id', Auth::id())
+            ->orderByDesc('created_at')
+            ->get();
+        $currency = session('currency', 'USD');
 
         $viewData = [];
         $viewData['title'] = __('order.pageTitle');
         $viewData['orders'] = $orders;
+        $viewData['totals'] = [];
+
+        foreach ($orders as $order) {
+            $viewData['totals'][$order->getId()] = CurrencyUtil::convertAndFormat($order->getTotal(), $currency);
+        }
+
+        $viewData['unitPrices'] = $this->formatItemPrices($orders, $currency, false);
+        $viewData['subtotals'] = $this->formatItemPrices($orders, $currency, true);
         $viewData['inProcessCount'] = $orders->filter(fn (Order $order): bool => $order->getState() === 'inProcess')->count();
         $viewData['completedCount'] = $orders->filter(fn (Order $order): bool => $order->getState() === 'completed')->count();
         $viewData['canceledCount'] = $orders->filter(fn (Order $order): bool => $order->getState() === 'canceled')->count();
@@ -93,6 +104,8 @@ class OrderController extends Controller
         $viewData['title'] = __('order.checkoutTitle');
         $viewData['cartItems'] = $cartItems;
         $viewData['total'] = $total;
+        $viewData['deliveryDate'] = DeliveryDateUtil::estimatedDate();
+        $viewData['deliveryDays'] = DeliveryDateUtil::BUSINESS_DAYS;
 
         return view('order.checkout')->with('viewData', $viewData);
     }
@@ -118,5 +131,19 @@ class OrderController extends Controller
         session()->forget('cart');
 
         return redirect()->route('order.show', ['id' => $order->getId()])->with('success', __('order.orderPlaced'));
+    }
+
+    private function formatItemPrices(Collection $orders, string $currency, bool $asSubtotal): array
+    {
+        $formatted = [];
+
+        foreach ($orders as $order) {
+            foreach ($order->getItems() as $item) {
+                $amount = $asSubtotal ? $item->getPrice() * $item->getQuantity() : $item->getPrice();
+                $formatted[$item->getId()] = CurrencyUtil::convertAndFormat($amount, $currency);
+            }
+        }
+
+        return $formatted;
     }
 }

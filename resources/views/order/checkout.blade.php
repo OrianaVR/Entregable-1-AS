@@ -72,8 +72,9 @@
             </div>
 
             <div class="mb-3">
-                <label for="delivery_date" class="form-label">{{ __('order.colDeliveryDate') }}</label>
-                <input type="date" class="form-control" id="delivery_date" name="delivery_date" value="{{ old('delivery_date') }}" required>
+                <label class="form-label">{{ __('order.colDeliveryDate') }}</label>
+                <input type="text" class="form-control" value="{{ $viewData['deliveryDate'] }}" readonly>
+                <div class="form-text">{{ __('order.deliveryDateNotice', ['days' => $viewData['deliveryDays']]) }}</div>
             </div>
 
             <div class="mb-3">

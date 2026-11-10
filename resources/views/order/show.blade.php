@@ -29,6 +29,9 @@
                 <span class="fw-semibold">{{ __('order.status'.ucfirst($viewData['order']->getState())) }}</span>
             </div>
             <div class="text-muted small">
+                {{ __('order.colOrderDate') }}: <span class="fw-medium text-dark">{{ $viewData['order']->getCreatedAt()->format('Y-m-d') }}</span>
+            </div>
+            <div class="text-muted small">
                 {{ __('order.deliveryDateLabel') }}: <span class="fw-medium text-dark">{{ $viewData['order']->getDeliveryDate() }}</span>
             </div>
             <a href="{{ route('order.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('order.backToOrders') }}</a>
@@ -71,15 +74,15 @@
                                 </a>
                             </td>
                             <td class="text-end">{{ $item->getQuantity() }}</td>
-                            <td class="text-end">{{ number_format($item->getPrice(), 2) }}</td>
-                            <td class="text-end">{{ number_format($item->getPrice() * $item->getQuantity(), 2) }}</td>
+                            <td class="text-end">{{ $viewData['unitPrices'][$item->getId()] }}</td>
+                            <td class="text-end">{{ $viewData['subtotals'][$item->getId()] }}</td>
                         </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <th colspan="3" class="text-end">{{ __('order.total') }}</th>
-                        <th class="text-end">{{ number_format($viewData['total'], 2) }}</th>
+                        <th class="text-end">{{ $viewData['total'] }}</th>
                     </tr>
                 </tfoot>
             </table>

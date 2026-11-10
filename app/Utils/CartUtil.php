@@ -28,6 +28,7 @@ class CartUtil
 
             $orderData['user_id'] = $userId;
             $orderData['state'] = 'inProcess';
+            $orderData['delivery_date'] = DeliveryDateUtil::estimatedDate();
 
             $order = Order::create($orderData);
 
