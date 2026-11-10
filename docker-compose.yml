@@ -1,0 +1,58 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lume_app
+    restart: unless-stopped
+    ports:
+      - "80:8080"
+      - "8080:8080"
+    environment:
+      APP_NAME: "LUME"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: http://localhost
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-lume}
+      DB_USERNAME: ${DB_USERNAME:-lume_user}
+      DB_PASSWORD: ${DB_PASSWORD:-lume_password}
+      SESSION_DRIVER: database
+      CACHE_STORE: database
+      TEAM7_API_URL: ${TEAM7_API_URL:-http://136.69.72.60/api/jewels}
+      ALLRATES_API_KEY: ${ALLRATES_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - lume_network
+
+  db:
+    image: mysql:8.0
+    container_name: lume_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-lume}
+      MYSQL_USER: ${DB_USERNAME:-lume_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-lume_password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_secure_password}
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - lume_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-root_secure_password}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+volumes:
+  dbdata:
+    driver: local
+
+networks:
+  lume_network:
+    driver: bridge

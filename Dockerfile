@@ -1,24 +1,25 @@
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
-# Instalar dependencias, Nginx y Supervisor
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libpng-dev libonig-dev libxml2-dev nginx supervisor \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
+    zip unzip git curl ca-certificates libpng-dev libonig-dev libxml2-dev libzip-dev nginx supervisor \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www
 
-# Copiar archivos del proyecto
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+
+COPY composer.json composer.lock ./
+
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
+
 COPY . /var/www
 
-# Instalar Composer y dependencias de Laravel
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && composer install --no-dev --optimize-autoloader
+RUN composer dump-autoload --optimize --no-dev
 
-# Configurar permisos
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-# Copiar configuraciones de Nginx y Supervisor
 COPY docker/nginx.conf /etc/nginx/sites-available/default
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
