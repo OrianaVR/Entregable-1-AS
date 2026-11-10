@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Ana Sofía Angarita Barrios
+ */
+
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
