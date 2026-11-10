@@ -18,23 +18,17 @@ class PaymentController extends Controller
     {
         $query = Order::with(['payment', 'items.product', 'user']);
 
-        /** @var User $user */
-        $user = Auth::user();
+        $user = User::findOrFail(Auth::id());
         if ($user->getRole() !== 'admin') {
             $query->where('user_id', Auth::id());
         }
 
         $order = $query->where('id', $id)->firstOrFail();
 
-        $total = 0;
-        foreach ($order->getItems() as $item) {
-            $total += $item->getPrice() * $item->getQuantity();
-        }
-
         $viewData = [];
         $viewData['order'] = $order;
         $viewData['payment'] = $order->getPayment();
-        $viewData['total'] = $total;
+        $viewData['total'] = $order->getTotal();
 
         $pdf = Pdf::loadView('payment.receipt', ['viewData' => $viewData]);
 
