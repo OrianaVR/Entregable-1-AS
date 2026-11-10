@@ -1,18 +1,16 @@
 <?php
 
 /**
- * @author Nawal Oriana Valoyes Renteria
+ * @author Oriana
  */
 
 return [
-    'navHome' => 'Inicio',
-    'navProducts' => 'Productos',
-    'navCart' => 'Carrito',
-    'navTeam7' => 'Jewels Store',
-    'navAbout' => 'Nosotros',
-    'navContact' => 'Contacto',
-    'footerRights' => 'Todos los derechos reservados.',
-    'currencySelector' => 'Selecciona tu país',
-    'currencyColombia' => 'Colombia',
-    'currencyUnitedStates' => 'Estados Unidos',
+    'pageTitle' => 'Tienda Jewels Store',
+    'pageSubtitle' => 'Ofertas y productos de Jewels Store',
+    'offerBadge' => 'Oferta',
+    'labelBrand' => 'Marca',
+    'labelCategory' => 'Categoría',
+    'viewInStore' => 'Ver en la tienda de Jewels Store',
+    'noProducts' => 'No hay productos disponibles en este momento.',
+    'apiError' => 'No pudimos cargar los productos del Equipo 7. Inténtalo de nuevo más tarde.',
 ];

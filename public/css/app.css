@@ -1367,3 +1367,25 @@ a.lume-info-value:hover {
         padding: 28px 22px;
     }
 }
+
+.lume-lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.lume-lang-switch button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.lume-lang-switch button.fw-bold {
+    color: var(--coral);
+}

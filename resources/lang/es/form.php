@@ -18,4 +18,6 @@ return [
     'image' => 'El archivo debe ser una imagen.',
     'fileSize' => 'El archivo no puede pesar más de :size KB.',
     'invalid' => 'Este valor no es válido.',
+    'phoneDigits' => 'El teléfono debe tener al menos 10 dígitos.',
+
 ];

@@ -1,6 +1,6 @@
 {{-- Author: Maria Laura Tafur Gómez, Ana Sofía Angarita Barrios --}}
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -29,6 +29,13 @@
             </div>
 
             <div class="lume-nav-actions d-flex align-items-center gap-3">
+                <form action="{{ route('language.update') }}" method="POST" class="lume-lang-switch">
+                    @csrf
+                    <button type="submit" name="locale" value="en" class="{{ app()->getLocale() === 'en' ? 'fw-bold' : '' }}">EN</button>
+                    <span>/</span>
+                    <button type="submit" name="locale" value="es" class="{{ app()->getLocale() === 'es' ? 'fw-bold' : '' }}">ES</button>
+                </form>
+
                 @guest
                     <a class="lume-auth-link" href="{{ route('login') }}">
                         <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>

@@ -13,6 +13,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -36,6 +37,7 @@ $categoryPath = 'category';
 $reviewPath = 'reviews';
 $currencyPath = 'currency';
 $team7Path = 'team7';
+$languagePath = 'language';
 
 Route::get($basePath, [HomeController::class, 'index'])->name('home.index');
 Route::get($basePath.$aboutPath, [HomeController::class, 'about'])->name('home.about');
@@ -44,6 +46,7 @@ Route::get($basePath.$productPath, [ProductController::class, 'index'])->name('p
 Route::get($basePath.$productPath.'/{id}', [ProductController::class, 'show'])->whereNumber('id')->name('product.show');
 Route::get($basePath.$team7Path, [Team7ProductController::class, 'index'])->name('team7.index');
 Route::post($basePath.$currencyPath, [CurrencyController::class, 'update'])->name('currency.update');
+Route::post($basePath.$languagePath, [LanguageController::class, 'update'])->name('language.update');
 
 Route::middleware(['guest'])->group(function () use ($basePath, $loginPath, $registerPath): void {
     Route::get($basePath.$loginPath, [AuthController::class, 'showLogin'])->name('login');
