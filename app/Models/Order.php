@@ -122,7 +122,7 @@ class Order extends Model
     {
         $total = 0;
         foreach ($this->getItems() as $item) {
-            $total += $item->getPrice() * $item->getQuantity();
+            $total += $item->getSubtotal();
         }
 
         return $total;

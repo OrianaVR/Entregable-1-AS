@@ -1,93 +1,162 @@
-{{-- Author: Ana Sofía Angarita Barrios --}}
-@extends('layouts.admin')
+{{-- Author: Maria Laura Tafur Gómez --}}
+@extends('layouts.app')
 
 @section('title', $viewData['title'])
 
 @section('content')
-<div class="lume-container pt-3">
+<div class="profile-page-wrapper">
 
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+    <div class="profile-header text-center" style="padding-top: 60px; padding-bottom: 30px;">
+        <h1 class="profile-title text-center mb-2" style="font-size: 42px;">{{ __('order.pageTitle') }}</h1>
+        @include('partials.breadcrumb', [
+            'listClass' => 'justify-content-center profile-breadcrumb mb-0',
+            'crumbs' => [
+                ['label' => __('layout.navHome'), 'url' => route('home.index')],
+                ['label' => __('order.pageTitle')],
+            ],
+        ])
+    </div>
 
-    <div class="row mb-4">
-        <div class="col-auto">
-            <div class="card border-0 shadow-sm rounded-3 px-4 py-3 bg-white" style="min-width: 220px;">
-                <div class="text-muted fw-semibold small mb-1 text-uppercase" style="letter-spacing: 0.5px; font-size: 11px;">{{ __('payment.pageTitle') }}</div>
-                <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-2 text-white d-flex align-items-center justify-content-center" style="background-color: var(--coral); width: 38px; height: 38px; font-size: 18px;">
-                        <i class="bi bi-receipt"></i>
+    <div class="container-fluid px-3 py-4" style="max-width: 1380px;">
+
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <div class="row g-5">
+
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="d-flex flex-column gap-3">
+                    <a href="{{ route('user.profile', ['id' => Auth::id()]) }}" class="btn btn-light border text-start py-3 px-4 rounded-3 text-dark fw-medium shadow-sm d-flex align-items-center justify-content-between" style="background-color: #ffffff;">
+                        <span><i class="bi bi-person-fill me-2 text-muted"></i>{{ __('order.personalInformation') }}</span>
+                        <i class="bi bi-chevron-right small text-muted"></i>
+                    </a>
+
+                    <a href="{{ route('order.index') }}" class="btn text-white fw-bold text-start py-3 px-4 rounded-3 shadow-sm d-flex align-items-center justify-content-between" style="background-color: #e5a93c; border-color: #e5a93c;">
+                        <span><i class="bi bi-bag-fill me-2"></i>{{ __('order.pageTitle') }}</span>
+                        <i class="bi bi-chevron-right small"></i>
+                    </a>
+
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger text-start py-3 px-4 rounded-3 fw-medium shadow-sm d-flex align-items-center justify-content-between w-100" style="background-color: #ffffff;">
+                            <span><i class="bi bi-box-arrow-right me-2"></i>{{ __('auth.navLogout') }}</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 col-lg-8 ms-auto">
+                <div class="profile-card p-0">
+
+                    <div class="p-4 pb-0">
+                        <h4 class="fw-semibold mb-4 text-dark">{{ __('order.myOrdersHeading') }}</h4>
+
+                        <div class="d-flex gap-2 flex-wrap mb-4 order-tabs">
+                            <span class="order-tab order-tab-active px-4 py-2 rounded-pill border d-inline-block text-center fw-medium" data-status="all" style="cursor: pointer; background-color: #2b3a33; color: #ffffff; border-color: #2b3a33;">{{ __('order.tabAll') }} ({{ count($viewData['orders']) }})</span>
+                            <span class="order-tab px-4 py-2 rounded-pill border d-inline-block text-center fw-medium" data-status="inProcess" style="cursor: pointer; background-color: #ffffff; color: #2b3a33; border-color: #ced4da;">{{ __('order.tabInProcess') }} ({{ $viewData['inProcessCount'] }})</span>
+                            <span class="order-tab px-4 py-2 rounded-pill border d-inline-block text-center fw-medium" data-status="completed" style="cursor: pointer; background-color: #ffffff; color: #2b3a33; border-color: #ced4da;">{{ __('order.tabCompleted') }} ({{ $viewData['completedCount'] }})</span>
+                            <span class="order-tab px-4 py-2 rounded-pill border d-inline-block text-center fw-medium" data-status="canceled" style="cursor: pointer; background-color: #ffffff; color: #2b3a33; border-color: #ced4da;">{{ __('order.tabCanceled') }} ({{ $viewData['canceledCount'] }})</span>
+                        </div>
                     </div>
-                    <span class="fs-3 fw-bold text-dark">{{ count($viewData['orders']) }}</span>
+
+                    <div class="table-responsive">
+                        <table class="table order-table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>{{ __('order.colOrderNumber') }}</th>
+                                    <th>{{ __('order.colOrderDate') }}</th>
+                                    <th>{{ __('order.colTotal') }}</th>
+                                    <th>{{ __('order.colOrderStatus') }}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($viewData['orders'] as $order)
+                                    <tr class="order-row" data-order-status="{{ $order->getState() }}" data-bs-toggle="collapse" data-bs-target="#orderDetail{{ $order->getId() }}" role="button">
+                                        <td class="fw-semibold lume-id-link">#{{ $order->getId() }}</td>
+                                        <td>{{ $order->getCreatedAt()->format('Y-m-d') }}</td>
+                                        <td class="fw-semibold">{{ $viewData['totals'][$order->getId()] }}</td>
+                                        <td>
+                                            <span class="order-status-dot order-status-{{ $order->getState() }}"></span>
+                                            {{ __('order.status'.ucfirst($order->getState())) }}
+                                        </td>
+                                        <td class="text-end"><i class="bi bi-chevron-down"></i></td>
+                                    </tr>
+                                    <tr class="collapse order-row-detail" data-order-status="{{ $order->getState() }}" id="orderDetail{{ $order->getId() }}">
+                                        <td colspan="5" class="p-0">
+                                            <div class="p-4" style="background-color: #fbf6f0;">
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm align-middle mb-3">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{{ __('order.colProduct') }}</th>
+                                                                <th class="text-end">{{ __('order.colQuantity') }}</th>
+                                                                <th class="text-end">{{ __('order.colUnitPrice') }}</th>
+                                                                <th class="text-end">{{ __('order.colSubtotal') }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($order->getItems() as $item)
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center gap-2">
+                                                                            <img src="{{ asset('images/products/'.$item->getProduct()->getImage()) }}" alt="{{ $item->getProduct()->getName() }}" width="44" height="44" class="rounded" style="object-fit: cover;">
+                                                                            <a href="{{ route('product.show', ['id' => $item->getProduct()->getId()]) }}">{{ $item->getProduct()->getName() }}</a>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-end">{{ $item->getQuantity() }}</td>
+                                                                    <td class="text-end">{{ $item->getPrice() }}</td>
+                                                                    <td class="text-end">{{ $item->getSubtotal() }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th colspan="3" class="text-end">{{ __('order.total') }}</th>
+                                                                <th class="text-end">{{ $viewData['totals'][$order->getId()] }}</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+
+                                                <div class="mb-1"><i class="bi bi-geo-alt me-2"></i>{{ __('order.deliveryAddress') }}: {{ $order->getAddress() }}</div>
+                                                <div class="mb-1"><i class="bi bi-truck me-2"></i>{{ __('order.colDeliveryDate') }}: {{ $order->getDeliveryDate() }}</div>
+
+                                                @if ($order->getPayment() !== null)
+                                                    <div class="mb-1">
+                                                        <i class="bi bi-credit-card me-2"></i>{{ __('payment.labelMethod') }}: {{ $order->getPayment()->getMethod() }}
+                                                        · {{ __('payment.labelStatus') }}: {{ __('payment.status'.ucfirst($order->getPayment()->getStatus())) }}
+                                                    </div>
+                                                @endif
+
+                                                <a href="{{ route('order.show', ['id' => $order->getId()]) }}" class="btn btn-outline-primary btn-sm mt-3">{{ __('order.viewFullOrder') }}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center py-5 text-muted">
+                                            {{ __('order.noOrders') }}
+                                        </td>
+                                    </tr>
+                                @endforelse
+                                <tr id="noOrdersInStatus" class="d-none">
+                                    <td colspan="5" class="text-center py-5 text-muted">
+                                        {{ __('order.noOrdersInStatus') }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="lume-page-title m-0">{{ __('payment.pageTitle') }}</h2>
-
-        <div class="d-flex gap-2">
-            <a href="{{ route('admin.order.report', ['format' => 'pdf']) }}" class="btn btn-primary px-3 py-2 fw-semibold">
-                <i class="bi bi-file-earmark-pdf me-1"></i> {{ __('order.downloadPdf') }}
-            </a>
-            <a href="{{ route('admin.order.report', ['format' => 'excel']) }}" class="btn btn-primary px-3 py-2 fw-semibold">
-                <i class="bi bi-file-earmark-spreadsheet me-1"></i> {{ __('order.downloadExcel') }}
-            </a>
-        </div>
-    </div>
-
-    <div class="card border-0 shadow-sm rounded-3 bg-white overflow-hidden mb-4">
-
-        <div class="table-responsive">
-            <table class="table lume-table align-middle mb-0">
-                <thead>
-                    <tr>
-                        <th>{{ __('payment.tableId') }}</th>
-                        <th>{{ __('payment.tableCustomer') }}</th>
-                        <th>{{ __('payment.tableState') }}</th>
-                        <th>{{ __('payment.tablePaymentStatus') }}</th>
-                        <th class="text-end pe-4">{{ __('payment.tableActions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($viewData['orders'] as $order)
-                        <tr>
-                            <td>
-                                <a href="{{ route('order.show', ['id' => $order->getId()]) }}" class="lume-id-link">
-                                    #{{ $order->getId() }}
-                                </a>
-                            </td>
-                            <td class="text-muted">
-                                {{ $order->getUser()->getName() }}
-                            </td>
-                            <td>
-                                <span class="order-status-dot order-status-{{ $order->getState() }}"></span>
-                                {{ __('order.status'.ucfirst($order->getState())) }}
-                            </td>
-                            <td>
-                                @if ($order->getPayment() !== null)
-                                    {{ __('payment.status'.ucfirst($order->getPayment()->getStatus())) }}
-                                @endif
-                            </td>
-                            <td class="text-end pe-4">
-                                <a href="{{ route('order.show', ['id' => $order->getId()]) }}" class="lume-action-icon" title="{{ __('payment.viewAction') }}">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="text-center py-4 text-muted">
-                                {{ __('payment.noOrdersFound') }}
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-
 </div>
+
+<script src="{{ asset('js/order-tabs.js') }}"></script>
 @endsection

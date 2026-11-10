@@ -8,12 +8,12 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-1">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}" class="text-decoration-none">{{ __('category.pageTitle') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('category.createCategory') }}</li>
-                </ol>
-            </nav>
+            @include('partials.breadcrumb', [
+                'crumbs' => [
+                    ['label' => __('category.pageTitle'), 'url' => route('admin.category.index')],
+                    ['label' => __('category.createCategory')],
+                ],
+            ])
             <h2 class="lume-page-title m-0">{{ __('category.createCategory') }}</h2>
         </div>
 
@@ -23,28 +23,26 @@
     </div>
 
     @if ($errors->any())
-        <div class="alert alert-danger mb-4">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="alert alert-danger mb-4" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>{{ __('form.reviewErrors') }}
         </div>
     @endif
 
     <div class="lume-card p-4">
-        <form action="{{ route('admin.category.store') }}" method="POST">
+        <form action="{{ route('admin.category.store') }}" method="POST" novalidate data-live-validate>
             @csrf
 
             <div class="row g-4">
                 <div class="col-12 col-md-6">
                     <label for="name" class="form-label fw-semibold">{{ __('category.labelName') }} <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control lume-input" id="name" name="name" value="{{ old('name') }}" required>
+                    <input type="text" class="form-control lume-input @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
+                    @include('partials.fieldError', ['field' => 'name'])
                 </div>
 
                 <div class="col-12">
                     <label for="description" class="form-label fw-semibold">{{ __('category.labelDescription') }} <span class="text-danger">*</span></label>
-                    <textarea class="form-control lume-input" id="description" name="description" rows="3" required>{{ old('description') }}</textarea>
+                    <textarea class="form-control lume-input @error('description') is-invalid @enderror" id="description" name="description" rows="3" required>{{ old('description') }}</textarea>
+                    @include('partials.fieldError', ['field' => 'description'])
                 </div>
             </div>
 

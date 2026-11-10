@@ -104,6 +104,7 @@ class OrderController extends Controller
         $viewData['title'] = __('order.checkoutTitle');
         $viewData['cartItems'] = $cartItems;
         $viewData['total'] = $total;
+        $viewData['address'] = User::findOrFail(Auth::id())->getAddress();
         $viewData['deliveryDate'] = DeliveryDateUtil::estimatedDate();
         $viewData['deliveryDays'] = DeliveryDateUtil::BUSINESS_DAYS;
 

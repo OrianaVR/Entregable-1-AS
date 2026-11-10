@@ -19,8 +19,8 @@ class UserProfileRequest extends FormRequest
             'name' => ['required', 'string'],
             'password' => ['nullable', 'string'],
             'email' => ['required', 'string', 'email'],
-            'address' => ['required', 'string'],
-            'phone' => ['required', 'string'],
+            'address' => ['required', 'string', 'min:8'],
+            'phone' => ['required', 'int', 'min:10'],
         ];
     }
 }

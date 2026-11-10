@@ -18,11 +18,11 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name' => ['required', 'string', 'min:5'],
             'email' => ['required', 'string', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'size:6'],
-            'address' => ['required', 'string'],
-            'phone' => ['required', 'string'],
+            'address' => ['required', 'string', 'min:8'],
+            'phone' => ['required', 'int', 'min:10'],
         ];
     }
 }

@@ -4,6 +4,15 @@
 @section('title', $viewData['title'])
 
 @section('content')
+<div class="container pt-4">
+    @include('partials.breadcrumb', [
+        'crumbs' => [
+            ['label' => __('layout.navHome'), 'url' => route('home.index')],
+            ['label' => $viewData['title']],
+        ],
+    ])
+</div>
+
 
 <div class="container py-5 hero-content">
     <h1>

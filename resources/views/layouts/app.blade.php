@@ -121,6 +121,8 @@
         crossorigin="anonymous">
     </script>
 
+    @include('partials.formMessages')
+
 </body>
 
 </html>

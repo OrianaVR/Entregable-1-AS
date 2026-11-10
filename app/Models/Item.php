@@ -60,6 +60,11 @@ class Item extends Model
         return $this->attributes['price'];
     }
 
+    public function getSubtotal(): float
+    {
+        return $this->getQuantity() * $this->getPrice();
+    }
+
     public function getProductId(): int
     {
         return $this->attributes['product_id'];

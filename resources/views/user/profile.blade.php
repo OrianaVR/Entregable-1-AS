@@ -8,12 +8,13 @@
 
     <div class="profile-header text-center" style="padding-top: 60px; padding-bottom: 30px;">
         <h1 class="profile-title text-center mb-2" style="font-size: 42px;">{{ __('auth.navMyAccount') }}</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb justify-content-center profile-breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{ route('home.index') }}">{{ __('layout.navHome') }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ __('auth.navMyAccount') }}</li>
-            </ol>
-        </nav>
+        @include('partials.breadcrumb', [
+            'listClass' => 'justify-content-center profile-breadcrumb mb-0',
+            'crumbs' => [
+                ['label' => __('layout.navHome'), 'url' => route('home.index')],
+                ['label' => __('auth.navMyAccount')],
+            ],
+        ])
     </div>
 
     <div class="container-fluid px-3 py-4" style="max-width: 1380px;">
@@ -26,12 +27,8 @@
         @endif
 
         @if ($errors->any())
-            <div class="alert alert-danger mb-4">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+            <div class="alert alert-danger mb-4" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>{{ __('form.reviewErrors') }}
             </div>
         @endif
 
@@ -62,33 +59,38 @@
                 <div class="profile-card">
                     <h4 class="fw-semibold mb-4 text-dark border-bottom pb-3">{{ __('auth.personalInformation') }}</h4>
 
-                    <form action="{{ route('user.profile.update', ['id' => $viewData['user']->getId()]) }}" method="POST">
+                    <form action="{{ route('user.profile.update', ['id' => $viewData['user']->getId()]) }}" method="POST" novalidate data-live-validate>
                         @csrf
                         @method('PUT')
 
                         <div class="mb-3">
                             <label for="name" class="form-label profile-label">{{ __('auth.labelName') }} <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control profile-input" id="name" name="name" value="{{ old('name', $viewData['user']->getName()) }}" required>
+                            <input type="text" class="form-control profile-input @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $viewData['user']->getName()) }}" required>
+                            @include('partials.fieldError', ['field' => 'name'])
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label profile-label">{{ __('auth.labelEmail') }} <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control profile-input" id="email" name="email" value="{{ old('email', $viewData['user']->getEmail()) }}" required>
+                            <input type="email" class="form-control profile-input @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $viewData['user']->getEmail()) }}" required>
+                            @include('partials.fieldError', ['field' => 'email'])
                         </div>
 
                         <div class="mb-3">
                             <label for="phone" class="form-label profile-label">{{ __('auth.labelPhone') }} <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control profile-input" id="phone" name="phone" value="{{ old('phone', $viewData['user']->getPhone()) }}" required>
+                            <input type="tel" class="form-control profile-input @error('phone') is-invalid @enderror" id="phone" name="phone" inputmode="numeric" pattern="[0-9]{10,}" data-digits-only data-pattern-message="{{ __('form.phoneDigits') }}" value="{{ old('phone', $viewData['user']->getPhone()) }}" required>
+                            @include('partials.fieldError', ['field' => 'phone'])
                         </div>
 
                         <div class="mb-3">
                             <label for="address" class="form-label profile-label">{{ __('auth.labelAddress') }} <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control profile-input" id="address" name="address" value="{{ old('address', $viewData['user']->getAddress()) }}" required>
+                            <input type="text" class="form-control profile-input @error('address') is-invalid @enderror" id="address" name="address" minlength="8" value="{{ old('address', $viewData['user']->getAddress()) }}" required>
+                            @include('partials.fieldError', ['field' => 'address'])
                         </div>
 
                         <div class="mb-4">
                             <label for="password" class="form-label profile-label">{{ __('auth.labelPassword') }} <small class="text-muted">{{ __('auth.passwordHint') }}</small></label>
-                            <input type="password" class="form-control profile-input" id="password" name="password" placeholder="{{ __('auth.passwordPlaceholder') }}">
+                            <input type="password" class="form-control profile-input @error('password') is-invalid @enderror" id="password" name="password" placeholder="{{ __('auth.passwordPlaceholder') }}">
+                            @include('partials.fieldError', ['field' => 'password'])
                         </div>
 
                         <div>

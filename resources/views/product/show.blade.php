@@ -7,9 +7,13 @@
 
 <div class="container lume-product-page">
 
-    <a href="{{ route('product.index') }}" class="lume-back-link">
-        <i class="bi bi-arrow-left"></i> {{ __('product.backToCatalog') }}
-    </a>
+    @include('partials.breadcrumb', [
+        'crumbs' => [
+            ['label' => __('layout.navHome'), 'url' => route('home.index')],
+            ['label' => __('layout.navProducts'), 'url' => route('product.index')],
+            ['label' => $viewData['product']->getName()],
+        ],
+    ])
 
     @if (session('success'))
         <div class="alert alert-success mt-3">{{ session('success') }}</div>
@@ -68,11 +72,12 @@
 
             @auth
                 @if ($viewData['product']->getStock() > 0)
-                    <form action="{{ route('cart.add', ['id' => $viewData['product']->getId()]) }}" method="POST" class="lume-buy-box">
+                    <form action="{{ route('cart.add', ['id' => $viewData['product']->getId()]) }}" method="POST" class="lume-buy-box" novalidate data-live-validate>
                         @csrf
                         <div>
                             <label for="quantity" class="lume-label">{{ __('product.labelQuantity') }}</label>
-                            <input type="number" class="form-control lume-qty-input" id="quantity" name="quantity" value="{{ old('quantity', 1) }}" min="1" max="{{ $viewData['product']->getStock() }}">
+                            <input type="number" class="form-control lume-qty-input @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity', 1) }}" min="1" max="{{ $viewData['product']->getStock() }}">
+                            @include('partials.fieldError', ['field' => 'quantity'])
                         </div>
                         <button type="submit" class="btn lume-btn-dark flex-grow-1">
                             <i class="bi bi-bag me-2"></i>{{ __('product.addToCart') }}
@@ -119,16 +124,12 @@
                     <h3 class="lume-review-form-title">{{ __('review.writeHeading') }}</h3>
 
                     @auth
-                        <form action="{{ route('review.store', ['id' => $viewData['product']->getId()]) }}" method="POST">
+                        <form action="{{ route('review.store', ['id' => $viewData['product']->getId()]) }}" method="POST" novalidate data-live-validate>
                             @csrf
 
                             @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul class="mb-0">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>{{ __('form.reviewErrors') }}
                                 </div>
                             @endif
 
@@ -142,11 +143,13 @@
                                     <button type="button" class="star-btn" data-value="5"><i class="bi bi-star"></i></button>
                                 </div>
                                 <input type="hidden" id="ratingInput" name="rating" value="{{ old('rating', 5) }}">
+                                @include('partials.fieldError', ['field' => 'rating'])
                             </div>
 
                             <div class="mb-3">
                                 <label for="comment" class="lume-label">{{ __('review.labelComment') }}</label>
-                                <textarea class="form-control lume-textarea" id="comment" name="comment" rows="4" placeholder="{{ __('review.commentPlaceholder') }}">{{ old('comment') }}</textarea>
+                                <textarea class="form-control lume-textarea @error('comment') is-invalid @enderror" id="comment" name="comment" rows="4" maxlength="255" required placeholder="{{ __('review.commentPlaceholder') }}">{{ old('comment') }}</textarea>
+                                @include('partials.fieldError', ['field' => 'comment'])
                             </div>
 
                             <button type="submit" class="btn lume-btn-dark w-100">{{ __('review.submit') }}</button>

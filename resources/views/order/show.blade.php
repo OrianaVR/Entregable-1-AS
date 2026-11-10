@@ -7,13 +7,14 @@
 
 <div class="profile-header text-center" style="padding-top: 60px; padding-bottom: 30px;">
     <h1 class="profile-title text-center mb-2" style="font-size: 42px;">{{ __('order.orderHeading', ['id' => $viewData['order']->getId()]) }}</h1>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb justify-content-center profile-breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{ route('home.index') }}">{{ __('layout.navHome') }}</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('order.index') }}">{{ __('order.pageTitle') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">#{{ $viewData['order']->getId() }}</li>
-        </ol>
-    </nav>
+    @include('partials.breadcrumb', [
+        'listClass' => 'justify-content-center profile-breadcrumb mb-0',
+        'crumbs' => [
+            ['label' => __('layout.navHome'), 'url' => route('home.index')],
+            ['label' => __('order.pageTitle'), 'url' => route('order.index')],
+            ['label' => '#'.$viewData['order']->getId()],
+        ],
+    ])
 </div>
 
 <div class="container-fluid px-3 py-4" style="max-width: 1000px;">
