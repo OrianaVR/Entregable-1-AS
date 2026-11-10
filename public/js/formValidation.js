@@ -1,5 +1,5 @@
 /**
- * @author Oriana
+ * @author Nawal Oriana Valoyes Renteria
  */
 
 document.addEventListener('DOMContentLoaded', function () {

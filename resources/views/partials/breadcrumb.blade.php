@@ -1,4 +1,4 @@
-{{-- Author: Oriana --}}
+{{-- Author: Nawal Oriana Valoyes Renteria --}}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb {{ $listClass ?? 'mb-1' }}">
         @foreach ($crumbs as $crumb)

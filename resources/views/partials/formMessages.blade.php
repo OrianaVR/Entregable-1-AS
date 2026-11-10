@@ -1,4 +1,4 @@
-{{-- Author: Oriana --}}
+{{-- Author: Nawal Oriana Valoyes Renteria --}}
 <div id="formMessages" class="d-none"
      data-required="{{ __('form.required') }}"
      data-email="{{ __('form.email') }}"
