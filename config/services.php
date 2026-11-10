@@ -40,4 +40,8 @@ return [
         'ca_bundle' => env('CURL_CA_BUNDLE', true),
     ],
 
+    'team7' => [
+        'api_url' => env('TEAM7_API_URL'),
+    ],
+
 ];

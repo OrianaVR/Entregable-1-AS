@@ -23,6 +23,7 @@
             <div class="lume-menu">
                 <a class="nav-link active" href="{{ route('home.index') }}">{{ __('layout.navHome') }}</a>
                 <a class="nav-link" href="{{ route('product.index') }}">{{ __('layout.navProducts') }}</a>
+                <a class="nav-link" href="{{ route('team7.index') }}">{{ __('layout.navTeam7') }}</a>
                 <a class="nav-link" href="{{ route('home.about') }}">{{ __('layout.navAbout') }}</a>
                 <a class="nav-link" href="{{ route('home.contact') }}">{{ __('layout.navContact') }}</a>
             </div>

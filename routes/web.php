@@ -17,6 +17,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Team7ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,12 +35,14 @@ $cartPath = 'cart';
 $categoryPath = 'category';
 $reviewPath = 'reviews';
 $currencyPath = 'currency';
+$team7Path = 'team7';
 
 Route::get($basePath, [HomeController::class, 'index'])->name('home.index');
 Route::get($basePath.$aboutPath, [HomeController::class, 'about'])->name('home.about');
 Route::get($basePath.$contactPath, [HomeController::class, 'contact'])->name('home.contact');
 Route::get($basePath.$productPath, [ProductController::class, 'index'])->name('product.index');
 Route::get($basePath.$productPath.'/{id}', [ProductController::class, 'show'])->whereNumber('id')->name('product.show');
+Route::get($basePath.$team7Path, [Team7ProductController::class, 'index'])->name('team7.index');
 Route::post($basePath.$currencyPath, [CurrencyController::class, 'update'])->name('currency.update');
 
 Route::middleware(['guest'])->group(function () use ($basePath, $loginPath, $registerPath): void {
