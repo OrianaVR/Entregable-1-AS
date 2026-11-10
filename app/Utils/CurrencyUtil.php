@@ -22,7 +22,7 @@ class CurrencyUtil
                     ->timeout(3)
                     ->get('https://allratestoday.com/api/v1/central-bank/sfc/latest', [
                         'source' => 'USD',
-                        'target' => 'COP'
+                        'target' => 'COP',
                     ]);
 
                 if ($response->successful()) {
@@ -41,16 +41,16 @@ class CurrencyUtil
     public static function convertAndFormat(float $basePriceUsd, string $currency): string
     {
         if ($currency === 'USD') {
-            return '$' . number_format($basePriceUsd, 2, '.', ',') . ' USD';
+            return '$'.number_format($basePriceUsd, 2, '.', ',').' USD';
         }
 
         if ($currency === 'COP') {
             $rate = self::getUsdToCopRate();
             $convertedPrice = $basePriceUsd * $rate;
-            
-            return '$' . number_format($convertedPrice, 0, ',', '.') . ' COP';
+
+            return '$'.number_format($convertedPrice, 0, ',', '.').' COP';
         }
 
-        throw new InvalidArgumentException('Invalid currency requested: ' . $currency);
+        throw new InvalidArgumentException('Invalid currency requested: '.$currency);
     }
 }

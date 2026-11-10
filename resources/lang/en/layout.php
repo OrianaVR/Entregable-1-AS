@@ -8,6 +8,7 @@ return [
     'navHome' => 'Home',
     'navProducts' => 'Products',
     'navCart' => 'Cart',
+    'navTeam7' => 'Team 7',
     'navAbout' => 'About',
     'navContact' => 'Contact',
     'footerRights' => 'All rights reserved.',
