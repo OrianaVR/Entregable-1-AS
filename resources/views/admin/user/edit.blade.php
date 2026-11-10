@@ -8,12 +8,12 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-1">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.user.index') }}" class="text-decoration-none">{{ __('admin.pageTitleUsers') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.breadcrumbEditUser', ['id' => $viewData['user']->getId()]) }}</li>
-                </ol>
-            </nav>
+            @include('partials.breadcrumb', [
+                'crumbs' => [
+                    ['label' => __('admin.pageTitleUsers'), 'url' => route('admin.user.index')],
+                    ['label' => __('admin.breadcrumbEditUser', ['id' => $viewData['user']->getId()])],
+                ],
+            ])
             <h2 class="lume-page-title m-0">{{ __('admin.editUserHeading', ['name' => $viewData['user']->getName()]) }}</h2>
         </div>
 
@@ -23,52 +23,54 @@
     </div>
 
     @if ($errors->any())
-        <div class="alert alert-danger mb-4">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="alert alert-danger mb-4" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>{{ __('form.reviewErrors') }}
         </div>
     @endif
 
     <div class="lume-card p-4">
-        <form action="{{ route('admin.user.update', ['id' => $viewData['user']->getId()]) }}" method="POST">
+        <form action="{{ route('admin.user.update', ['id' => $viewData['user']->getId()]) }}" method="POST" novalidate data-live-validate>
             @csrf
             @method('PUT')
 
             <div class="row g-4">
                 <div class="col-12 col-md-6">
                     <label for="name" class="form-label fw-semibold">{{ __('auth.labelName') }} <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control lume-input" id="name" name="name" value="{{ old('name', $viewData['user']->getName()) }}" required>
+                    <input type="text" class="form-control lume-input @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $viewData['user']->getName()) }}" required>
+                    @include('partials.fieldError', ['field' => 'name'])
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="email" class="form-label fw-semibold">{{ __('auth.labelEmail') }} <span class="text-danger">*</span></label>
-                    <input type="email" class="form-control lume-input" id="email" name="email" value="{{ old('email', $viewData['user']->getEmail()) }}" required>
+                    <input type="email" class="form-control lume-input @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $viewData['user']->getEmail()) }}" required>
+                    @include('partials.fieldError', ['field' => 'email'])
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="password" class="form-label fw-semibold">{{ __('auth.labelPassword') }} <small class="text-muted">{{ __('admin.passwordHint') }}</small></label>
-                    <input type="password" class="form-control lume-input" id="password" name="password" placeholder="{{ __('admin.passwordPlaceholder') }}">
+                    <input type="password" class="form-control lume-input @error('password') is-invalid @enderror" id="password" name="password" placeholder="{{ __('admin.passwordPlaceholder') }}">
+                    @include('partials.fieldError', ['field' => 'password'])
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="role" class="form-label fw-semibold">{{ __('admin.labelRole') }} <span class="text-danger">*</span></label>
-                    <select class="form-select lume-input" id="role" name="role" required>
+                    <select class="form-select lume-input @error('role') is-invalid @enderror" id="role" name="role" required>
                         <option value="user" {{ old('role', $viewData['user']->getRole()) === 'user' ? 'selected' : '' }}>{{ __('admin.roleUser') }}</option>
                         <option value="admin" {{ old('role', $viewData['user']->getRole()) === 'admin' ? 'selected' : '' }}>{{ __('admin.roleAdmin') }}</option>
                     </select>
+                    @include('partials.fieldError', ['field' => 'role'])
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="phone" class="form-label fw-semibold">{{ __('auth.labelPhone') }} <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control lume-input" id="phone" name="phone" value="{{ old('phone', $viewData['user']->getPhone()) }}" required>
+                    <input type="tel" class="form-control lume-input @error('phone') is-invalid @enderror" id="phone" name="phone" inputmode="numeric" pattern="[0-9]{10,}" data-digits-only data-pattern-message="{{ __('form.phoneDigits') }}" value="{{ old('phone', $viewData['user']->getPhone()) }}" required>
+                    @include('partials.fieldError', ['field' => 'phone'])
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="address" class="form-label fw-semibold">{{ __('auth.labelAddress') }} <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control lume-input" id="address" name="address" value="{{ old('address', $viewData['user']->getAddress()) }}" required>
+                    <input type="text" class="form-control lume-input @error('address') is-invalid @enderror" id="address" name="address" minlength="8" value="{{ old('address', $viewData['user']->getAddress()) }}" required>
+                    @include('partials.fieldError', ['field' => 'address'])
                 </div>
             </div>
 

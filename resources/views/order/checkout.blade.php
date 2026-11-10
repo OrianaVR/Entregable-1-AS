@@ -4,6 +4,15 @@
 @section('title', $viewData['title'])
 
 @section('content')
+<div class="container pt-4">
+    @include('partials.breadcrumb', [
+        'crumbs' => [
+            ['label' => __('layout.navHome'), 'url' => route('home.index')],
+            ['label' => $viewData['title']],
+        ],
+    ])
+</div>
+
 <div class="container py-5">
     <h1 class="mb-4">{{ $viewData['title'] }}</h1>
 
@@ -12,12 +21,8 @@
     @endif
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>{{ __('form.reviewErrors') }}
         </div>
     @endif
 
@@ -63,12 +68,13 @@
 
         <h4 class="mb-3">{{ __('order.deliveryDetails') }}</h4>
 
-        <form action="{{ route('order.store') }}" method="POST">
+        <form action="{{ route('order.store') }}" method="POST" novalidate data-live-validate>
             @csrf
 
             <div class="mb-3">
                 <label for="address" class="form-label">{{ __('auth.labelAddress') }}</label>
-                <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}" required>
+                <input type="text" class="form-control lume-input @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address', $viewData['address']) }}" required>
+                @include('partials.fieldError', ['field' => 'address'])
             </div>
 
             <div class="mb-3">
@@ -79,10 +85,11 @@
 
             <div class="mb-3">
                 <label for="payment_method" class="form-label">{{ __('order.labelPaymentMethod') }}</label>
-                <select class="form-select" id="payment_method" name="payment_method" required>
-                    <option value="card">{{ __('order.paymentMethodCard') }}</option>
-                    <option value="cash">{{ __('order.paymentMethodCash') }}</option>
+                <select class="form-select lume-input @error('payment_method') is-invalid @enderror" id="payment_method" name="payment_method" required>
+                    <option value="card" {{ old('payment_method') === 'card' ? 'selected' : '' }}>{{ __('order.paymentMethodCard') }}</option>
+                    <option value="cash" {{ old('payment_method') === 'cash' ? 'selected' : '' }}>{{ __('order.paymentMethodCash') }}</option>
                 </select>
+                @include('partials.fieldError', ['field' => 'payment_method'])
             </div>
 
             <button type="submit" class="btn btn-primary">{{ __('order.placeOrder') }}</button>

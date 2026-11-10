@@ -4,6 +4,15 @@
 @section('title', $viewData['title'])
 
 @section('content')
+<div class="container pt-4">
+    @include('partials.breadcrumb', [
+        'crumbs' => [
+            ['label' => __('layout.navHome'), 'url' => route('home.index')],
+            ['label' => $viewData['title']],
+        ],
+    ])
+</div>
+
 
 <header class="lume-page-hero">
     <p class="lume-eyebrow">{{ __('about.eyebrow') }}</p>

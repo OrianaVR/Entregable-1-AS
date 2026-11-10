@@ -1,6 +1,17 @@
 {{-- Author: Maria Laura Tafur Gómez, Ana Sofía Angarita Barrios --}}
 @extends('layouts.app')
+@section('title', $viewData['title'])
+
 @section('content')
+<div class="container pt-4">
+    @include('partials.breadcrumb', [
+        'crumbs' => [
+            ['label' => __('layout.navHome'), 'url' => route('home.index')],
+            ['label' => __('layout.navProducts')],
+        ],
+    ])
+</div>
+
 
 <div class="container py-5 hero-content">
     <h1>
@@ -17,7 +28,7 @@
                    name="search" 
                    class="form-control lume-input w-100" 
                    placeholder="{{ __('product.searchPlaceholder') }}" 
-                   value="{{ $viewData['searchTerm'] }}">
+                   value="{{ old('search', $viewData['searchTerm']) }}">
             
             <button type="submit" class="btn btn-primary px-4 fw-semibold">
                 {{ __('product.searchAction') }}
